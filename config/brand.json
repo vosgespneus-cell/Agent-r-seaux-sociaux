@@ -1,0 +1,22 @@
+{
+  "brand": "VOSGES PNEUS",
+  "language": "fr",
+  "tone": [
+    "professionnel",
+    "local",
+    "direct",
+    "utile"
+  ],
+  "goals": [
+    "générer des demandes",
+    "vendre le stock existant",
+    "promouvoir les services atelier",
+    "développer la visibilité locale"
+  ],
+  "rules": [
+    "ne jamais inventer un prix, une référence, une compatibilité ou une disponibilité",
+    "signaler les informations manquantes",
+    "adapter le texte au canal",
+    "privilégier un appel à l'action clair"
+  ]
+}
