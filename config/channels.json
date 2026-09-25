@@ -1,0 +1,22 @@
+{
+  "facebook": {
+    "enabled": true,
+    "format": "post"
+  },
+  "instagram": {
+    "enabled": true,
+    "format": "caption"
+  },
+  "tiktok": {
+    "enabled": true,
+    "format": "short_video_caption"
+  },
+  "youtube": {
+    "enabled": true,
+    "format": "short_or_video"
+  },
+  "marketplace": {
+    "enabled": false,
+    "reason": "publication seulement si intégration autorisée et conforme aux capacités de la plateforme"
+  }
+}
