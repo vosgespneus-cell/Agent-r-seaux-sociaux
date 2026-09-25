@@ -1,0 +1,17 @@
+{
+  "type": "piece_auto",
+  "title": "Exemple de pièce",
+  "facts": {
+    "price": null,
+    "reference": null,
+    "condition": "occasion",
+    "availability": "à confirmer"
+  },
+  "assets": [],
+  "channels": [
+    "facebook",
+    "instagram"
+  ],
+  "cta": "Contactez VOSGES PNEUS",
+  "notes": "Exemple uniquement — ne pas publier"
+}
