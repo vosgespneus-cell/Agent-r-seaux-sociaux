@@ -33,6 +33,26 @@ Types acceptés : `piece_auto`, `pneu`, `service`, `video`. Canaux acceptés :
 `facebook`, `instagram`, `tiktok`, `youtube`. Une vidéo nécessite un asset.
 Marketplace est désactivé tant qu'aucune intégration autorisée n'est disponible.
 
+## Clips vidéo Agnes
+
+Le tutoriel TikTok de septembre 2026 montre `agnes-video-v2.0`, annoncé en fin
+de service le 25 septembre 2026. Le module `src/video_agnes.py` utilise
+`agnes-video-2.5-flash` en 720P. Sa gratuité est une promotion temporaire :
+vérifier les conditions du compte avant d'envoyer une demande. Ne jamais
+sélectionner `agnes-video-2.5` par erreur : ce modèle standard est payant.
+
+```bash
+python -m src.video_agnes --prompt "Plan vertical d'un pneu en atelier, lumière naturelle, rotation lente"
+```
+
+Cette commande affiche la demande sans appeler l'API. Pour une vidéo réelle,
+définir `AGNES_API_KEY` dans l'environnement local, puis relancer avec
+`--submit`. Ajouter `--image-url https://.../photo.jpg` pour animer une photo
+accessible publiquement. Les photos présentes seulement sur le PC ou dans un
+Drive privé ne sont pas accessibles par l'API. La sortie contient un lien vidéo,
+à vérifier avant montage et publication. Ne pas placer de clé dans un fichier
+HTML téléchargé ou dans ce dépôt public.
+
 ## Principe
 1. recevoir un sujet ou produit
 2. normaliser les informations
