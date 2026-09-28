@@ -1,0 +1,24 @@
+name: Supervision des agents
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "src/supervisor.py"
+      - "data/tasks.example.json"
+      - "tests/test_supervisor.py"
+      - ".github/workflows/supervision.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  controle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m unittest tests.test_supervisor -v
+      - run: python -m src.supervisor data/tasks.example.json
