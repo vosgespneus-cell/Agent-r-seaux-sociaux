@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "notice": "Exemple public sans données client ; les dossiers privés restent dans les services autorisés",
+  "tasks": [
+    {
+      "id": "VP-EX-001",
+      "agent": "produits",
+      "kind": "shopify",
+      "title": "Préparer une fiche de pièce à partir d'une référence vérifiée",
+      "source": "atelier",
+      "status": "nouveau",
+      "result": {}
+    },
+    {
+      "id": "VP-EX-002",
+      "agent": "marketing",
+      "kind": "publication",
+      "title": "Préparer un sujet vidéo sur une intervention réelle",
+      "source": "atelier",
+      "status": "a_verifier",
+      "reviewer": "supervision",
+      "result": {}
+    }
+  ]
+}
