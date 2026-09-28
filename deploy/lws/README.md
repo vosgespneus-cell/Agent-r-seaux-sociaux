@@ -11,7 +11,7 @@ LWS affiche PHP 8.3 pour ce sous-domaine.
 2. Créer une base MySQL distincte et y exécuter `setup/schema.sql`
 3. Placer la configuration remplie dans `home/vp_config.php`, hors de `htdocs`
 4. Placer `public/index.php` et `public/.htaccess` dans `htdocs/agents.vosgespneus.com/`
-5. Tester un événement synthétique signé, sa répétition, puis une signature erronée
+5. Tester un événement synthétique signé, sa répétition, un même ID avec un corps différent (409), puis une signature erronée
 6. Raccorder Make seulement après ces vérifications
 
 Le service rejette les requêtes sans HTTPS, sans HMAC valide ou de plus de 64 Kio.

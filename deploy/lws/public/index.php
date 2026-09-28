@@ -62,12 +62,16 @@ try {
     $statement->execute([$data['event_id'], $data['source'], $data['kind'], $raw, $taskId]);
     $duplicate = $statement->rowCount() === 0;
     if ($duplicate) {
-        $lookup = $db->prepare('SELECT task_id FROM vp_events WHERE event_id = ?');
+        $lookup = $db->prepare('SELECT task_id, body FROM vp_events WHERE event_id = ?');
         $lookup->execute([$data['event_id']]);
-        $taskId = $lookup->fetchColumn();
-        if ($taskId === false) {
+        $existing = $lookup->fetch(PDO::FETCH_ASSOC);
+        if ($existing === false) {
             throw new RuntimeException('Événement conflictuel');
         }
+        if (!hash_equals(hash('sha256', $existing['body']), hash('sha256', $raw))) {
+            respond(409, ['error' => 'identifiant déjà utilisé']);
+        }
+        $taskId = $existing['task_id'];
     }
     respond($duplicate ? 200 : 202, ['task_id' => $taskId, 'duplicate' => $duplicate]);
 } catch (Throwable $error) {
