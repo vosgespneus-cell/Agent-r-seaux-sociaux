@@ -43,6 +43,21 @@ class PipelineTests(unittest.TestCase):
         self.assertIn("channel: marketplace", result["missing_fields"])
         self.assertNotIn("Citroën C5", result["posts"][0]["text"])
 
+    def test_tiktok_video_caption_uses_verified_description_and_local_brand(self):
+        result = self.run_case({
+            "type": "video", "title": "Crafter 2022 : moteur déposé",
+            "facts": {"description": "Intervention sur la segmentation en atelier"},
+            "assets": ["crafter.mp4"], "channels": ["tiktok"],
+            "cta": "Contactez-nous pour un diagnostic",
+        })
+        text = result["posts"][0]["text"]
+        self.assertEqual(result["mode"], "ready_for_review")
+        self.assertIn("Intervention sur la segmentation", text)
+        self.assertIn("Contactez-nous pour un diagnostic", text)
+        self.assertIn("Thaon-les-Vosges", text)
+        self.assertNotIn("Vidéo VOSGES PNEUS", text)
+        self.assertFalse(result["publication_allowed"])
+
     def test_video_needs_asset(self):
         result = self.run_case({"type": "video", "title": "Test moteur",
                                 "facts": {"description": "Essai de démarrage"},
