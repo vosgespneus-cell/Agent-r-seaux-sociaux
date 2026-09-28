@@ -14,6 +14,20 @@ def load_request(path: str) -> ContentRequest:
 def post_text(req: ContentRequest, channel: str) -> str:
     facts = req.facts
     lines = [req.title.strip()]
+
+    if req.type == "video":
+        description = facts.get("description")
+        if description and str(description).strip().lower() not in ("à confirmer", "inconnu", "unknown"):
+            lines.append(str(description).strip())
+        if req.cta:
+            lines.append(req.cta.strip())
+        if channel == "tiktok":
+            lines.extend(("VOSGES PNEUS · Thaon-les-Vosges",
+                          "#VosgesPneus #ThaonLesVosges #MecaniqueAuto"))
+        elif channel == "instagram":
+            lines.append("#VosgesPneus #ThaonLesVosges #Epinal")
+        return "\n".join(lines)
+
     labels = {
         "reference": "Référence", "size": "Dimension", "condition": "État",
         "description": "Détails", "price": "Prix", "availability": "Disponibilité",
@@ -28,8 +42,6 @@ def post_text(req: ContentRequest, channel: str) -> str:
         lines.append(req.cta.strip())
     if channel == "instagram":
         lines.append("#VosgesPneus #Epinal")
-    elif channel in ("tiktok", "youtube"):
-        lines.append("Vidéo VOSGES PNEUS")
     return "\n".join(lines)
 
 
