@@ -29,6 +29,9 @@ class IntakeTests(unittest.TestCase):
             for marker in markers.values():
                 self.assertNotIn(marker, json.dumps(safe))
             self.assertEqual(receive(raw, signature, secret, str(db))[0], 200)
+            changed = raw.replace(b"PRIVATE_MESSAGE_MARKER", b"DIFFERENT_MESSAGE")
+            changed_signature = "sha256=" + hmac.new(secret.encode(), changed, hashlib.sha256).hexdigest()
+            self.assertEqual(receive(changed, changed_signature, secret, str(db))[0], 409)
             self.assertEqual(len(summary(str(db))["tasks"]), 1)
             self.assertEqual(result["task_id"], safe["tasks"][0]["id"])
 
