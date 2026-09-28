@@ -5,8 +5,10 @@ on:
   push:
     paths:
       - "src/supervisor.py"
+      - "src/intake.py"
       - "data/tasks.example.json"
       - "tests/test_supervisor.py"
+      - "tests/test_intake.py"
       - ".github/workflows/supervision.yml"
 
 permissions:
@@ -21,4 +23,5 @@ jobs:
         with:
           python-version: "3.12"
       - run: python -m unittest tests.test_supervisor -v
+      - run: python -m unittest tests.test_intake -v
       - run: python -m src.supervisor data/tasks.example.json

@@ -61,3 +61,9 @@ HTML téléchargé ou dans ce dépôt public.
 5. produire un paquet de publication
 6. publier uniquement via une intégration autorisée
 7. conserver un journal du résultat
+
+## Entrées privées
+
+Le récepteur signé et son journal local sont documentés dans
+[`docs/ENTREES_PRIVEES.md`](docs/ENTREES_PRIVEES.md). Aucune source externe n'est
+encore raccordée ; le planning et Shopify restent à brancher.
