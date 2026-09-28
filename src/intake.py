@@ -60,7 +60,9 @@ def receive(raw: bytes, signature: str, secret: str, db_path: str) -> tuple[int,
             event_id, datetime.now(timezone.utc).isoformat(), source, kind,
             raw.decode("utf-8"), task_id))
         if not cursor.rowcount:
-            existing = conn.execute("SELECT task_id FROM events WHERE id=?", (event_id,)).fetchone()
+            existing = conn.execute("SELECT task_id, body FROM events WHERE id=?", (event_id,)).fetchone()
+            if not existing or not hmac.compare_digest(existing[1].encode("utf-8"), raw):
+                return 409, {"error": "identifiant déjà utilisé"}
             return 200, {"task_id": existing[0], "duplicate": True}
     return 202, {"task_id": task_id, "duplicate": False}
 
