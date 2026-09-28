@@ -1,0 +1,102 @@
+{
+  "updated_at": "2026-09-28",
+  "account": "@vosgespneus",
+  "goals": [
+    "demandes clients locales",
+    "vente de pièces d'occasion",
+    "progression vers la monétisation TikTok"
+  ],
+  "no_paid_spend": true,
+  "published": [
+    {
+      "topic": "Présentation atelier",
+      "url": "https://www.tiktok.com/@vosgespneus/video/7690497222261214486"
+    },
+    {
+      "topic": "Publicité VOSGES PNEUS",
+      "url": "https://www.tiktok.com/@vosgespneus/video/7690493437602303254"
+    },
+    {
+      "topic": "Crafter intervention longue",
+      "url": "https://www.tiktok.com/@vosgespneus/video/7690500014744882454"
+    },
+    {
+      "topic": "Crafter moteur déposé court",
+      "url": "https://www.tiktok.com/@vosgespneus/video/7690505922355023126"
+    }
+  ],
+  "queue": [
+    {
+      "priority": 1,
+      "topic": "À quoi sert la segmentation d'un piston ?",
+      "format": "explication 60-90 s",
+      "hook": "Ces petits segments ont un rôle essentiel dans le moteur",
+      "assets_needed": [
+        "gros plan réel du piston et des segments",
+        "explication technique validée par le mécanicien"
+      ],
+      "status": "à produire",
+      "business_goal": "visibilité mécanique"
+    },
+    {
+      "priority": 2,
+      "topic": "Lire la dimension d'un pneu",
+      "format": "conseil 20-30 s",
+      "hook": "205/55 R16 : voici comment lire cette inscription",
+      "assets_needed": [
+        "plan net du flanc du pneu",
+        "taille et état visibles"
+      ],
+      "status": "à filmer",
+      "business_goal": "demandes de pneus par taille"
+    },
+    {
+      "priority": 3,
+      "topic": "Pourquoi équilibrer une roue ?",
+      "format": "démonstration 20-35 s",
+      "hook": "Un volant qui vibre ? Regarde ce contrôle",
+      "assets_needed": [
+        "équilibreuse en action",
+        "roue avant et après correction"
+      ],
+      "status": "à filmer",
+      "business_goal": "rendez-vous montage/équilibrage"
+    },
+    {
+      "priority": 4,
+      "topic": "Une pièce d'occasion du dépôt",
+      "format": "présentation 25-40 s",
+      "hook": "Cette pièce attend sa prochaine voiture",
+      "assets_needed": [
+        "photo ou vidéo de la pièce sous trois angles",
+        "référence",
+        "compatibilité vérifiée",
+        "état",
+        "prix",
+        "disponibilité"
+      ],
+      "status": "bloqué jusqu'aux faits vérifiés",
+      "business_goal": "vente du stock"
+    }
+  ],
+  "tracking": [
+    "date",
+    "url",
+    "duration_seconds",
+    "views_24h",
+    "views_7d",
+    "average_watch_time",
+    "followers_gained",
+    "profile_visits",
+    "qualified_inquiries",
+    "quotes",
+    "sales",
+    "margin"
+  ],
+  "editorial_rules": [
+    "aucune réparation terminée affirmée sans preuve",
+    "aucune compatibilité de pièce supposée",
+    "animation IA réaliste signalée",
+    "son commercial autorisé pour contenu promotionnel"
+  ]
+}
