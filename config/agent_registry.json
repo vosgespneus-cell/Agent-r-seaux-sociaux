@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "default_agent": "accueil",
+  "agents": {
+    "accueil": {"action": "triage", "external_write": false},
+    "telephone": {"action": "prepare_callback", "external_write": false},
+    "planning": {"action": "prepare_appointment", "external_write": false},
+    "produits": {"action": "prepare_product", "external_write": false},
+    "communication": {"action": "prepare_media", "external_write": false},
+    "marketing": {"action": "prepare_campaign", "external_write": false},
+    "stock": {"action": "inspect_stock", "external_write": false},
+    "gestion": {"action": "inspect_management", "external_write": false}
+  }
+}
