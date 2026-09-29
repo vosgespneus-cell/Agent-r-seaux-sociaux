@@ -30,7 +30,7 @@ if ((int) $db->query("SELECT GET_LOCK('vp_jotform_pneus', 0)")->fetchColumn() !=
 }
 
 try {
-    $query = $db->prepare('SELECT cursor FROM vp_sync_state WHERE source = ?');
+    $query = $db->prepare('SELECT last_id FROM vp_sync_state WHERE source = ?');
     $query->execute([$source]);
     $cursor = (string) ($query->fetchColumn() ?: '0');
     if (!preg_match('/^[0-9]{1,32}$/D', $cursor)) {
@@ -92,8 +92,8 @@ try {
         }
         $db->commit();
         if (count($items) < 100) {
-            $save = $db->prepare('INSERT INTO vp_sync_state (source, cursor) VALUES (?, ?)
-                ON DUPLICATE KEY UPDATE cursor = VALUES(cursor)');
+            $save = $db->prepare('INSERT INTO vp_sync_state (source, last_id) VALUES (?, ?)
+                ON DUPLICATE KEY UPDATE last_id = VALUES(last_id)');
             $save->execute([$source, $maxId]);
             echo "JOTFORM_SYNC_OK\n";
             exit(0);
