@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS vp_appointment_requests (
  calendar_reference VARCHAR(255) NULL,
  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ UNIQUE KEY vp_appointment_calendar_reference (calendar_reference),
  INDEX vp_appointment_status_date(status,requested_date),
  CONSTRAINT vp_appointment_task FOREIGN KEY(task_id) REFERENCES vp_tasks(task_id)
 ) ENGINE=InnoDB;
