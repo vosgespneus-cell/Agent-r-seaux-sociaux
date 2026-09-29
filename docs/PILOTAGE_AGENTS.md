@@ -1,8 +1,8 @@
 # Pilotage commun VOSGES PNEUS
 
-## État au 28 septembre 2026
+## État au 29 septembre 2026
 
-Le dépôt prépare déjà des brouillons sociaux. Le registre et le superviseur ajoutés ici constituent une **première brique de contrôle**. Ils ne lisent pas encore les appels, le calendrier, Shopify ou les réseaux, et n'envoient aucune action.
+Le dépôt prépare des brouillons sociaux. Sur LWS, le récepteur signé `/events`, le journal MySQL et le worker sont opérationnels. Jotform alimente déjà le journal et une tâche accueil. Un appel synthétique signé a validé le routage vers une tâche téléphone (202, doublon 200, signature erronée 401). Aucun opérateur téléphonique n'envoie encore de vrais appels ; le calendrier, Shopify et les réseaux ne sont pas raccordés à ce worker. Le contrôle privé `vp_status.php` exclut les essais synthétiques de ses totaux opérationnels.
 
 ## Chaîne de travail
 
