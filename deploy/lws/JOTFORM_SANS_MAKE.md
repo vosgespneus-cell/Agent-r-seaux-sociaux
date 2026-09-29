@@ -8,9 +8,11 @@ Le script privé `jotform_puller.php` interroge uniquement ce formulaire avec un
 2. Installer `private/jotform_puller.php` dans `/var/www/vosgespneus.com/home/vp_jotform.php`, hors du dossier web
 3. Créer `home/vp_jotform_config.php` à partir de `setup/jotform_config.example.php`, permission 0600
 4. Le propriétaire crée une clé Jotform **Read Access** et la saisit directement dans ce fichier privé. Ne jamais envoyer la clé dans le chat, GitHub ou une URL
-5. Exécuter manuellement `php /var/www/vosgespneus.com/home/vp_jotform.php` ; attendre `JOTFORM_SYNC_OK`
-6. Planifier toutes les cinq minutes, avant le worker général : `/usr/bin/php /var/www/vosgespneus.com/home/vp_jotform.php >/dev/null 2>>/var/www/vosgespneus.com/home/vp_jotform.err`
+5. La table, le script, le modèle privé et le cron sont installés sur LWS ; sans clé, l'exécution affiche `JOTFORM_NOT_CONFIGURED` et ne contacte pas l'API
+6. Après saisie de la clé, exécuter manuellement `php /var/www/vosgespneus.com/home/vp_jotform.php` ; attendre `JOTFORM_SYNC_OK`
 7. Faire une demande de test dans le formulaire et vérifier exactement un `event_id` `JF-...` dans `vp_events` et une tâche `accueil / nouveau` dans `vp_tasks`
+
+Le cron actif exécute d'abord `vp_jotform.php`, puis `vp_worker.php`, toutes les cinq minutes.
 
 Le script ne contacte pas l'API sans clé valide. La clé reste sur LWS ; GitHub ne contient que le code. Avec une exécution toutes les cinq minutes, une consultation correspond à 288 appels API par jour quand il n'y a aucune nouvelle demande, sous la limite Starter publiée de 1000 appels par jour. En cas de retard important, le script s'arrête après dix pages de cent soumissions sans avancer le curseur ; l'erreur est signalée dans un journal privé.
 
