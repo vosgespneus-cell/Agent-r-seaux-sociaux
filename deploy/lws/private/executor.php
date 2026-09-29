@@ -25,9 +25,9 @@ try{
  $special=['handle_call'=>'telephone','check_appointment'=>'planning','build_product_candidate'=>'produits'];
 
  if(isset($special[$a['action_type']])){
-  $u=$db->prepare("UPDATE vp_actions SET status='blocked',last_error=?,locked_at=NULL WHERE action_id=?");
+  $u=$db->prepare("UPDATE vp_actions SET status='waiting',last_error=NULL,locked_at=NULL WHERE action_id=?");
   $u->execute(['awaiting '.$special[$a['action_type']].' specialized pipeline',$id]);
-  logTransition($db,$id,'running','blocked','specialized pipeline required');
+  logTransition($db,$id,'running','waiting','specialized pipeline required');
   $db->commit(); echo "VP_EXECUTOR_SPECIAL_WAIT\n"; exit(0);
  }
  if(!in_array($a['action_type'],$internal,true)){
