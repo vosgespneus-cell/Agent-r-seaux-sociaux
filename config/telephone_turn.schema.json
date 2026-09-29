@@ -1,0 +1,14 @@
+{
+ "$schema":"https://json-schema.org/draft/2020-12/schema",
+ "type":"object","additionalProperties":false,
+ "required":["intent","decision","reply","collected","missing_fields","next_agent","priority"],
+ "properties":{
+  "intent":{"enum":["pneus","rendez_vous","piece","suivi","horaires_adresse","autre","humain_requis"]},
+  "decision":{"enum":["continue","handoff","complete"]},
+  "reply":{"type":"string","minLength":1,"maxLength":700},
+  "collected":{"type":"object"},
+  "missing_fields":{"type":"array","items":{"type":"string"},"uniqueItems":true},
+  "next_agent":{"enum":["telephone","planning","produits","accueil","humain"]},
+  "priority":{"enum":["normal","high"]}
+ }
+}
