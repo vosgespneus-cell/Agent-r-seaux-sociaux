@@ -12,7 +12,8 @@ function respond(int $status, array $body): never {
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' || parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) !== '/events') {
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !in_array($path, ['/events', '/index.php'], true)) {
     respond(404, ['error' => 'introuvable']);
 }
 if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === 'off') {
