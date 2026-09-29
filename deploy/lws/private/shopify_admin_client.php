@@ -49,6 +49,16 @@ final class ShopifyAdminClient {
         return $r['product'];
     }
 
+    public function findByTag(string $tag): ?array {
+        if(!preg_match('/^[A-Za-z0-9:_-]{1,120}$/',$tag)) throw new InvalidArgumentException('invalid reconciliation tag');
+        $q='query FindDraft($query:String!){ products(first:5,query:$query){ nodes { id title handle status vendor productType tags } } }';
+        $d=$this->graphQL($q,['query'=>'tag:'+ $tag]);
+        $nodes=$d['products']['nodes']??[];
+        if(!is_array($nodes) || count($nodes)===0) return null;
+        if(count($nodes)>1) throw new RuntimeException('ambiguous Shopify reconciliation');
+        return $nodes[0];
+    }
+
     public function readProduct(string $id): array {
         $q='query Verify($id:ID!){ product(id:$id){ id title handle status vendor productType tags } }';
         $d=$this->graphQL($q,['id'=>$id]);
