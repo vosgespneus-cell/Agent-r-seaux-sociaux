@@ -1,0 +1,13 @@
+{
+ "$schema":"https://json-schema.org/draft/2020-12/schema",
+ "type":"object","additionalProperties":false,
+ "required":["task_type","agent","priority","action_mode","reason","next_actions"],
+ "properties":{
+  "task_type":{"type":"string","minLength":1,"maxLength":80},
+  "agent":{"enum":["accueil","telephone","planning","produits","stock","marketing","communication","gestion","supervision"]},
+  "priority":{"enum":["low","normal","high","urgent"]},
+  "action_mode":{"enum":["auto","draft","approval_required"]},
+  "reason":{"type":"string","minLength":1,"maxLength":500},
+  "next_actions":{"type":"array","items":{"type":"string","minLength":1,"maxLength":120},"maxItems":8}
+ }
+}
