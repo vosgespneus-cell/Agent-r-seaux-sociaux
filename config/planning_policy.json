@@ -1,0 +1,10 @@
+{
+  "version":1,
+  "confirmation_requires":["calendar_reference"],
+  "states":["needs_information","ready_to_check","proposed","confirmed","unavailable","human_required"],
+  "rules":{
+    "no_availability_guess":true,
+    "no_double_booking":true,
+    "source_reference_required":true
+  }
+}
