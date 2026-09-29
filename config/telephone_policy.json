@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "agent": "telephone",
+  "language": "fr",
+  "max_clarification_turns": 3,
+  "routes": {
+    "pneus": "planning",
+    "rendez_vous": "planning",
+    "piece": "produits",
+    "suivi": "accueil",
+    "horaires_adresse": "telephone",
+    "autre": "accueil",
+    "humain_requis": "humain"
+  },
+  "never_confirm_without_proof": ["appointment","stock","price","compatibility","delivery_time"],
+  "human_required": ["payment_dispute","legal_issue","accident","threat","explicit_human_request","persistent_misunderstanding"]
+}
