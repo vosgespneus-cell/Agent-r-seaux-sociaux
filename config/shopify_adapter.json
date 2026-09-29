@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "shop": "www.vosgespneus.com",
+  "currency": "EUR",
+  "mode": "read_only",
+  "capabilities": {
+    "read_catalog": true,
+    "read_inventory": true,
+    "create_draft_product": false,
+    "update_product": false,
+    "publish_product": false,
+    "change_inventory": false,
+    "delete_product": false
+  },
+  "proof_required": ["shopify_product_id", "shopify_product_url_or_handle"],
+  "notes": "Enable write capabilities one by one only after adapter validation."
+}
