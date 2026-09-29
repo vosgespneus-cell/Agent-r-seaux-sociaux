@@ -2,7 +2,7 @@
 
 ## État au 29 septembre 2026
 
-Le dépôt prépare des brouillons sociaux. Sur LWS, le récepteur signé `/events`, le journal MySQL et le worker sont opérationnels. Jotform alimente déjà le journal et une tâche accueil. Un appel synthétique signé a validé le routage vers une tâche téléphone (202, doublon 200, signature erronée 401). Aucun opérateur téléphonique n'envoie encore de vrais appels ; le calendrier, Shopify et les réseaux ne sont pas raccordés à ce worker. Le contrôle privé `vp_status.php` exclut les essais synthétiques de ses totaux opérationnels.
+Le dépôt prépare des brouillons sociaux. Sur LWS, le récepteur signé `/events`, le journal MySQL et le worker sont opérationnels. Jotform alimente déjà le journal et une tâche accueil. Un appel synthétique signé a validé le routage vers une tâche téléphone (202, doublon 200, signature erronée 401). Keyyo est configuré avec 03 72 73 98 33 nommé Transmalin (numéro d'accueil) et 03 72 73 98 34 nommé Vosges Pneus (ligne directe). Le 33 distribue toujours les appels au 34 ; son libellé Transmalin est activé pour distinguer ces appels sur le poste. Aucun opérateur téléphonique n'envoie encore de vrais appels au worker ; le calendrier, Shopify et les réseaux ne sont pas raccordés à ce worker. Le contrôle privé `vp_status.php` exclut les essais synthétiques de ses totaux opérationnels.
 
 ## Chaîne de travail
 
@@ -46,3 +46,10 @@ Les tâches planifiées GitHub ne sont pas garanties à la seconde et un appel e
 ## Exécuter le contrôle
 
 `python -m src.supervisor data/tasks.example.json`
+
+## Raccordement Keyyo à faire
+
+- Vérifier par deux appels externes que le 33 affiche Transmalin sur le poste et que le 34 arrive directement. Le test de profil de Manager exige un numéro appelant autorisé et ne remplace pas ce contrôle réel.
+- La notification CTI Keyyo émet une requête GET avec des paramètres de substitution ; le récepteur VOSGES PNEUS attend un POST JSON signé par HMAC. Un adaptateur privé doit valider l'origine et transformer uniquement les appels du 34 en événements `telephone` / `appel` avant de les transmettre au récepteur. Vérifier avec un appel réel si Keyyo rapporte le numéro composé d'origine ou celui de la ligne de destination lorsqu'un appel au 33 transite vers le 34.
+- Ne jamais envoyer les appels Transmalin ni leurs coordonnées dans le journal VOSGES PNEUS. Conserver un traitement séparé pour Transmalin.
+- L'activation de l'API/CTI sur la ligne 34 et toute permission OAuth sont des accès supplémentaires à examiner seulement lorsque l'adaptateur et ses contrôles sont prêts. Aucun abonnement IA payant n'est activé.
