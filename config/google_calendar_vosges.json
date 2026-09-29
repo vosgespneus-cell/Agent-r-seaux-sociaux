@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "provider": "google_calendar",
+  "account": "vosgespneus@gmail.com",
+  "calendar_id": "vosgespneus@gmail.com",
+  "timezone": "Europe/Paris",
+  "mode": "availability_then_create",
+  "rules": {
+    "check_availability_before_create": true,
+    "reject_overlap": true,
+    "confirmation_requires_event_id": true,
+    "reread_after_create": true,
+    "never_use_transmalin_calendar": true
+  },
+  "event_defaults": {
+    "title_prefix": "VOSGES PNEUS",
+    "add_google_meet": false,
+    "visibility": "private",
+    "transparency": "opaque"
+  }
+}
