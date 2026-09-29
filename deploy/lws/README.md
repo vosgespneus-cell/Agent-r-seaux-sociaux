@@ -12,9 +12,9 @@ LWS affiche PHP 8.3 pour ce sous-domaine.
 3. Placer la configuration remplie dans `home/vp_config.php`, hors de `htdocs`
 4. Placer `public/index.php` et `public/.htaccess` dans `htdocs/agents.vosgespneus.com/`
 5. Tester un événement synthétique signé, sa répétition, un même ID avec un corps différent (409), puis une signature erronée
-6. Raccorder Make seulement après ces vérifications
+6. Installer le worker privé et la tâche cron décrits dans `AUTONOMIE_SANS_MAKE.md`
+7. Raccorder chaque source officielle directement au récepteur, sans Make
 
 Le service rejette les requêtes sans HTTPS, sans HMAC valide ou de plus de 64 Kio.
-Il ne publie ni les événements ni un tableau de bord. Le chemin `/events` est
-routé vers `index.php` par `.htaccess` ; le routage reste à vérifier sur LWS.
+Il ne publie ni les événements ni un tableau de bord. Le chemin `/events` attend la correction du routage LWS. En attendant, le même récepteur signé accepte `POST /index.php` en HTTPS. Ce chemin direct a été validé avec un événement synthétique (202), puis sa répétition (200, doublon). Le worker a créé une seule tâche privée `accueil / nouveau`.
 Aucun secret réel n'est inclus ici.
