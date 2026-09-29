@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "flow": "telephone_to_calendar",
+  "steps": [
+    "telephone_collects_request",
+    "planning_validates_request",
+    "calendar_checks_busy_windows",
+    "planning_rejects_overlap",
+    "calendar_creates_private_event",
+    "calendar_rereads_event",
+    "planning_verifies_event_proof",
+    "telephone_confirms_to_customer"
+  ],
+  "failure_behavior": {
+    "calendar_unavailable": "retry",
+    "slot_busy": "propose_alternative",
+    "missing_information": "needs_information",
+    "proof_missing": "do_not_confirm",
+    "multiple_or_ambiguous_results": "human_required"
+  }
+}
