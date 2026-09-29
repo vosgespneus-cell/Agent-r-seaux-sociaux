@@ -37,8 +37,17 @@ try {
     $u->execute([$id]);
     logTransition($db,$id,$from,'running','executor claimed action');
 
-    // V1 only validates routing. It deliberately performs no external write.
-    $safeTypes=['triage','prepare_callback','prepare_appointment','prepare_product','prepare_media','prepare_campaign','inspect_stock','inspect_management'];
+    // Internal actions may finish after local validation. Product preparation is different:
+    // it must remain waiting until the Shopify draft pipeline records verified proof.
+    $safeTypes=['triage','prepare_callback','prepare_appointment','prepare_media','prepare_campaign','inspect_stock','inspect_management'];
+    if ($action['action_type']==='prepare_product') {
+        $u=$db->prepare("UPDATE vp_actions SET status='blocked', last_error='awaiting verified Shopify draft pipeline', locked_at=NULL WHERE action_id=?");
+        $u->execute([$id]);
+        logTransition($db,$id,'running','blocked','product action requires verified external proof');
+        $db->commit();
+        echo "VP_EXECUTOR_PRODUCT_WAIT\n";
+        exit(0);
+    }
     if (!in_array($action['action_type'],$safeTypes,true)) {
         $u=$db->prepare("UPDATE vp_actions SET status='blocked', last_error='unknown action type' WHERE action_id=?");
         $u->execute([$id]);
