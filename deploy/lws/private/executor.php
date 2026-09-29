@@ -26,7 +26,7 @@ try{
 
  if(isset($special[$a['action_type']])){
   $u=$db->prepare("UPDATE vp_actions SET status='waiting',last_error=NULL,locked_at=NULL WHERE action_id=?");
-  $u->execute(['awaiting '.$special[$a['action_type']].' specialized pipeline',$id]);
+  $u->execute([$id]);
   logTransition($db,$id,'running','waiting','specialized pipeline required');
   $db->commit(); echo "VP_EXECUTOR_SPECIAL_WAIT\n"; exit(0);
  }
