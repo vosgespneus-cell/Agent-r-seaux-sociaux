@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "notify_when": {
+    "failed_action": true,
+    "dead_letter": true,
+    "unverified_shopify_draft": true,
+    "queue_age_minutes": 30,
+    "needs_information": true
+  },
+  "do_not_notify_for": [
+    "successful_internal_action",
+    "successful_verified_shopify_draft",
+    "empty_queue"
+  ],
+  "principle": "The autonomous system should stay quiet when healthy and surface only actionable exceptions."
+}
