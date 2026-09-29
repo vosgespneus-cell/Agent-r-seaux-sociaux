@@ -28,8 +28,17 @@ final class ShopifyDraftRunner {
             }
             $db->commit();
 
-            // External call happens outside the DB transaction.
-            $created=$shop->createDraft($draft);
+            // Add a deterministic technical tag. It contains no customer data and lets us
+            // reconcile a Shopify creation if the process dies before local proof is saved.
+            $reconciliationTag='vpauto:'.substr($fingerprint,0,24);
+            $draft['tags']=array_values(array_unique(array_merge((array)($draft['tags']??[]),[$reconciliationTag])));
+
+            // Before creating anything, search Shopify for an orphan from an earlier attempt.
+            $created=$shop->findByTag($reconciliationTag);
+            $reconciled=$created!==null;
+            if(!$created){
+                $created=$shop->createDraft($draft);
+            }
             $actual=$shop->readProduct((string)$created['id']);
             $proof=ShopifyProofVerifier::verifyDraft(['title'=>$draft['title']],$actual);
             if(!$proof['verified']) throw new RuntimeException('Shopify proof mismatch');
@@ -39,7 +48,7 @@ final class ShopifyDraftRunner {
             $q->execute([(string)$actual['id'],(string)($actual['handle']??''),$draftId]);
             $q=$db->prepare("UPDATE vp_product_intake SET processing_status='draft_created' WHERE task_id=?");
             $q->execute([$taskId]);
-            return ['duplicate'=>false,'product_id'=>$actual['id'],'handle'=>$actual['handle']??'','verified'=>true];
+            return ['duplicate'=>false,'reconciled'=>$reconciled,'product_id'=>$actual['id'],'handle'=>$actual['handle']??'','verified'=>true];
         } catch(Throwable $e) {
             if($db->inTransaction()) $db->rollBack();
             throw $e;
