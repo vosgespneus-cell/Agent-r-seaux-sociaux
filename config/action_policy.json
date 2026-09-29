@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "modes": {
+    "read": {"external_write": false, "approval": false},
+    "draft": {"external_write": false, "approval": false},
+    "reversible_write": {"external_write": true, "approval": false},
+    "publish": {"external_write": true, "approval": false},
+    "sensitive": {"external_write": true, "approval": true}
+  },
+  "default_mode": "draft",
+  "blocked_by_default": [
+    "spend_money",
+    "refund",
+    "delete_account",
+    "delete_customer_data",
+    "legal_commitment",
+    "change_credentials"
+  ]
+}
