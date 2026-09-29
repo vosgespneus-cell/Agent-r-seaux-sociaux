@@ -31,8 +31,6 @@ try {
         'nouveau'
         FROM vp_events e LEFT JOIN vp_tasks t ON t.event_id = e.event_id
         WHERE t.event_id IS NULL ORDER BY e.received_at ASC LIMIT 100");
-    $db->exec("UPDATE vp_tasks SET status = 'a_verifier', updated_at = CURRENT_TIMESTAMP
-        WHERE status = 'nouveau' LIMIT 100");
     $db->commit();
     // Never print events or credentials in cron logs.
     echo "VP_WORKER_OK\n";
