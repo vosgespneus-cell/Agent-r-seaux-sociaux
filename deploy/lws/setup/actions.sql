@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS vp_actions (
     task_id VARCHAR(23) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
     agent VARCHAR(32) NOT NULL,
     action_type VARCHAR(64) NOT NULL,
-    status ENUM('pending','running','retry','done','failed','blocked') NOT NULL DEFAULT 'pending',
+    status ENUM('pending','running','waiting','retry','done','failed','blocked') NOT NULL DEFAULT 'pending',
     attempts TINYINT UNSIGNED NOT NULL DEFAULT 0,
     max_attempts TINYINT UNSIGNED NOT NULL DEFAULT 3,
     run_after TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
