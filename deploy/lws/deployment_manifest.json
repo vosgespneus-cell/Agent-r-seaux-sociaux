@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "runtime": "lws",
+  "private_files": [
+    "worker.php","supervisor.php","executor.php","recovery.php","health.php",
+    "openai_supervisor_client.php","supervisor_decision_guard.php","ai_decision_dispatcher.php",
+    "calendar_appointment.php","appointment_lifecycle.php",
+    "product_intake.php","product_candidate.php","product_draft_validator.php","product_orchestrator.php",
+    "shopify_admin_client.php","shopify_draft_runner.php","shopify_proof_verifier.php",
+    "task_lifecycle.php","daily_summary.php","exception_notifier.php","system_preflight.php"
+  ],
+  "private_configs": ["vp_config.php","vp_openai_config.php","vp_shopify_config.php"],
+  "activation_order": ["database_migrations","private_files","private_configs","preflight","manual_tests","cron"],
+  "cron_enabled_before_manual_tests": false
+}
