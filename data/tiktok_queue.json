@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28",
+  "updated_at": "2026-09-29",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -23,6 +23,12 @@
     {
       "topic": "Crafter moteur déposé court",
       "url": "https://www.tiktok.com/@vosgespneus/video/7690505922355023126"
+    },
+    {
+      "topic": "Moteur déposé à l’atelier — séquence courte",
+      "url": "https://www.tiktok.com/@vosgespneus/video/7690671550118350102",
+      "published_at": "2026-09-28T21:33:34+02:00",
+      "views_checked_2026_09_29": 0
     }
   ],
   "queue": [
@@ -98,5 +104,32 @@
     "aucune compatibilité de pièce supposée",
     "animation IA réaliste signalée",
     "son commercial autorisé pour contenu promotionnel"
+  ],
+  "performance_snapshot": {
+    "checked_at": "2026-09-29",
+    "followers": 4,
+    "total_public_videos": 5,
+    "known_video_views": 977,
+    "comments": 0,
+    "shares": 0,
+    "note": "Les quatre vidéos du matin totalisent 977 vues. La cinquième vidéo, publiée le soir, est publique mais affiche encore 0 vue au contrôle."
+  },
+  "ready_drafts": [
+    {
+      "id": "atelier_moteur_depose_library_20260928",
+      "topic": "Moteur déposé à l’atelier",
+      "format": "vidéo verticale réelle 15,9 s",
+      "source_media": "WhatsApp Video 2026-09-28 at 20.54.37.mp4",
+      "hook": "Un moteur déposé, ça ressemble à ça",
+      "caption": "Moteur déposé dans notre atelier à Thaon-les-Vosges 🔧 Une intervention mécanique en cours chez VOSGES PNEUS. Besoin d’un diagnostic ou d’un renseignement ? Contactez-nous sur WhatsApp. #VosgesPneus #ThaonLesVosges #Epinal #MecaniqueAuto",
+      "verified_facts": [
+        "vidéo réelle tournée dans l’atelier",
+        "moteur visible sur un support",
+        "aucune réparation terminée revendiquée",
+        "aucun modèle ou compatibilité supposé"
+      ],
+      "status": "brouillon prêt — publication non lancée",
+      "duplicate_check": "ne pas republier si cette séquence correspond à la vidéo TikTok 7690671550118350102"
+    }
   ]
 }
