@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-29",
+  "updated_at": "2026-09-30",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -28,7 +28,8 @@
       "topic": "Moteur déposé à l’atelier — séquence courte",
       "url": "https://www.tiktok.com/@vosgespneus/video/7690671550118350102",
       "published_at": "2026-09-28T21:33:34+02:00",
-      "views_checked_2026_09_29": 0
+      "views_checked_2026_09_29": 0,
+      "views_checked_2026_09_30": 0
     }
   ],
   "queue": [
@@ -106,13 +107,13 @@
     "son commercial autorisé pour contenu promotionnel"
   ],
   "performance_snapshot": {
-    "checked_at": "2026-09-29",
+    "checked_at": "2026-09-30",
     "followers": 4,
     "total_public_videos": 5,
-    "known_video_views": 977,
+    "known_video_views": 992,
     "comments": 0,
     "shares": 0,
-    "note": "Les quatre vidéos du matin totalisent 977 vues. La cinquième vidéo, publiée le soir, est publique mais affiche encore 0 vue au contrôle."
+    "note": "Les quatre vidéos actives totalisent 992 vues (+15 depuis le contrôle du 29 septembre). La cinquième vidéo reste publique mais affiche 0 vue."
   },
   "ready_drafts": [
     {
@@ -131,5 +132,16 @@
       "status": "brouillon prêt — publication non lancée",
       "duplicate_check": "ne pas republier si cette séquence correspond à la vidéo TikTok 7690671550118350102"
     }
-  ]
+  ],
+  "distribution_blocker": {
+    "checked_at": "2026-09-30",
+    "service": "Metricool",
+    "status": "bloqué par la limite du compte",
+    "latest_failures": [
+      "29 septembre 18:00 — Instagram et TikTok — pompe haute pression Bosch",
+      "30 septembre 10:00 — Facebook — pompe haute pression Bosch"
+    ],
+    "spend_authorized": false,
+    "action": "ne pas engager de dépense; utiliser la chaîne GitHub/LWS dès qu’elle est opérationnelle"
+  }
 }
