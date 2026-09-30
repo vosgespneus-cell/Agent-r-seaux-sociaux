@@ -8,7 +8,7 @@
  $test=in_array('--test',$argv,true);if(!$test&&empty($ai['enabled']))exit("AI_DISABLED\n");
  $db=new PDO($config['db_dsn'],$config['db_user'],$config['db_password'],[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,PDO::ATTR_EMULATE_PREPARES=>false]);
  $db->exec("CREATE TABLE IF NOT EXISTS vp_ai_mail_results (event_id VARCHAR(128) CHARACTER SET ascii PRIMARY KEY, result_json MEDIUMTEXT NOT NULL, model VARCHAR(64) NOT NULL, processed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
- $rows=$db->query("SELECT e.event_id,e.body FROM vp_events e LEFT JOIN vp_ai_mail_results a ON a.event_id=e.event_id WHERE e.kind='email' AND a.event_id IS NULL ORDER BY e.received_at ASC LIMIT ".($test?'1':'5'))->fetchAll(PDO::FETCH_ASSOC);
+ $rows=$db->query("SELECT e.event_id,e.body FROM vp_events e LEFT JOIN vp_ai_mail_results a ON a.event_id=e.event_id WHERE e.source='email' AND a.event_id IS NULL ORDER BY e.received_at ASC LIMIT ".($test?'1':'5'))->fetchAll(PDO::FETCH_ASSOC);
  $budgetFile=__DIR__.'/vp_ai_budget.json';$day=(new DateTimeImmutable('now',new DateTimeZone('Europe/Paris')))->format('Y-m-d');$budget=json_decode((string)@file_get_contents($budgetFile),true);if(!is_array($budget)||($budget['day']??'')!==$day)$budget=['day'=>$day,'requests'=>0];
  $props=['category'=>['type'=>'string','enum'=>['montage','livraison','demande_client','autre']], 'order_ref'=>['type'=>['string','null']], 'client_name'=>['type'=>['string','null']], 'start_local'=>['type'=>['string','null']], 'end_local'=>['type'=>['string','null']], 'evidence'=>['type'=>'string'], 'needs_review'=>['type'=>'boolean']];
  $schema=['type'=>'object','additionalProperties'=>false,'properties'=>$props,'required'=>array_keys($props)];$count=0;
