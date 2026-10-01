@@ -1,0 +1,18 @@
+{
+  "service":"supervisor",
+  "instance_id":"CLIENT_ID",
+  "timestamp":"ISO-8601",
+  "status":"healthy|degraded|down",
+  "last_input_at":null,
+  "last_success_at":null,
+  "queue_depth":0,
+  "waiting_human":0,
+  "errors_1h":0,
+  "connectors":{
+    "email":"unknown",
+    "calendar":"unknown",
+    "whatsapp":"unknown",
+    "phone":"unknown",
+    "ecommerce":"unknown"
+  }
+}
