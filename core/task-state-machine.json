@@ -1,0 +1,13 @@
+{
+  "states":["received","normalized","queued","processing","waiting_external","waiting_human","retry_scheduled","completed","failed","cancelled"],
+  "transitions":{
+    "received":["normalized","failed"],
+    "normalized":["queued","failed"],
+    "queued":["processing","cancelled"],
+    "processing":["completed","waiting_external","waiting_human","retry_scheduled","failed"],
+    "waiting_external":["queued","retry_scheduled","failed"],
+    "waiting_human":["queued","cancelled"],
+    "retry_scheduled":["queued","failed"]
+  },
+  "terminal":["completed","failed","cancelled"]
+}
