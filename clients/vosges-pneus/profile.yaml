@@ -1,0 +1,22 @@
+client:
+  id: vosges-pneus
+  name: VOSGES PNEUS
+  timezone: Europe/Paris
+business:
+  sector: automobile
+  activities:
+    - pneus
+    - montage_equilibrage
+    - gardiennage
+    - pieces_occasion
+automation:
+  supervisor_interval_minutes: 5
+  language: fr
+channels:
+  email: enabled
+  calendar: pending_authorization
+  whatsapp: planned
+  phone: planned
+  shopify: planned
+notes:
+  secrets: external_only
