@@ -1,0 +1,21 @@
+client:
+  id: CLIENT_ID
+  name: CLIENT_NAME
+  timezone: Europe/Paris
+business:
+  email: ""
+  phone: ""
+  website: ""
+connectors:
+  email: {enabled: false}
+  calendar: {enabled: false}
+  whatsapp: {enabled: false}
+  phone: {enabled: false}
+  ecommerce: {enabled: false, provider: ""}
+automation:
+  supervisor_interval_minutes: 5
+  retries: true
+  human_escalation: true
+privacy:
+  store_secrets_in_repository: false
+  redact_logs: true
