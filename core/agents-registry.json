@@ -1,0 +1,9 @@
+{
+  "supervisor": {"role":"dispatch, control, retry, escalation"},
+  "planning-agent": {"inputs":["appointment"],"outputs":["task","alert"]},
+  "customer-service-agent": {"inputs":["email","whatsapp"],"outputs":["reply_draft","task","lead"]},
+  "phone-agent": {"inputs":["call"],"outputs":["summary","task","appointment_request"]},
+  "commerce-agent": {"inputs":["order"],"outputs":["task","customer_update","alert"]},
+  "sales-agent": {"inputs":["lead"],"outputs":["follow_up","quote_request","task"]},
+  "marketing-agent": {"inputs":["campaign_request"],"outputs":["content_draft","publication_task"]}
+}
