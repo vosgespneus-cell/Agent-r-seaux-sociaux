@@ -65,5 +65,19 @@ HTML téléchargé ou dans ce dépôt public.
 ## Entrées privées
 
 Le récepteur signé et son journal local sont documentés dans
-[`docs/ENTREES_PRIVEES.md`](docs/ENTREES_PRIVEES.md). Aucune source externe n'est
-encore raccordée ; le planning et Shopify restent à brancher.
+[`docs/ENTREES_PRIVEES.md`](docs/ENTREES_PRIVEES.md). Les mails de la boîte atelier et Jotform sont raccordés sur LWS. L'analyse IA des
+mails et la préparation des rendez-vous fonctionnent sur le serveur privé. Le pont
+Google Agenda tourne toutes les cinq minutes ; l'ajout d'un prochain rendez-vous
+complet reste à vérifier de bout en bout. Shopify et les publications automatiques
+restent à raccorder au moteur central.
+
+## Suivi privé sur LWS
+
+`lws/vp_run.php` enregistre les passages des agents existants, leurs codes de sortie
+et la dernière réussite. `lws/vp_monitor.php` produit des compteurs et une vue HTML
+privée, renouvelés toutes les cinq minutes. Les données de suivi, configurations,
+clés et messages clients restent hors du dépôt et hors de la racine publique.
+Voir [`docs/SUIVI_LWS.md`](docs/SUIVI_LWS.md).
+
+WhatsApp est préparé mais sa réception et ses envois restent désactivés en attente
+du raccordement Meta. La téléphonie n'est pas encore raccordée.
