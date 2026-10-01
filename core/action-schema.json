@@ -1,0 +1,13 @@
+{
+  "version":"1.0",
+  "action_id":"uuid",
+  "event_id":"uuid",
+  "business":"client-id",
+  "agent":"agent-id",
+  "type":"reply|create_appointment|update_appointment|create_task|publish|customer_update|alert",
+  "target":{"channel":null,"destination":null},
+  "payload":{},
+  "idempotency_key":"string",
+  "authorization":"automatic|rule_required|human_required",
+  "status":"proposed"
+}
