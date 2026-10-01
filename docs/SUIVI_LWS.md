@@ -20,7 +20,10 @@ l'environnement réel de cron : un succès dans la console ne suffit pas.
 Le runner transmet au processus enfant le binaire, le `php.ini` et le répertoire
 des extensions du processus parent, et laisse l'environnement de scan hérité.
 Il conserve dans le heartbeat la version, le chemin du `php.ini` et la présence
-IMAP/cURL pour diagnostiquer un écart. Aucun contenu de configuration n'est copié.
+IMAP/cURL et de `proc_open` pour diagnostiquer un écart. Un échec de lancement
+conserve uniquement la classe de l'erreur, jamais son message.
+Les sorties utilisent `php://stdout` et `php://stderr` pour rester compatibles
+avec les contextes CLI dans lesquels les constantes STDOUT/STDERR sont absentes. Aucun contenu de configuration n'est copié.
 
 Le runner accepte une liste fixe de programmes, empêche deux passages simultanés
 du même agent et conserve uniquement les heures, le code de sortie et le nombre
