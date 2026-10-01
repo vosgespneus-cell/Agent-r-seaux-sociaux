@@ -11,6 +11,17 @@ l'appel du fichier agent par `vp_run.php mail`, `jotform`, `worker`, `ai` ou
 `calendar`, sans changer les horaires, enchaînements ni redirections existants.
 Ajouter un passage de `vp_monitor.php --save` toutes les cinq minutes.
 
+Sur cet hébergement, la console et cron peuvent charger des versions et des
+configurations PHP différentes. Le lecteur IMAP exige l'extension IMAP ; Jotform
+et l'analyse IA exigent cURL ; le suivi exige PDO MySQL. Utiliser explicitement le
+binaire PHP 8.3 et son fichier `php.ini`, le répertoire des fichiers `.ini` via
+`PHP_INI_SCAN_DIR`, et le répertoire des extensions. Vérifier ces chemins dans
+l'environnement réel de cron : un succès dans la console ne suffit pas.
+Le runner transmet au processus enfant le binaire, le `php.ini` et le répertoire
+des extensions du processus parent, et laisse l'environnement de scan hérité.
+Il conserve dans le heartbeat la version, le chemin du `php.ini` et la présence
+IMAP/cURL pour diagnostiquer un écart. Aucun contenu de configuration n'est copié.
+
 Le runner accepte une liste fixe de programmes, empêche deux passages simultanés
 du même agent et conserve uniquement les heures, le code de sortie et le nombre
 d'échecs observés depuis son installation. Il ne conserve pas la sortie des agents
