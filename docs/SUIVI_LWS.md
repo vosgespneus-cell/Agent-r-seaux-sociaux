@@ -8,8 +8,12 @@ Installer `vp_run.php` et `vp_monitor.php` dans le même répertoire privé que 
 agents et leurs configurations, hors de `htdocs`, avec des permissions `0600`.
 Conserver une copie exacte de la crontab avant tout changement. Remplacer seulement
 l'appel du fichier agent par `vp_run.php mail`, `jotform`, `worker`, `ai` ou
-`calendar`, sans changer les horaires, enchaînements ni redirections existants.
+`calendar`, en conservant les enchaînements et redirections existants.
 Ajouter un passage de `vp_monitor.php --save` toutes les cinq minutes.
+Espacer les départs pour éviter tous les lancements simultanés : mail aux minutes
+`*/5`, Jotform `1-59/5`, IA `2-59/5`, calendrier `3-59/5`, suivi `4-59/5`.
+Chaque traitement conserve une fréquence de cinq minutes. Le worker reste
+enchaîné après la réception mail ou Jotform, comme auparavant.
 
 Sur cet hébergement, la console et cron peuvent charger des versions et des
 configurations PHP différentes. Le lecteur IMAP exige l'extension IMAP ; Jotform
