@@ -1,0 +1,7 @@
+{
+  "email": {"read": true, "send": false},
+  "calendar": {"read": true, "write": false},
+  "whatsapp": {"read": false, "send": false},
+  "phone": {"read": false, "outbound": false},
+  "shopify": {"read": false, "write": false}
+}
