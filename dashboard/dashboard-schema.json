@@ -1,0 +1,9 @@
+{
+  "system":{"status":"healthy","last_heartbeat":null},
+  "today":{"inputs":0,"actions_completed":0,"waiting_human":0,"errors":0},
+  "queues":{"urgent":0,"high":0,"normal":0,"low":0},
+  "agents":[],
+  "connectors":[],
+  "recent_activity":[],
+  "attention_required":[]
+}
