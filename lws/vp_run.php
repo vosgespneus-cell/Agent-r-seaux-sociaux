@@ -18,10 +18,10 @@ function vp_run_execute(string $job,array $command,string $dir): int {
  $lock=fopen($dir.'/vp_run_'.$job.'.lock','c');if(!$lock)throw new RuntimeException('lock');
  if(!flock($lock,LOCK_EX|LOCK_NB)){fclose($lock);return 0;}
  try {
-  $path=$dir.'/vp_run_'.$job.'.json';$previous=vp_run_read($path);$s=['state'=>'running','started_at'=>time(),'last_success_at'=>$previous['last_success_at']??null,'failures'=>(int)($previous['failures']??0),'runtime'=>['version'=>PHP_VERSION,'ini'=>php_ini_loaded_file()?:null,'imap'=>function_exists('imap_open'),'curl'=>function_exists('curl_init')]];vp_run_write($path,$s);
+  $path=$dir.'/vp_run_'.$job.'.json';$previous=vp_run_read($path);$s=['state'=>'running','started_at'=>time(),'last_success_at'=>$previous['last_success_at']??null,'failures'=>(int)($previous['failures']??0),'runtime'=>['version'=>PHP_VERSION,'ini'=>php_ini_loaded_file()?:null,'imap'=>function_exists('imap_open'),'curl'=>function_exists('curl_init'),'process'=>function_exists('proc_open')]];vp_run_write($path,$s);
   // Forward output to the original cron destinations; never copy it to the heartbeat.
-  try {$process=proc_open($command,[0=>['file','/dev/null','r'],1=>STDOUT,2=>STDERR],$pipes,$dir);$exit=is_resource($process)?proc_close($process):127;}
-  catch(Throwable $e){$exit=127;}
+  try {$process=proc_open($command,[0=>['file','/dev/null','r'],1=>['file','php://stdout','w'],2=>['file','php://stderr','w']],$pipes,$dir);$exit=is_resource($process)?proc_close($process):127;}
+  catch(Throwable $e){$exit=127;$s['launch_error']=get_class($e);}
   $s['finished_at']=time();$s['exit_code']=$exit;$s['state']=$exit===0?'ok':'error';
   if($exit===0)$s['last_success_at']=$s['finished_at'];else $s['failures']++;
   vp_run_write($path,$s);return $exit===0?0:1;
@@ -49,4 +49,4 @@ try {
  $command=[PHP_BINARY];$ini=php_ini_loaded_file();if($ini)$command=array_merge($command,['-c',$ini]);
  $command=array_merge($command,['-d','extension_dir='.(string)ini_get('extension_dir'),__DIR__.'/'.$jobs[$job]]);
  exit(vp_run_execute($job,$command,__DIR__));
-}catch(Throwable $e){fwrite(STDERR,'RUN_ERROR type='.get_class($e)."\n");exit(1);}
+}catch(Throwable $e){file_put_contents('php://stderr','RUN_ERROR type='.get_class($e)."\n");exit(1);}
