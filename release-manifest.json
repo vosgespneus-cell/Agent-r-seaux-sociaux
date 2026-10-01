@@ -1,0 +1,33 @@
+{
+  "version": "0.1.0-pilot",
+  "stage": "pilot",
+  "engine": {
+    "event_schema": true,
+    "routing": true,
+    "action_policy": true,
+    "persistent_storage": true,
+    "audit_log": true,
+    "deduplication_design": true,
+    "retry_policy": true,
+    "health_snapshot": true,
+    "legacy_bridge": true,
+    "installer_base": true,
+    "automatic_tests": true
+  },
+  "connectors": {
+    "email": "pilot_private_runtime",
+    "calendar": "pending_end_to_end_validation",
+    "phone": "dry_run",
+    "whatsapp": "dry_run",
+    "shopify": "dry_run"
+  },
+  "deployment": {
+    "vosges_pneus": "pilot",
+    "generic_client": "preparation"
+  },
+  "safety": {
+    "secrets_in_repository": false,
+    "real_external_actions_default": false,
+    "human_gate_for_sensitive_actions": true
+  }
+}
