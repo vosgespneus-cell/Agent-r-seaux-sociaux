@@ -1,13 +1,17 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "event_id": "uuid",
+  "correlation_id": "uuid",
   "received_at": "ISO-8601",
   "business": "vosges_pneus",
-  "source": "email|calendar|phone|whatsapp|shopify|web|manual",
-  "type": "message|appointment|call|order|lead|alert|task",
+  "source": "email|calendar|phone|whatsapp|shopify|web|manual|monitor",
+  "type": "message|appointment|appointment_request|call|order|shopify_event|lead|product_intake|part_photo|product_reference|stock_event|shopify_draft_task|campaign_request|video_asset|publication_task|heartbeat|agent_result|runtime_error|alert|task",
   "priority": "low|normal|high|urgent",
   "customer": {"id": null, "name": null, "phone": null, "email": null},
   "payload": {},
+  "deduplication": {"fingerprint": null, "is_duplicate": false},
   "routing": {"agent": null, "action": null, "requires_human": false},
-  "status": "received"
+  "status": "received|routed|processing|waiting|completed|failed",
+  "attempt": 0,
+  "last_error": null
 }
