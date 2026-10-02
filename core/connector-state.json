@@ -1,19 +1,57 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "connectors": {
-    "email": {"state": "configured", "live_actions": false},
-    "calendar": {"state": "end_to_end_seen", "live_actions": true},
-    "shopify": {"state": "adapter_contract_ready", "live_actions": false, "mode": "draft_only"},
-    "whatsapp": {"state": "waiting_meta_verification", "live_actions": false},
-    "facebook": {"state": "waiting_authorized_connector", "live_actions": false},
-    "instagram": {"state": "waiting_authorized_connector", "live_actions": false},
-    "tiktok": {"state": "waiting_authorized_connector", "live_actions": false},
-    "youtube": {"state": "waiting_authorized_connector", "live_actions": false},
-    "phone": {"state": "not_connected", "live_actions": false}
+    "email": {
+      "state": "configured",
+      "live_actions": false,
+      "allowed_actions": ["reply", "customer_update"]
+    },
+    "calendar": {
+      "state": "end_to_end_seen",
+      "live_actions": true,
+      "allowed_actions": ["create_appointment", "update_appointment"]
+    },
+    "shopify": {
+      "state": "adapter_contract_ready",
+      "live_actions": false,
+      "mode": "draft_only",
+      "allowed_actions": ["prepare_product_draft", "prepare_stock_update", "read_order"]
+    },
+    "whatsapp": {
+      "state": "waiting_meta_verification",
+      "live_actions": false,
+      "allowed_actions": ["reply"]
+    },
+    "facebook": {
+      "state": "waiting_authorized_connector",
+      "live_actions": false,
+      "allowed_actions": ["publish"]
+    },
+    "instagram": {
+      "state": "waiting_authorized_connector",
+      "live_actions": false,
+      "allowed_actions": ["publish"]
+    },
+    "tiktok": {
+      "state": "waiting_authorized_connector",
+      "live_actions": false,
+      "allowed_actions": ["publish"]
+    },
+    "youtube": {
+      "state": "waiting_authorized_connector",
+      "live_actions": false,
+      "allowed_actions": ["publish"]
+    },
+    "phone": {
+      "state": "not_connected",
+      "live_actions": false,
+      "allowed_actions": ["create_task"]
+    }
   },
   "policy": {
     "unknown_connector_is_disabled": true,
     "live_action_requires_live_actions_true": true,
+    "action_must_match_connector_capability": true,
     "secrets_must_not_be_stored_here": true
   }
 }
