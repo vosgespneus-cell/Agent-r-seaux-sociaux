@@ -16,6 +16,8 @@ class CoreContractTests(unittest.TestCase):
             "core/action-schema.json",
             "core/agents-registry.json",
             "core/task-state-machine.json",
+            "core/retry-policy.json",
+            "core/connector-state.json",
             "adapters/shopify/contract.json",
         ]:
             with self.subTest(path=path):
@@ -30,9 +32,7 @@ class CoreContractTests(unittest.TestCase):
 
     def test_external_publishers_are_not_live_by_default(self):
         registry = self.load_json("core/agents-registry.json")
-        self.assertNotEqual(
-            registry["social-publisher-agent"].get("mode"), "live"
-        )
+        self.assertNotEqual(registry["social-publisher-agent"].get("mode"), "live")
         self.assertNotEqual(registry["whatsapp-agent"].get("mode"), "live")
         self.assertEqual(
             registry["shopify-agent"].get("publication_mode"),
@@ -52,6 +52,24 @@ class CoreContractTests(unittest.TestCase):
         self.assertIn("execution_mode", action)
         self.assertIn("max_attempts", action)
         self.assertIn("blocked", action["status"])
+
+    def test_retry_policy_never_replays_success(self):
+        retry = self.load_json("core/retry-policy.json")
+        self.assertTrue(retry["default"]["reuse_idempotency_key"])
+        self.assertTrue(retry["rules"]["never_repeat_succeeded_action"])
+
+    def test_connector_capabilities_are_declared(self):
+        state = self.load_json("core/connector-state.json")
+        self.assertTrue(state["policy"]["action_must_match_connector_capability"])
+        for name, connector in state["connectors"].items():
+            with self.subTest(connector=name):
+                self.assertIsInstance(connector.get("allowed_actions"), list)
+                self.assertTrue(connector["allowed_actions"])
+
+    def test_only_calendar_is_live_in_current_connector_state(self):
+        state = self.load_json("core/connector-state.json")["connectors"]
+        live = {name for name, connector in state.items() if connector.get("live_actions")}
+        self.assertEqual(live, {"calendar"})
 
 
 if __name__ == "__main__":
