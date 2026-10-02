@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from src.idempotency import IdempotencyLedger
+from src.idempotency import IdempotencyLedger, LedgerCorruptionError
 
 
 class IdempotencyLedgerTests(unittest.TestCase):
@@ -29,12 +29,21 @@ class IdempotencyLedgerTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 ledger.mark_succeeded("")
 
-    def test_corrupt_ledger_fails_closed_to_empty_local_state(self):
+    def test_corrupt_ledger_blocks_duplicate_check(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "ledger.json"
             path.write_text("not-json", encoding="utf-8")
             ledger = IdempotencyLedger(path)
-            self.assertFalse(ledger.has_succeeded("vp:test:1"))
+            with self.assertRaises(LedgerCorruptionError):
+                ledger.has_succeeded("vp:test:1")
+
+    def test_invalid_ledger_structure_blocks_write(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "ledger.json"
+            path.write_text('{"completed": []}', encoding="utf-8")
+            ledger = IdempotencyLedger(path)
+            with self.assertRaises(LedgerCorruptionError):
+                ledger.mark_succeeded("vp:test:1")
 
 
 if __name__ == "__main__":
