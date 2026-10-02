@@ -1,5 +1,8 @@
+import tempfile
 import unittest
+from pathlib import Path
 
+from src.idempotency import IdempotencyLedger
 from src.runtime import process_event
 
 
@@ -35,6 +38,23 @@ class RuntimeTests(unittest.TestCase):
         }, {"facebook": {"live_actions": True}})
         self.assertEqual(result["runtime_status"], "ready_for_connector")
         self.assertTrue(result["execution_decision"]["allowed"])
+
+    def test_completed_live_action_is_ignored_as_duplicate(self):
+        event = {
+            "event_id": "evt-post-3",
+            "source": "manual",
+            "type": "publication_task",
+            "payload": {"channel": "facebook", "content_id": "content-3"},
+        }
+        states = {"facebook": {"live_actions": True}}
+        with tempfile.TemporaryDirectory() as directory:
+            ledger = IdempotencyLedger(Path(directory) / "ledger.json")
+            first = process_event(event, states, ledger)
+            ledger.mark_succeeded(first["action"]["idempotency_key"], first["action"]["action_id"])
+            second = process_event(event, states, ledger)
+        self.assertEqual(second["runtime_status"], "duplicate_ignored")
+        self.assertTrue(second["duplicate"])
+        self.assertEqual(second["execution_decision"]["reason"], "already_succeeded")
 
     def test_whatsapp_without_live_permission_stays_draft(self):
         result = process_event({
