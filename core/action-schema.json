@@ -1,13 +1,18 @@
 {
-  "version":"1.0",
+  "version":"1.1",
   "action_id":"uuid",
   "event_id":"uuid",
-  "business":"client-id",
+  "correlation_id":"uuid",
+  "business":"vosges_pneus",
   "agent":"agent-id",
-  "type":"reply|create_appointment|update_appointment|create_task|publish|customer_update|alert",
+  "type":"reply|create_appointment|update_appointment|create_task|prepare_product_draft|prepare_stock_update|publish|customer_update|follow_up|quote_request|retry|alert",
   "target":{"channel":null,"destination":null},
   "payload":{},
   "idempotency_key":"string",
   "authorization":"automatic|rule_required|human_required",
-  "status":"proposed"
+  "execution_mode":"dry_run|draft|live",
+  "status":"proposed|queued|running|waiting|succeeded|failed|blocked",
+  "attempt":0,
+  "max_attempts":3,
+  "last_error":null
 }
