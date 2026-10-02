@@ -23,6 +23,18 @@ class ActionGateTests(unittest.TestCase):
         result = authorize_execution(self.action(), {"live_actions": True})
         self.assertTrue(result["allowed"])
 
+    def test_declared_connector_capability_allows_matching_action(self):
+        result = authorize_execution(self.action(), {"live_actions": True, "allowed_actions": ["publish"]})
+        self.assertTrue(result["allowed"])
+
+    def test_connector_cannot_execute_unrelated_action(self):
+        result = authorize_execution(
+            self.action(type="publish"),
+            {"live_actions": True, "allowed_actions": ["create_appointment", "update_appointment"]},
+        )
+        self.assertFalse(result["allowed"])
+        self.assertEqual(result["reason"], "action_not_supported_by_connector")
+
     def test_draft_can_never_execute(self):
         result = authorize_execution(self.action(execution_mode="draft"), {"live_actions": True})
         self.assertFalse(result["allowed"])
