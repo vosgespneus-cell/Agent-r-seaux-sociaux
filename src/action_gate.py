@@ -20,6 +20,11 @@ def authorize_execution(action: dict, connector_state: dict | None = None) -> di
         return {"allowed": False, "reason": "action_not_in_live_mode"}
     if not state.get("live_actions", False):
         return {"allowed": False, "reason": "connector_not_authorized_for_live_actions"}
+
+    allowed_actions = state.get("allowed_actions")
+    if allowed_actions is not None and action_type not in allowed_actions:
+        return {"allowed": False, "reason": "action_not_supported_by_connector"}
+
     if action.get("status") not in {"proposed", "queued"}:
         return {"allowed": False, "reason": "invalid_action_status"}
     if not action.get("idempotency_key"):
