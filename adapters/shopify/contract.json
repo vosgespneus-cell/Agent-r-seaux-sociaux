@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "adapter": "shopify",
+  "mode": "draft_only",
+  "secrets": ["SHOPIFY_STORE_DOMAIN", "SHOPIFY_ACCESS_TOKEN"],
+  "accepted_events": ["order", "shopify_event", "stock_event", "shopify_draft_task"],
+  "allowed_actions": ["prepare_product_draft", "prepare_stock_update", "read_order", "health_check"],
+  "blocked_by_default": ["publish_product", "delete_product", "refund_order", "capture_payment", "change_price_live"],
+  "product_required_fields": ["title", "reference", "price", "stock_status", "description"],
+  "optional_fields": ["images", "compatibility", "vendor", "tags", "collection", "cost_price", "source"],
+  "outputs": ["shopify_draft_result", "stock_update", "order_event", "alert"],
+  "idempotency": {
+    "required": true,
+    "key_template": "shopify:{action}:{reference_or_order_id}:{content_hash}"
+  },
+  "safety": {
+    "no_secrets_in_logs": true,
+    "draft_before_publish": true,
+    "human_review_if_unverified_price": true,
+    "human_review_if_unverified_compatibility": true,
+    "human_review_for_financial_action": true
+  }
+}
