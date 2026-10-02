@@ -1,7 +1,9 @@
+import json
 import tempfile
 import unittest
 from pathlib import Path
 
+from src.audit_log import AuditLog
 from src.idempotency import IdempotencyLedger
 from src.runtime import process_event
 
@@ -55,6 +57,21 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual(second["runtime_status"], "duplicate_ignored")
         self.assertTrue(second["duplicate"])
         self.assertEqual(second["execution_decision"]["reason"], "already_succeeded")
+
+    def test_runtime_audit_excludes_customer_payload(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "audit.jsonl"
+            process_event({
+                "event_id": "evt-private-1",
+                "source": "whatsapp",
+                "type": "message",
+                "payload": {"message": "private text", "phone": "0600000000"},
+            }, {"whatsapp": {"live_actions": False}}, audit_log=AuditLog(path))
+            saved = json.loads(path.read_text(encoding="utf-8").strip())
+        self.assertEqual(saved["event_id"], "evt-private-1")
+        self.assertNotIn("payload", saved)
+        self.assertNotIn("phone", saved)
+        self.assertNotIn("message", saved)
 
     def test_whatsapp_without_live_permission_stays_draft(self):
         result = process_event({
