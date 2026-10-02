@@ -1,9 +1,18 @@
 {
-  "supervisor": {"role":"dispatch, control, retry, escalation"},
-  "planning-agent": {"inputs":["appointment"],"outputs":["task","alert"]},
+  "supervisor": {
+    "role":"dispatch, control, retry, escalation",
+    "principles":["idempotent","least_privilege","draft_before_publish","human_review_for_irreversible_or_unverified_actions"],
+    "outputs":["task","alert","audit_event"]
+  },
+  "planning-agent": {"inputs":["appointment","appointment_request"],"outputs":["task","calendar_draft","alert"]},
   "customer-service-agent": {"inputs":["email","whatsapp"],"outputs":["reply_draft","task","lead"]},
   "phone-agent": {"inputs":["call"],"outputs":["summary","task","appointment_request"]},
-  "commerce-agent": {"inputs":["order"],"outputs":["task","customer_update","alert"]},
+  "commerce-agent": {"inputs":["order","shopify_event"],"outputs":["task","customer_update","alert","stock_event"]},
+  "product-agent": {"inputs":["product_intake","part_photo","product_reference"],"outputs":["product_draft","research_task","pricing_task","shopify_draft_task"]},
+  "shopify-agent": {"inputs":["shopify_draft_task","stock_event"],"outputs":["shopify_draft_result","stock_update","alert"],"publication_mode":"draft_only_until_verified"},
   "sales-agent": {"inputs":["lead"],"outputs":["follow_up","quote_request","task"]},
-  "marketing-agent": {"inputs":["campaign_request"],"outputs":["content_draft","publication_task"]}
+  "marketing-agent": {"inputs":["campaign_request","product_draft","video_asset"],"outputs":["content_draft","publication_task"]},
+  "social-publisher-agent": {"inputs":["publication_task"],"outputs":["publication_result","alert"],"mode":"disabled_until_authorized_connectors"},
+  "whatsapp-agent": {"inputs":["whatsapp"],"outputs":["reply_draft","lead","appointment_request","task"],"mode":"disabled_until_meta_webhook_verified"},
+  "monitor-agent": {"inputs":["heartbeat","agent_result","runtime_error"],"outputs":["health_state","retry_task","alert"]}
 }
