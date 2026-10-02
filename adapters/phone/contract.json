@@ -1,0 +1,51 @@
+{
+  "version": "1.0",
+  "provider": "keyyo",
+  "transport": "sip",
+  "pbx": "asterisk",
+  "deployment_target": "local_wsl2",
+  "mode": "integration_pending",
+  "secrets": {
+    "storage": "local_environment_only",
+    "never_commit": [
+      "sip_password",
+      "api_keys",
+      "customer_audio",
+      "customer_phone_numbers"
+    ]
+  },
+  "validated": {
+    "keyyo_sip_registration": true,
+    "incoming_call_to_windows_softphone": true,
+    "validated_on": "2026-10-02"
+  },
+  "next_hop": {
+    "from": "keyyo_sip",
+    "to": "asterisk",
+    "status": "waiting_local_install"
+  },
+  "allowed_actions": [
+    "answer_call",
+    "create_task",
+    "create_appointment_request",
+    "transfer_to_human",
+    "end_call"
+  ],
+  "human_handoff": {
+    "required_on": [
+      "caller_requests_human",
+      "agent_uncertain",
+      "complaint_or_conflict",
+      "financial_commitment",
+      "safety_or_emergency",
+      "unsupported_request"
+    ]
+  },
+  "safety": {
+    "no_financial_commitment": true,
+    "no_secret_in_logs": true,
+    "no_raw_audio_in_public_repo": true,
+    "no_customer_payload_in_public_repo": true,
+    "fallback_must_not_loop": true
+  }
+}
