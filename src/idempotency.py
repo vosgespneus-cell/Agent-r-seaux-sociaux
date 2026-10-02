@@ -10,6 +10,10 @@ from pathlib import Path
 from tempfile import NamedTemporaryFile
 
 
+class LedgerCorruptionError(RuntimeError):
+    """Raised when duplicate-protection state cannot be trusted."""
+
+
 class IdempotencyLedger:
     def __init__(self, path: str | Path):
         self.path = Path(path)
@@ -19,10 +23,10 @@ class IdempotencyLedger:
             return {"completed": {}}
         try:
             data = json.loads(self.path.read_text(encoding="utf-8"))
-        except (json.JSONDecodeError, OSError):
-            return {"completed": {}}
+        except (json.JSONDecodeError, OSError) as exc:
+            raise LedgerCorruptionError("idempotency ledger is unreadable") from exc
         if not isinstance(data, dict) or not isinstance(data.get("completed", {}), dict):
-            return {"completed": {}}
+            raise LedgerCorruptionError("idempotency ledger has an invalid structure")
         data.setdefault("completed", {})
         return data
 
