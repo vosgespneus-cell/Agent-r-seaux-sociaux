@@ -1,0 +1,33 @@
+{
+  "version": "1.0",
+  "default": {
+    "max_attempts": 3,
+    "delays_seconds": [30, 120, 600],
+    "reuse_idempotency_key": true
+  },
+  "retryable": [
+    "timeout",
+    "rate_limit",
+    "temporary_unavailable",
+    "network_error",
+    "provider_5xx"
+  ],
+  "non_retryable": [
+    "invalid_payload",
+    "authentication_failed",
+    "authorization_denied",
+    "missing_required_data",
+    "blocked_by_policy"
+  ],
+  "after_exhaustion": {
+    "status": "failed",
+    "emit": "alert",
+    "route_to": "monitor-agent"
+  },
+  "rules": {
+    "never_repeat_succeeded_action": true,
+    "financial_action_requires_human": true,
+    "destructive_action_requires_human": true,
+    "external_publish_requires_authorized_connector": true
+  }
+}
