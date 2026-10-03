@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-02",
+  "updated_at": "2026-10-03",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -107,14 +107,14 @@
     "son commercial autorisé pour contenu promotionnel"
   ],
   "performance_snapshot": {
-    "checked_at": "2026-10-02",
+    "checked_at": "2026-10-03",
     "followers": 4,
     "total_public_videos": 5,
-    "known_video_views": 992,
+    "known_video_views": 993,
     "account_daily_video_views_since_2026_09_28": 1023,
     "comments": 0,
     "shares": 0,
-    "note": "Les cinq vidéos restent publiques. Les compteurs détaillés totalisent encore 992 vues, tandis que l’agrégat quotidien TikTok atteint 1 023 vues jusqu’au 30 septembre; aucun commentaire, partage, nouvel abonné ou clic site détecté."
+    "note": "Les cinq vidéos restent publiques. Les compteurs détaillés atteignent 993 vues (+1), sans commentaire, partage, nouvel abonné, visite de profil ni clic site détecté."
   },
   "ready_drafts": [
     {
@@ -135,7 +135,7 @@
     }
   ],
   "distribution_blocker": {
-    "checked_at": "2026-10-02",
+    "checked_at": "2026-10-03",
     "service": "Metricool / TikTok",
     "status": "échec TikTok de format; limite Metricool non reproduite sur les publications des 1er et 2 octobre",
     "latest_failures": [
@@ -146,8 +146,13 @@
       "1er octobre 18:00 — Instagram — pompe haute pression Delphi — publiée",
       "2 octobre 10:00 — Facebook — pompe haute pression Delphi — publiée"
     ],
-    "next_risk": "3 octobre 18:00 — publication Instagram/TikTok du feu arrière Peugeot 407; contrôler/redimensionner le média avant TikTok",
+    "next_risk": "3 octobre 18:00 — publication Instagram/TikTok du feu arrière Peugeot 407 encore PENDING à 15:30; vérifier le résultat après diffusion, avec risque TikTok >1080p",
     "spend_authorized": false,
     "action": "ne pas engager de dépense; utiliser un média TikTok ne dépassant pas 1080p et vérifier l’absence de doublon avant publication"
+  },
+  "library_media_check": {
+    "checked_at": "2026-10-03",
+    "result": "aucun nouveau média réel VOSGES PNEUS exploitable dans le dossier dédié depuis le dernier contrôle",
+    "action": "conserver le brouillon existant; ne pas utiliser les captures techniques récentes ni les visuels générés comme preuve d’intervention réelle"
   }
 }
