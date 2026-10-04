@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-03",
+  "updated_at": "2026-10-04",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -107,14 +107,14 @@
     "son commercial autorisé pour contenu promotionnel"
   ],
   "performance_snapshot": {
-    "checked_at": "2026-10-03",
+    "checked_at": "2026-10-04",
     "followers": 4,
     "total_public_videos": 5,
-    "known_video_views": 993,
+    "known_video_views": 999,
     "account_daily_video_views_since_2026_09_28": 1023,
     "comments": 0,
     "shares": 0,
-    "note": "Les cinq vidéos restent publiques. Les compteurs détaillés atteignent 993 vues (+1), sans commentaire, partage, nouvel abonné, visite de profil ni clic site détecté."
+    "note": "Les cinq vidéos restent publiques. Les compteurs détaillés atteignent 999 vues (+6), sans commentaire, partage, nouvel abonné, visite de profil ni clic site détecté."
   },
   "ready_drafts": [
     {
@@ -135,24 +135,24 @@
     }
   ],
   "distribution_blocker": {
-    "checked_at": "2026-10-03",
+    "checked_at": "2026-10-04",
     "service": "Metricool / TikTok",
-    "status": "échec TikTok de format; limite Metricool non reproduite sur les publications des 1er et 2 octobre",
+    "status": "échecs TikTok répétés liés aux médias dépassant 1080p; Instagram et Facebook publient normalement",
     "latest_failures": [
-      "1er octobre 18:00 — TikTok — média au-delà de la résolution maximale 1080p",
-      "30 septembre 10:00 — Facebook — limite du compte Metricool"
+      "3 octobre 18:00 — TikTok — feu arrière Peugeot 407 — média au-delà de 1080p",
+      "1er octobre 18:00 — TikTok — pompe Delphi — média au-delà de 1080p"
     ],
     "successful_posts": [
-      "1er octobre 18:00 — Instagram — pompe haute pression Delphi — publiée",
-      "2 octobre 10:00 — Facebook — pompe haute pression Delphi — publiée"
+      "3 octobre 18:00 — Instagram — feu arrière Peugeot 407 — publiée",
+      "4 octobre 10:00 — Facebook — feu arrière Peugeot 407 — publiée"
     ],
-    "next_risk": "3 octobre 18:00 — publication Instagram/TikTok du feu arrière Peugeot 407 encore PENDING à 15:30; vérifier le résultat après diffusion, avec risque TikTok >1080p",
+    "next_risk": "toute prochaine publication TikTok avec une image d’origine supérieure à 1080p échouera tant que le média n’est pas redimensionné",
     "spend_authorized": false,
-    "action": "ne pas engager de dépense; utiliser un média TikTok ne dépassant pas 1080p et vérifier l’absence de doublon avant publication"
+    "action": "ne pas engager de dépense; automatiser un redimensionnement maximal 1080 × 1080 avant envoi TikTok et conserver l’image originale pour Instagram/Facebook"
   },
   "library_media_check": {
-    "checked_at": "2026-10-03",
-    "result": "aucun nouveau média réel VOSGES PNEUS exploitable dans le dossier dédié depuis le dernier contrôle",
-    "action": "conserver le brouillon existant; ne pas utiliser les captures techniques récentes ni les visuels générés comme preuve d’intervention réelle"
+    "checked_at": "2026-10-04",
+    "result": "aucun nouveau média réel VOSGES PNEUS exploitable dans le dossier dédié; les fichiers récents sont des captures techniques liées au standard téléphonique",
+    "action": "conserver le brouillon existant; ne pas utiliser les captures techniques ni les visuels générés comme preuve d’intervention réelle"
   }
 }
