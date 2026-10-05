@@ -38,27 +38,81 @@ function evaluateProduct(array $item, array $product, int $now): array {
     ];
 }
 
-function fetchProduct(string $handle): array {
-    $url='https://www.vosgespneus.com/products/'.$handle.'.js';
-    if (!function_exists('curl_init')) throw new RuntimeException('curl_absent');
-    $body=''; $tooLarge=false;
-    // LWS overrides this hosted domain in /etc/hosts; use public DNS, keeping TLS verification.
-    $records=dns_get_record('www.vosgespneus.com',DNS_A);
-    $ips=[];
-    foreach($records?:[] as $record) {
-        $ip=$record['ip']??'';
-        if(filter_var($ip,FILTER_VALIDATE_IP,FILTER_FLAG_IPV4|FILTER_FLAG_NO_PRIV_RANGE|FILTER_FLAG_NO_RES_RANGE)) $ips[]=$ip;
+function moneyToCents(array $money): int {
+    if (($money['currencyCode']??null)!=='EUR') throw new RuntimeException('devise_inattendue');
+    $amount=$money['amount']??null;
+    if (!is_string($amount)||!preg_match('/^(\\d{1,9})(?:\\.(\\d{1,2}))?$/D',$amount,$m)) throw new RuntimeException('prix_invalide');
+    return (int)$m[1]*100+(int)str_pad($m[2]??'',2,'0');
+}
+
+function normalizeProduct(array $product): array {
+    if (($product['variants']['pageInfo']['hasNextPage']??true)!==false) throw new RuntimeException('variantes_incompletes');
+    $variants=[];
+    foreach($product['variants']['nodes']??[] as $variant) {
+        $variants[]=['id'=>$variant['id']??null,'sku'=>$variant['sku']??null,
+            'price'=>moneyToCents($variant['price']??[]),'available'=>$variant['availableForSale']??null];
     }
-    if(!$ips) throw new RuntimeException('dns_public_absent');
-    $ch=curl_init($url);
-    curl_setopt($ch,CURLOPT_RESOLVE,['www.vosgespneus.com:443:'.implode(',',array_unique($ips))]);
-    curl_setopt_array($ch,[CURLOPT_FOLLOWLOCATION=>false,CURLOPT_CONNECTTIMEOUT=>5,CURLOPT_TIMEOUT=>15,CURLOPT_SSL_VERIFYPEER=>true,CURLOPT_SSL_VERIFYHOST=>2,CURLOPT_USERAGENT=>'VosgesPneus-CatalogAudit/1.0',CURLOPT_HTTPHEADER=>['Accept: application/json'],CURLOPT_WRITEFUNCTION=>static function($ch,$chunk)use(&$body,&$tooLarge){ if(strlen($body)+strlen($chunk)>1048576){$tooLarge=true;return 0;} $body.=$chunk;return strlen($chunk);}]);
+    return ['handle'=>$product['handle']??null,'variants'=>$variants,
+        'images'=>array_column($product['images']['nodes']??[],'url')];
+}
+
+function catalogQuery(): string {
+    return <<<'GRAPHQL'
+query CommercialCatalog($h0: String!, $h1: String!, $h2: String!, $h3: String!) @inContext(country: FR, language: FR) {
+  p0: product(handle: $h0) { ...CommercialProduct }
+  p1: product(handle: $h1) { ...CommercialProduct }
+  p2: product(handle: $h2) { ...CommercialProduct }
+  p3: product(handle: $h3) { ...CommercialProduct }
+}
+fragment CommercialProduct on Product {
+  handle
+  images(first: 10) { nodes { url } }
+  variants(first: 10) {
+    nodes { id sku availableForSale price { amount currencyCode } }
+    pageInfo { hasNextPage }
+  }
+}
+GRAPHQL;
+}
+
+function fetchCatalog(string $dir): array {
+    if (!function_exists('curl_init')) throw new RuntimeException('curl_absent');
+    // One official tokenless Storefront query per hour, never spoof a buyer IP.
+    $cooldownPath=$dir.'/next_request.json';
+    $cooldown=is_file($cooldownPath)?json_decode((string)file_get_contents($cooldownPath),true):[];
+    if (time()<(int)($cooldown['not_before']??0)) throw new RuntimeException('lecture_differee');
+    atomicWrite($cooldownPath,json_encode(['not_before'=>time()+60],JSON_THROW_ON_ERROR));
+    $variables=[];
+    foreach(manifest() as $i=>$item) $variables['h'.$i]=$item['handle'];
+    $payload=json_encode(['query'=>catalogQuery(),'variables'=>$variables],JSON_THROW_ON_ERROR);
+    $body=''; $tooLarge=false; $retryAfter=60;
+    $ch=curl_init('https://zaiwdm-st.myshopify.com/api/2026-10/graphql.json');
+    curl_setopt_array($ch,[
+        CURLOPT_POST=>true,CURLOPT_POSTFIELDS=>$payload,CURLOPT_FOLLOWLOCATION=>false,
+        CURLOPT_CONNECTTIMEOUT=>5,CURLOPT_TIMEOUT=>20,CURLOPT_SSL_VERIFYPEER=>true,CURLOPT_SSL_VERIFYHOST=>2,
+        CURLOPT_USERAGENT=>'VosgesPneus-CatalogAudit/2.0',
+        CURLOPT_HTTPHEADER=>['Content-Type: application/json','Accept: application/json'],
+        CURLOPT_HEADERFUNCTION=>static function($ch,$line)use(&$retryAfter){
+            if(preg_match('/^Retry-After:\\s*(\\d+)/i',$line,$m)) $retryAfter=max(60,min(86400,(int)$m[1]));
+            return strlen($line);
+        },
+        CURLOPT_WRITEFUNCTION=>static function($ch,$chunk)use(&$body,&$tooLarge){
+            if(strlen($body)+strlen($chunk)>1048576){$tooLarge=true;return 0;}
+            $body.=$chunk;return strlen($chunk);
+        }
+    ]);
     $ok=curl_exec($ch); $status=curl_getinfo($ch,CURLINFO_HTTP_CODE); curl_close($ch);
-    if ($tooLarge) throw new RuntimeException('reponse_trop_grande');
-    if ($ok===false||$status!==200) throw new RuntimeException('http_'.$status);
-    $data=json_decode($body,true,64,JSON_THROW_ON_ERROR);
-    if (!is_array($data)||!isset($data['variants'])) throw new RuntimeException('format_inattendu');
-    return $data;
+    if($status===429) atomicWrite($cooldownPath,json_encode(['not_before'=>time()+$retryAfter],JSON_THROW_ON_ERROR));
+    if($tooLarge) throw new RuntimeException('reponse_trop_grande');
+    if($ok===false||$status!==200) throw new RuntimeException('http_'.$status);
+    $response=json_decode($body,true,64,JSON_THROW_ON_ERROR);
+    if(!is_array($response)||!empty($response['errors'])||!is_array($response['data']??null)) throw new RuntimeException('graphql_invalide');
+    $catalog=[];
+    foreach(manifest() as $i=>$item){
+        $product=$response['data']['p'.$i]??null;
+        $catalog[$item['handle']]=is_array($product)?$product:null;
+    }
+    return $catalog;
 }
 
 function atomicWrite(string $path,string $body): void {
@@ -81,7 +135,18 @@ function selfTest(): void {
     $check(in_array('stock_physique_a_reconfirmer',evaluateProduct($m[0],$fixture,$now+48*3600)['issues'],true),'stale_stock');
     $check(evaluateProduct($m[3],$fixture,$now)['action']==='annonce_existante_ne_pas_dupliquer','duplicate_ebay');
     foreach($m as $i) $check(strlen($i['title'])<=80,'title_length');
-    echo "VP_COMMERCIAL_TESTS_OK 13 checks\n";
+    $raw=['handle'=>$m[0]['handle'],'variants'=>['nodes'=>[['id'=>'gid://shopify/ProductVariant/123','sku'=>$m[0]['sku'],'availableForSale'=>true,'price'=>['amount'=>'69.00','currencyCode'=>'EUR']]],'pageInfo'=>['hasNextPage'=>false]],'images'=>['nodes'=>[['url'=>'https://cdn.shopify.com/a.jpg'],['url'=>'https://cdn.shopify.com/b.jpg']]]];
+    $check(evaluateProduct($m[0],normalizeProduct($raw),$now)['issues']===[],'storefront_mapping');
+    $check(moneyToCents(['amount'=>'0.01','currencyCode'=>'EUR'])===1,'cent_precision');
+    $check(moneyToCents(['amount'=>'49.5','currencyCode'=>'EUR'])===4950,'decimal_padding');
+    foreach([['amount'=>'69.00','currencyCode'=>'USD'],['amount'=>'69.001','currencyCode'=>'EUR']] as $bad){
+        $rejected=false;try{moneyToCents($bad);}catch(RuntimeException $e){$rejected=true;}
+        $check($rejected,'money_rejected');
+    }
+    $raw['variants']['pageInfo']['hasNextPage']=true;
+    $rejected=false;try{normalizeProduct($raw);}catch(RuntimeException $e){$rejected=true;}
+    $check($rejected,'pagination_rejected');
+    echo "VP_COMMERCIAL_TESTS_OK 19 checks\n";
 }
 
 try {
@@ -90,12 +155,17 @@ try {
     $lock=fopen($dir.'/run.lock','c'); if(!$lock||!flock($lock,LOCK_EX|LOCK_NB)) exit(0);
     $path=$dir.'/rapport.json';
     if(!in_array('--force',$argv,true)&&is_file($path)&&time()-filemtime($path)<3600){echo "VP_COMMERCIAL_CACHE_OK\n";exit(0);}
-    $rows=[];$errors=0;
+    $rows=[];$errors=0;$catalog=[];$catalogError=null;
+    try{$catalog=fetchCatalog($dir);}catch(Throwable $e){$catalogError=$e instanceof RuntimeException?$e->getMessage():'json_invalide';}
     foreach(manifest() as $item){
-      try{$rows[]=evaluateProduct($item,fetchProduct($item['handle']),time());}
+      try{
+        if($catalogError!==null) throw new RuntimeException($catalogError);
+        if(!is_array($catalog[$item['handle']]??null)) throw new RuntimeException('produit_absent');
+        $rows[]=evaluateProduct($item,normalizeProduct($catalog[$item['handle']]),time());
+      }
       catch(Throwable $e){$errors++;$rows[]=['sku'=>$item['sku'],'action'=>'controle_impossible','issues'=>['lecture_boutique_echouee'],'error_code'=>$e instanceof RuntimeException?$e->getMessage():'json_invalide','publication_allowed'=>false];}
     }
-    $report=['version'=>'commercial-lws-1','checked_at'=>date(DATE_ATOM),'mode'=>'audit_et_brouillons','publication_active'=>false,'errors'=>$errors,'items'=>$rows];
+    $report=['version'=>'commercial-lws-2','source'=>'shopify_storefront_tokenless_2026-10','checked_at'=>date(DATE_ATOM),'mode'=>'audit_et_brouillons','publication_active'=>false,'errors'=>$errors,'items'=>$rows];
     atomicWrite($path,json_encode($report,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_THROW_ON_ERROR)."\n");
     $h='<meta charset="utf-8"><title>Agent commercial Vosges Pneus</title><h1>Vosges Pneus — contrôle commercial</h1><p>'.htmlspecialchars($report['checked_at']).'</p><p>Préparation active. Publication automatique non connectée. Stock réel à vérifier avant publication.</p>';
     foreach($rows as $r){$h.='<h2>'.htmlspecialchars($r['sku']).'</h2><p>'.htmlspecialchars($r['action']).'</p><p>'.htmlspecialchars(implode(', ',$r['issues'])).'</p>';if(isset($r['draft']))$h.='<h3>'.htmlspecialchars($r['draft']['title']).'</h3><p>'.htmlspecialchars($r['draft']['description']).'</p><p>'.htmlspecialchars((string)$r['price_eur']).' EUR</p>';}
