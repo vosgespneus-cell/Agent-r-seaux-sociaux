@@ -2,15 +2,17 @@
 set -Eeuo pipefail
 umask 077
 base=/var/www/vosgespneus.com/home
-bundle=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+script_path=${BASH_SOURCE[0]}
+bundle=$(cd -- "${script_path%/*}" && pwd)
 runtime=/usr/base/opt/php8.3
 export PHP_INI_SCAN_DIR="$runtime/etc/conf.d"
 php_cli=("$runtime/bin/php" -c "$runtime/etc/php.ini" -d "extension_dir=$runtime/lib/php/extensions/no-debug-non-zts-20230831")
 [[ -d "$base" && -f "$base/vp_run.php" ]] || { echo 'Installation LWS existante introuvable'; exit 1; }
 [[ -x "${php_cli[0]}" && -f "$bundle/vp_commercial.php" ]] || { echo 'Moteur PHP ou programme manquant'; exit 1; }
 target="$base/vp_commercial.php"
-stage=$(mktemp "$base/vp_commercial.stage.XXXXXX")
-backup="$base/vp_commercial.backup.$(date +%Y%m%dT%H%M%S).$$"
+stage="$base/vp_commercial.stage.$.$RANDOM"
+(set -o noclobber; : > "$stage")
+backup="$base/vp_commercial.backup.$.$RANDOM"
 had_previous=0
 installed=0
 cleanup() { rm -f -- "$stage"; }
