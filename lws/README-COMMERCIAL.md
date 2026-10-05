@@ -42,7 +42,8 @@ Le 5 octobre 2026 à 14:18:35 Europe/Paris :
 - Prix contrôlés : 69 EUR, 39 EUR, 49 EUR, 49 EUR ; cinq photos par produit
 - Deuxième exécution : cache valide, sans nouvelle lecture Shopify
 - Installation confirmée par `MODULE COMMERCIAL INSTALLE ET CONTROLE EN LIGNE`
-- Tâche commerciale confirmée active dans LWS
+- Tâche commerciale confirmée active dans LWS et présente dans le crontab serveur
+- Premier déclenchement automatique observé à 14:30:01 Europe/Paris : `VP_COMMERCIAL_CACHE_OK`, journal d'erreurs vide. La tâche a donc été exécutée par le serveur, sans intervention ; le cache évite une lecture inutile du catalogue
 
 ## Restant avant publication autonome
 
