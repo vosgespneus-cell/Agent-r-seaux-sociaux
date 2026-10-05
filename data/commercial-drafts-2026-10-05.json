@@ -1,0 +1,29 @@
+{
+  "checked_at": "2026-10-05T08:18:00+02:00",
+  "status": "draft",
+  "publication_allowed": false,
+  "physical_stock_verified": false,
+  "items": [
+    {
+      "sku": "VP-DEM-M000T22471",
+      "text": "Démarreur d’occasion Mitsubishi M000T22471 / PSA 9663528880 — 69 €. Comparez la référence de votre pièce avant commande. VOSGES PNEUS à Thaon-les-Vosges.",
+      "url": "https://www.vosgespneus.com/products/demarreur-mitsubishi-psa-1-4-1-6-hdi-m000t22471-9663528880-occasion"
+    },
+    {
+      "sku": "VP-BER-PART-FARG-RF",
+      "text": "Feu arrière gauche d’occasion pour Berlingo I / Partner I selon version — 39 €. Plusieurs montages existent : comparez la forme et le porte-ampoules avant commande. Photos de la pièce sur la boutique.",
+      "url": "https://www.vosgespneus.com/products/feu-arriere-gauche-citroen-berlingo-peugeot-partner-m49-m59-cote-conducteur"
+    },
+    {
+      "sku": "VP-BER-M59-PHG-9644150980",
+      "text": "Phare avant gauche Berlingo M59 Phase 2 — références 9644150980 / 6204AX — 49 €. Occasion avec optique terne et traces d’usage visibles. Comparez référence et connectique ; état détaillé en photos.",
+      "url": "https://www.vosgespneus.com/products/phare-avant-gauche-citroen-berlingo-m59-phase-2-9644150980-6204ax"
+    },
+    {
+      "sku": "VP-NEMO-BIP-FARD-01",
+      "text": "Feu arrière droit d’occasion Nemo / Bipper / Fiorino selon version — 49 €. Comparez forme, fixations et montage de vos portes arrière avant commande. Photos de la pièce sur la boutique.",
+      "url": "https://www.vosgespneus.com/products/feu-arriere-droit-citroen-nemo-peugeot-bipper-fiat-fiorino-cote-passager"
+    }
+  ],
+  "next_action": "Rapprocher les unités Shopify du stock physique puis vérifier les photos avant publication ; aucun fonctionnement testé affirmé."
+}
