@@ -5,6 +5,7 @@ if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 date_default_timezone_set('Europe/Paris');
 umask(0077);
 require_once __DIR__.'/vp_stock.php';
+if(is_file(__DIR__.'/vp_ebay_prepare.php')) require_once __DIR__.'/vp_ebay_prepare.php';
 
 function manifest(): array {
     return [
@@ -151,6 +152,7 @@ function selfTest(): void {
 }
 
 function renderCommercial(string $dir,array $report): void {
+    if(function_exists('vpEbayPrepareSave')) vpEbayPrepareSave($dir,$report);
     $rows=$report['items'];
     $h='<meta charset="utf-8"><title>Agent commercial Vosges Pneus</title><h1>Vosges Pneus — contrôle commercial</h1><p>'.htmlspecialchars($report['checked_at']).'</p><p>Préparation active. Publication automatique non connectée. Quantités Shopify actualisées. Stock physique à confirmer avant publication.</p>';
     foreach($rows as $r){$h.='<p>Stock Shopify : '.htmlspecialchars((string)($r['live_inventory_quantity']??'inconnu')).' — '.htmlspecialchars($r['inventory_checked_at']??'').'</p>';$h.='<h2>'.htmlspecialchars($r['sku']).'</h2><p>'.htmlspecialchars($r['action']).'</p><p>'.htmlspecialchars(implode(', ',$r['issues'])).'</p>';if(isset($r['draft']))$h.='<h3>'.htmlspecialchars($r['draft']['title']).'</h3><p>'.htmlspecialchars($r['draft']['description']).'</p><p>'.htmlspecialchars((string)$r['price_eur']).' EUR</p>';}
