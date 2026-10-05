@@ -2,7 +2,7 @@
   "checked_at": "2026-10-05T08:18:00+02:00",
   "status": "draft",
   "publication_allowed": false,
-  "physical_stock_verified": false,
+  "physical_stock_verified": true,
   "items": [
     {
       "sku": "VP-DEM-M000T22471",
@@ -25,5 +25,7 @@
       "url": "https://www.vosgespneus.com/products/feu-arriere-droit-citroen-nemo-peugeot-bipper-fiat-fiorino-cote-passager"
     }
   ],
-  "next_action": "Rapprocher les unités Shopify du stock physique puis vérifier les photos avant publication ; aucun fonctionnement testé affirmé."
+  "next_action": "Vérifier les photos et la connexion de publication ; disponibilité physique confirmée, fonctionnement testé non affirmé.",
+  "physical_stock_verified_at": "2026-10-05T08:20:38+02:00",
+  "physical_stock_verification_source": "Confirmation du responsable dans la conversation"
 }
