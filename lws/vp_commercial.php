@@ -42,7 +42,16 @@ function fetchProduct(string $handle): array {
     $url='https://www.vosgespneus.com/products/'.$handle.'.js';
     if (!function_exists('curl_init')) throw new RuntimeException('curl_absent');
     $body=''; $tooLarge=false;
+    // LWS overrides this hosted domain in /etc/hosts; use public DNS, keeping TLS verification.
+    $records=dns_get_record('www.vosgespneus.com',DNS_A);
+    $ips=[];
+    foreach($records?:[] as $record) {
+        $ip=$record['ip']??'';
+        if(filter_var($ip,FILTER_VALIDATE_IP,FILTER_FLAG_IPV4|FILTER_FLAG_NO_PRIV_RANGE|FILTER_FLAG_NO_RES_RANGE)) $ips[]=$ip;
+    }
+    if(!$ips) throw new RuntimeException('dns_public_absent');
     $ch=curl_init($url);
+    curl_setopt($ch,CURLOPT_RESOLVE,['www.vosgespneus.com:443:'.implode(',',array_unique($ips))]);
     curl_setopt_array($ch,[CURLOPT_FOLLOWLOCATION=>false,CURLOPT_CONNECTTIMEOUT=>5,CURLOPT_TIMEOUT=>15,CURLOPT_SSL_VERIFYPEER=>true,CURLOPT_SSL_VERIFYHOST=>2,CURLOPT_USERAGENT=>'VosgesPneus-CatalogAudit/1.0',CURLOPT_HTTPHEADER=>['Accept: application/json'],CURLOPT_WRITEFUNCTION=>static function($ch,$chunk)use(&$body,&$tooLarge){ if(strlen($body)+strlen($chunk)>1048576){$tooLarge=true;return 0;} $body.=$chunk;return strlen($chunk);}]);
     $ok=curl_exec($ch); $status=curl_getinfo($ch,CURLINFO_HTTP_CODE); curl_close($ch);
     if ($tooLarge) throw new RuntimeException('reponse_trop_grande');
