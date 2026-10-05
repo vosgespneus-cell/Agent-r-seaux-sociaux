@@ -11,14 +11,23 @@ export PHP_INI_SCAN_DIR="$runtime/etc/conf.d"
 php_cli=("$runtime/bin/php" -c "$runtime/etc/php.ini" -d "extension_dir=$runtime/lib/php/extensions/no-debug-non-zts-20230831")
 [[ -d "$base" && -f "$base/vp_run.php" ]] || { echo 'Installation LWS existante introuvable'; exit 1; }
 [[ -x "${php_cli[0]}" && -f "$bundle/vp_commercial.php" ]] || { echo 'Moteur PHP ou programme manquant'; exit 1; }
+[[ -f "$bundle/vp_stock.php" && -f "$base/vp_commercial/shopify_credentials.json" ]] || { echo 'Lecteur stock ou identifiants Shopify prives manquants'; exit 1; }
 target="$base/vp_commercial.php"
+stock_target="$base/vp_stock.php"
+stock_stage="$base/vp_stock.stage.$RANDOM.php"
+stock_backup="$base/vp_stock.backup.$RANDOM.php"
+stock_installed=0
+stock_previous=0
 stage="$base/vp_commercial.stage.$.$RANDOM"
 (set -o noclobber; : > "$stage")
 backup="$base/vp_commercial.backup.$.$RANDOM"
 had_previous=0
 installed=0
-cleanup() { rm -f -- "$stage"; }
+cleanup() { rm -f -- "$stage" "$stock_stage"; }
 rollback() {
+    if [[ "$stock_installed" == 1 ]]; then
+        if [[ "$stock_previous" == 1 ]]; then cp -p -- "$stock_backup" "$stock_target"; else mv -- "$stock_target" "$stock_backup.failed"; fi
+    fi
     if [[ "$installed" == 1 ]]; then
         if [[ "$had_previous" == 1 ]]; then cp -p -- "$backup" "$target"; else mv -- "$target" "$backup.failed"; fi
     fi
@@ -26,6 +35,14 @@ rollback() {
 }
 trap cleanup EXIT
 trap rollback ERR
+(set -o noclobber; : > "$stock_stage")
+cp -- "$bundle/vp_stock.php" "$stock_stage"
+chmod 600 "$stock_stage"
+"${php_cli[@]}" -l "$stock_stage"
+"${php_cli[@]}" "$stock_stage" --self-test
+if [[ -f "$stock_target" ]]; then cp -p -- "$stock_target" "$stock_backup"; stock_previous=1; fi
+mv -- "$stock_stage" "$stock_target"
+stock_installed=1
 cp -- "$bundle/vp_commercial.php" "$stage"
 chmod 600 "$stage"
 "${php_cli[@]}" -l "$stage"
