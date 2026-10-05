@@ -32,4 +32,6 @@ Le rapport expose toujours `publication_allowed=false`. L'ajout d'une connexion 
 
 ## Validation à ce stade
 
-Le code est versionné dans GitHub. L'exécution PHP, la lecture Shopify depuis LWS et l'activation cron restent à vérifier sur l'hébergement : l'accès au navigateur est actuellement bloqué. Aucun déploiement LWS de ce module n'est confirmé.
+Le 5 octobre 2026, accès LWS et terminal rétablis. Les fichiers ont été transférés dans le dossier privé `home/deploy-commercial-20261005`. PHP 8.3 valide la syntaxe et les 13 contrôles locaux. L'installateur a été adapté au terminal restreint (absence de dirname et mktemp). Le module résout désormais le domaine via DNS public pour éviter l'entrée locale LWS de /etc/hosts, en conservant la validation TLS.
+
+La lecture réelle des fiches Shopify renvoie HTTP 429, corps `local_rate_limited`, Retry-After 60. Après le délai, la validation reste en échec (3 puis 4 erreurs). L'installateur a retiré le fichier actif et conservé les tentatives `.failed` ; aucun cron commercial n'a été ajouté. Les cinq crons existants n'ont pas été modifiés. Le module commercial n'est donc pas actif. Prochaine étape : résoudre la limitation de lecture Shopify depuis LWS, puis relancer l'installateur et n'activer la planification qu'après `errors=0`.
