@@ -3,7 +3,9 @@ set -Eeuo pipefail
 umask 077
 base=/var/www/vosgespneus.com/home
 script_path=${BASH_SOURCE[0]}
-bundle=$(cd -- "${script_path%/*}" && pwd)
+bundle_dir=.
+[[ "$script_path" != */* ]] || bundle_dir=${script_path%/*}
+bundle=$(cd -- "$bundle_dir" && pwd)
 runtime=/usr/base/opt/php8.3
 export PHP_INI_SCAN_DIR="$runtime/etc/conf.d"
 php_cli=("$runtime/bin/php" -c "$runtime/etc/php.ini" -d "extension_dir=$runtime/lib/php/extensions/no-debug-non-zts-20230831")
