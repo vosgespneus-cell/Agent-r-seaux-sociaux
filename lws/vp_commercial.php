@@ -4,6 +4,7 @@ declare(strict_types=1);
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 date_default_timezone_set('Europe/Paris');
 umask(0077);
+require_once __DIR__.'/vp_stock.php';
 
 function manifest(): array {
     return [
@@ -149,12 +150,31 @@ function selfTest(): void {
     echo "VP_COMMERCIAL_TESTS_OK 19 checks\n";
 }
 
+function renderCommercial(string $dir,array $report): void {
+    $rows=$report['items'];
+    $h='<meta charset="utf-8"><title>Agent commercial Vosges Pneus</title><h1>Vosges Pneus — contrôle commercial</h1><p>'.htmlspecialchars($report['checked_at']).'</p><p>Préparation active. Publication automatique non connectée. Quantités Shopify actualisées. Stock physique à confirmer avant publication.</p>';
+    foreach($rows as $r){$h.='<p>Stock Shopify : '.htmlspecialchars((string)($r['live_inventory_quantity']??'inconnu')).' — '.htmlspecialchars($r['inventory_checked_at']??'').'</p>';$h.='<h2>'.htmlspecialchars($r['sku']).'</h2><p>'.htmlspecialchars($r['action']).'</p><p>'.htmlspecialchars(implode(', ',$r['issues'])).'</p>';if(isset($r['draft']))$h.='<h3>'.htmlspecialchars($r['draft']['title']).'</h3><p>'.htmlspecialchars($r['draft']['description']).'</p><p>'.htmlspecialchars((string)$r['price_eur']).' EUR</p>';}
+    atomicWrite($dir.'/rapport.html',$h);
+}
+
 try {
     if (in_array('--self-test',$argv,true)){selfTest();exit(0);}
     $dir=__DIR__.'/vp_commercial'; if(!is_dir($dir)&&!mkdir($dir,0700)) throw new RuntimeException('dossier_impossible');
     $lock=fopen($dir.'/run.lock','c'); if(!$lock||!flock($lock,LOCK_EX|LOCK_NB)) exit(0);
     $path=$dir.'/rapport.json';
-    if(!in_array('--force',$argv,true)&&is_file($path)&&time()-filemtime($path)<3600){echo "VP_COMMERCIAL_CACHE_OK\n";exit(0);}
+    $stock=vpStockRead($dir);
+    $cached=is_file($path)?json_decode((string)file_get_contents($path),true):null;
+    if(!in_array('--force',$argv,true)&&is_array($cached)&&time()-(int)($cached['catalog_checked_unix']??strtotime($cached['checked_at']??'1970-01-01'))<3600){
+        $cached['catalog_checked_unix']=$cached['catalog_checked_unix']??strtotime($cached['checked_at']);
+        $cached['version']='commercial-lws-3';
+        $cached['inventory_checked_at']=$stock['checked_at'];
+        $cached['inventory_errors']=$stock['errors'];
+        $cached['items']=vpStockMerge($cached['items']??[],$stock);
+        atomicWrite($path,json_encode($cached,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_THROW_ON_ERROR)."\n");
+        renderCommercial($dir,$cached);
+        echo "VP_COMMERCIAL_CACHE_OK stock_items=".count($stock['items'])." stock_errors=".$stock['errors']."\n";
+        exit(($cached['errors']??1)||$stock['errors']?1:0);
+    }
     $rows=[];$errors=0;$catalog=[];$catalogError=null;
     try{$catalog=fetchCatalog($dir);}catch(Throwable $e){$catalogError=$e instanceof RuntimeException?$e->getMessage():'json_invalide';}
     foreach(manifest() as $item){
@@ -165,11 +185,10 @@ try {
       }
       catch(Throwable $e){$errors++;$rows[]=['sku'=>$item['sku'],'action'=>'controle_impossible','issues'=>['lecture_boutique_echouee'],'error_code'=>$e instanceof RuntimeException?$e->getMessage():'json_invalide','publication_allowed'=>false];}
     }
-    $report=['version'=>'commercial-lws-2','source'=>'shopify_storefront_tokenless_2026-10','checked_at'=>date(DATE_ATOM),'mode'=>'audit_et_brouillons','publication_active'=>false,'errors'=>$errors,'items'=>$rows];
+    $rows=vpStockMerge($rows,$stock);
+    $report=['catalog_checked_unix'=>time(),'inventory_checked_at'=>$stock['checked_at'],'inventory_errors'=>$stock['errors'],'version'=>'commercial-lws-3','source'=>'shopify_storefront_tokenless_2026-10','checked_at'=>date(DATE_ATOM),'mode'=>'audit_et_brouillons','publication_active'=>false,'errors'=>$errors,'items'=>$rows];
     atomicWrite($path,json_encode($report,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_THROW_ON_ERROR)."\n");
-    $h='<meta charset="utf-8"><title>Agent commercial Vosges Pneus</title><h1>Vosges Pneus — contrôle commercial</h1><p>'.htmlspecialchars($report['checked_at']).'</p><p>Préparation active. Publication automatique non connectée. Stock réel à vérifier avant publication.</p>';
-    foreach($rows as $r){$h.='<h2>'.htmlspecialchars($r['sku']).'</h2><p>'.htmlspecialchars($r['action']).'</p><p>'.htmlspecialchars(implode(', ',$r['issues'])).'</p>';if(isset($r['draft']))$h.='<h3>'.htmlspecialchars($r['draft']['title']).'</h3><p>'.htmlspecialchars($r['draft']['description']).'</p><p>'.htmlspecialchars((string)$r['price_eur']).' EUR</p>';}
-    atomicWrite($dir.'/rapport.html',$h);
+    renderCommercial($dir,$report);
     echo 'VP_COMMERCIAL_OK items='.count($rows).' errors='.$errors." publication=off\n";
-    exit($errors?1:0);
+    exit($errors||$stock['errors']?1:0);
 } catch(Throwable $e){fwrite(STDERR,"VP_COMMERCIAL_ERROR\n");exit(1);}
