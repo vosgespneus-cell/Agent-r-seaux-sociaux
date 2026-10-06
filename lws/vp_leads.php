@@ -52,7 +52,7 @@ function lead_alert(PDO $d,array $cfg,callable $send): string {
  if($previous&&($previous['state']!=='failed'||(int)$previous['age']<900))return 'ALREADY_RECORDED';
  if(!$fresh&&(int)(new DateTimeImmutable('now',new DateTimeZone('Europe/Paris')))->format('G')<9)return 'BEFORE_REMINDER';
  $body="VOSGES PNEUS — demandes à traiter\n\n";
- foreach($rows as $r){$p=json_decode($r['payload'],true);$body.=$p['name'].' | '.$p['size'].' | '.$p['season'].' | quantité '.$p['quantity_declared']."\nTéléphone : ".$p['phone']."\n".$p['submission_url']."\nÉtat : ".$r['state']."\n\n";}
+ foreach($rows as $r){$p=json_decode($r['payload'],true);$body.=$p['size'].' | '.$p['season'].' | quantité '.$p['quantity_declared']."\n".$p['submission_url']."\nÉtat : ".$r['state']."\n\n";}
  $body.="Marge : 5 EUR/pneu. Montage/équilibrage : 13-15 pouces 15 EUR ; 16-17 pouces 18 EUR ; au-delà 22 EUR.\nAucun prix fournisseur n'est inventé. Aucun message client n'a été envoyé par cet agent.\nPour arrêter le rappel d'une demande traitée : vp_php vp_leads.php --close JF-identifiant\n";
  $d->prepare("INSERT INTO vp_lead_alerts(alert_id,state,event_ids) VALUES(?,'sending',?) ON DUPLICATE KEY UPDATE state='sending',updated_at=NOW()")->execute([$key,json_encode($ids)]);
  // 'sending' is persisted before external mail: a crash never blindly resends.
