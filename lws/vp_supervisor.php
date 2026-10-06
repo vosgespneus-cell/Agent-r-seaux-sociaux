@@ -11,7 +11,7 @@ function sup_retry_allowed(string $job,array $heartbeat,array $history,int $now)
  if($now-(int)($history['last_retry_at']??0)<1800)return false;
  return count(array_filter($history['retry_times']??[],fn($t)=>is_int($t)&&$t>$now-86400))<3;
 }
-function sup_process(array $snapshot,array &$state,int $now,callable $read,callable $retry,callable $notify): array {
+function sup_process(array $snapshot,array &$state,int $now,callable $read,callable $retry,callable $notify,?callable $checkpoint=null): array {
  $result=['checked'=>0,'retry_attempts'=>0,'open_incidents'=>0,'notifications'=>[]];
  foreach($snapshot['agents']??[] as $job=>$agent){
   $result['checked']++;$history=$state['jobs'][$job]??[];$health=$agent['health']??'unknown';
@@ -31,6 +31,7 @@ function sup_process(array $snapshot,array &$state,int $now,callable $read,calla
    if($health==='ok'){$history['last_resolved_at']=$now;unset($history['incident']);$state['jobs'][$job]=$history;continue;}
   }
   $result['open_incidents']++;$state['jobs'][$job]=$history;
+  if($checkpoint)$checkpoint($state);
   $result['notifications'][$job]=$notify($job,$health,$history['incident']['id']);
  }
  // Functional queue issues are separate from successful PHP exits.
@@ -38,6 +39,7 @@ function sup_process(array $snapshot,array &$state,int $now,callable $read,calla
  if($functional){
   $signature=hash('sha256',json_encode($functional));
   if(($state['functional']['signature']??'')!==$signature)$state['functional']=['signature'=>$signature,'id'=>bin2hex(random_bytes(12))];
+  if($checkpoint)$checkpoint($state);
   $result['open_incidents']++;$result['notifications']['functional']=$notify('files_et_limites',implode(',',$functional),$state['functional']['id']);
  }else unset($state['functional']);
  $state['checked_at']=$now;return $result;
@@ -70,7 +72,7 @@ try {
  $read=fn($job)=>vp_run_read(__DIR__.'/vp_run_'.$job.'.json');
  $retry=function($job,$persisted)use($path){vp_run_write($path,$persisted);$cmd=[PHP_BINARY];if(php_ini_loaded_file())$cmd=array_merge($cmd,['-c',php_ini_loaded_file()]);$cmd=array_merge($cmd,['-d','extension_dir='.(string)ini_get('extension_dir'),__DIR__.'/vp_run.php',$job]);$p=proc_open($cmd,[0=>['file','/dev/null','r'],1=>['file',__DIR__.'/vp_supervisor_retries.log','a'],2=>['file',__DIR__.'/vp_supervisor.err','a']],$pipes,__DIR__);if(!is_resource($p))throw new RuntimeException('RETRY_LAUNCH');proc_close($p);};
  $notify=function($job,$health,$id)use($db,$cfg){$body="VOSGES PNEUS — incident automatique\nTraitement : ".$job."\nÉtat : ".$health."\nLes reprises sont limitées aux traitements autorisés, au maximum 3 par 24 h avec 30 minutes entre tentatives. Vérifier le suivi privé LWS.\n";return follow_delivery($db,hash('sha256','supervisor:'.$job.':'.$id),'SUPERVISOR-'.$id,'supervisor_alert',$cfg['owner_email'],'VOSGES PNEUS — un agent demande votre attention',$body,$cfg['sender_email'],'lead_send');};
- $r=sup_process($snapshot,$state,time(),$read,$retry,$notify);vp_run_write($path,$state);
+ $r=sup_process($snapshot,$state,time(),$read,$retry,$notify,fn($s)=>vp_run_write($path,$s));vp_run_write($path,$state);
  vp_run_write(__DIR__.'/vp_supervisor_status.json',['finished_at'=>time(),'state'=>$r['open_incidents']?'attention':'ok']+$r);
  echo 'SUPERVISOR_RUN checked='.$r['checked'].' retries='.$r['retry_attempts'].' incidents='.$r['open_incidents'].PHP_EOL;
 }catch(Throwable $e){vp_run_write(__DIR__.'/vp_supervisor_status.json',['finished_at'=>time(),'state'=>'error','error_type'=>get_class($e)]);fwrite(STDERR,'SUPERVISOR_ERROR type='.get_class($e).PHP_EOL);exit(1);}
