@@ -7,6 +7,10 @@ function wa_delivery_schema(PDO $db): void {
 function wa_window(int $timestamp, int $now): bool {
     return $timestamp > 0 && $timestamp <= $now + 30 && $timestamp > $now - 85800;
 }
+function wa_human_request(array $messages): bool {
+    foreach($messages as $m) if(preg_match('/prix|tarif|devis|rendez.?vous|\\brdv\\b|r[ée]serv|\\bstock\\b|plainte|r[ée]clamation|urgenc|humain|op[ée]rateur|supprim|donn[ée]es personnelles|chauffeur|candidat|recrut|embauch|\\bcv\\b/iu',(string)($m['text']??'')))return true;
+    return false;
+}
 function wa_send_payload(string $sender, string $reply): array {
     if (!preg_match('/^[0-9]{6,20}$/D', $sender) || trim($reply)==='' || mb_strlen($reply)>1500) throw new RuntimeException('WA_SEND_INVALID');
     return ['messaging_product'=>'whatsapp','recipient_type'=>'individual','to'=>$sender,'type'=>'text','text'=>['preview_url'=>false,'body'=>$reply]];
@@ -63,8 +67,8 @@ function wa_process(PDO $db, array $cfg): void {
         if (!wa_window($last,time())) {
             $q=$db->prepare("UPDATE vp_wa_messages SET state='review' WHERE message_id=? AND state='pending'");foreach ($ids as $id)$q->execute([$id]);continue;
         }
-        if ($attachment) {
-            $result=['business'=>'unknown','intent'=>'other','needs_review'=>true,'reply'=>'Votre message et sa pièce jointe ont été reçus par notre assistant automatique. Leur contenu doit être vérifié par notre équipe.'];
+        if ($attachment || wa_human_request($messages)) {
+            $result=['business'=>'unknown','intent'=>'other','needs_review'=>true,'reply'=>'Votre message'.($attachment?' et sa pièce jointe ont été reçus':' a été reçu').' par notre assistant automatique. Notre équipe doit vérifier votre demande avant de confirmer une réponse.'];
         } else {
             $q=$db->prepare("SELECT result_json,state FROM vp_wa_drafts WHERE phone_id=? AND sender=? ORDER BY created_at DESC LIMIT 5");$q->execute([$g['phone_id'],$g['sender']]);$history=array_map(fn($r)=>['state'=>$r['state'],'result'=>json_decode($r['result_json'],true)],$q->fetchAll(PDO::FETCH_ASSOC));
             $ai=require __DIR__.'/vp_ai_config.php';if(empty($ai['enabled'])) throw new RuntimeException('WA_AI_DISABLED');
@@ -86,6 +90,7 @@ function wa_process(PDO $db, array $cfg): void {
 function wa_delivery_selftest(): void {
     $now=1800000000;
     if(!wa_window($now,$now)||wa_window($now-86400,$now)||wa_window($now+31,$now)||wa_window(0,$now))throw new RuntimeException('WINDOW_TEST');
+    if(!wa_human_request([['text'=>'Quel est le prix ?']])||!wa_human_request([['text'=>'Voici mon CV pour candidater']])||wa_human_request([['text'=>'Bonjour, pneus 225/65R16']]))throw new RuntimeException('HUMAN_TEST');
     $p=wa_send_payload('33600000000','Bonjour');if($p['type']!=='text'||$p['text']['preview_url']!==false)throw new RuntimeException('PAYLOAD_TEST');
     foreach(['','invalid'] as $bad){try{wa_send_payload($bad,'Bonjour');throw new LogicException('FAILED');}catch(RuntimeException $e){}}
     if(wa_send_outcome(200,'{"messages":[{"id":"wamid.fixture"}]}')['state']!=='sent'||wa_send_outcome(401,'{}')['state']!=='failed'||wa_send_outcome(0,'')['state']!=='uncertain'||wa_send_outcome(500,'{}')['state']!=='uncertain'||wa_send_outcome(200,'{}')['state']!=='uncertain')throw new RuntimeException('OUTCOME_TEST');
