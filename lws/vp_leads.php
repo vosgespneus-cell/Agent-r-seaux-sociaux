@@ -79,6 +79,7 @@ function lead_test(): void {
  echo "LEAD_SELFTEST_OK tariffs quantity drafts test_filter\n";
 }
 require __DIR__.'/vp_lead_followup.php';
+if(defined('VP_LEADS_LIBRARY_ONLY'))return;
 try {
  if(PHP_SAPI!=='cli'){http_response_code(404);exit;}
  if(in_array('--selftest',$argv,true)){lead_test();exit;}
