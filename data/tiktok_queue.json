@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-04",
+  "updated_at": "2026-10-06",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -107,14 +107,15 @@
     "son commercial autorisé pour contenu promotionnel"
   ],
   "performance_snapshot": {
-    "checked_at": "2026-10-04",
+    "checked_at": "2026-10-05",
     "followers": 4,
     "total_public_videos": 5,
     "known_video_views": 999,
-    "account_daily_video_views_since_2026_09_28": 1023,
+    "account_daily_video_views_since_2026_09_28": 1030,
+    "profile_views_since_2026_09_28": 7,
     "comments": 0,
     "shares": 0,
-    "note": "Les cinq vidéos restent publiques. Les compteurs détaillés atteignent 999 vues (+6), sans commentaire, partage, nouvel abonné, visite de profil ni clic site détecté."
+    "note": "Les cinq vidéos restent publiques. Les compteurs détaillés totalisent 999 vues; l'activité quotidienne cumulée atteint 1 030 vues. Aucun nouvel abonné, commentaire, partage, clic site ou demande commerciale détecté."
   },
   "ready_drafts": [
     {
@@ -132,10 +133,27 @@
       ],
       "status": "brouillon prêt — publication non lancée",
       "duplicate_check": "ne pas republier si cette séquence correspond à la vidéo TikTok 7690671550118350102"
+    },
+    {
+      "id": "depot_stockage_library_20261005",
+      "topic": "Le dépôt prend forme",
+      "format": "photo verticale réelle 810 × 1080",
+      "source_media": "/vosges-pneus-stockage-racks-2026-10-05.jpg",
+      "source_library_id": "libfile_17d20ad8c50c8191abfdcf90dc9ef48d",
+      "hook": "Le dépôt prend forme chez VOSGES PNEUS",
+      "caption": "Le dépôt VOSGES PNEUS prend forme à Thaon-les-Vosges 🔧 Les rangées de stockage sont en cours d’aménagement pour organiser progressivement les pièces. Pour toute demande, envoyez la référence visible et les informations du véhicule : l’état, la compatibilité, le prix et la disponibilité sont vérifiés avant publication ou vente. #VosgesPneus #ThaonLesVosges #PiecesAuto #AtelierAuto",
+      "verified_facts": [
+        "photo réelle fournie par l’utilisateur et prise dans le dépôt",
+        "rangées de casiers en bois visibles et encore majoritairement vides",
+        "média redimensionné de 1152 × 1536 vers 810 × 1080 sans génération IA",
+        "aucune pièce, référence, compatibilité, prix ou disponibilité inventés"
+      ],
+      "status": "brouillon prêt — publication non lancée",
+      "duplicate_check": "sujet absent des cinq vidéos TikTok publiques; ne pas publier si un contenu équivalent sur l’aménagement du dépôt apparaît avant diffusion"
     }
   ],
   "distribution_blocker": {
-    "checked_at": "2026-10-04",
+    "checked_at": "2026-10-06",
     "service": "Metricool / TikTok",
     "status": "échecs TikTok répétés liés aux médias dépassant 1080p; Instagram et Facebook publient normalement",
     "latest_failures": [
@@ -144,15 +162,16 @@
     ],
     "successful_posts": [
       "3 octobre 18:00 — Instagram — feu arrière Peugeot 407 — publiée",
-      "4 octobre 10:00 — Facebook — feu arrière Peugeot 407 — publiée"
+      "4 octobre 10:00 — Facebook — feu arrière Peugeot 407 — publiée",
+      "5 octobre 10:00 — Facebook — préparation pneus hiver — publiée"
     ],
     "next_risk": "toute prochaine publication TikTok avec une image d’origine supérieure à 1080p échouera tant que le média n’est pas redimensionné",
     "spend_authorized": false,
-    "action": "ne pas engager de dépense; automatiser un redimensionnement maximal 1080 × 1080 avant envoi TikTok et conserver l’image originale pour Instagram/Facebook"
+    "action": "utiliser uniquement des médias dont la largeur et la hauteur sont chacune inférieures ou égales à 1080 px pour TikTok; le brouillon dépôt a été préparé en 810 × 1080"
   },
   "library_media_check": {
-    "checked_at": "2026-10-04",
-    "result": "aucun nouveau média réel VOSGES PNEUS exploitable dans le dossier dédié; les fichiers récents sont des captures techniques liées au standard téléphonique",
-    "action": "conserver le brouillon existant; ne pas utiliser les captures techniques ni les visuels générés comme preuve d’intervention réelle"
+    "checked_at": "2026-10-06",
+    "result": "les deux nouveaux fichiers du jour sont des captures techniques et ne conviennent pas à une publication; la vraie photo du dépôt préparée le 5 octobre reste exploitable",
+    "action": "conserver le brouillon dépôt en 810 × 1080; ne pas utiliser les captures fournisseur/Facebook comme preuve d’intervention réelle"
   }
 }
