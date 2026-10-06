@@ -3,7 +3,7 @@ declare(strict_types=1);
 ini_set('display_errors','0');umask(0077);
 
 // Private CLI runner: only these existing agents can be launched.
-function vp_run_jobs(): array {return ['mail'=>'vp_mail.php','jotform'=>'vp_jotform.php','worker'=>'vp_worker.php','ai'=>'vp_ai_mail.php','calendar'=>'vp_calendar.php','whatsapp'=>'vp_whatsapp.php'];}
+function vp_run_jobs(): array {return ['mail'=>'vp_mail.php','jotform'=>'vp_jotform.php','worker'=>'vp_worker.php','ai'=>'vp_ai_mail.php','calendar'=>'vp_calendar.php','whatsapp'=>'vp_whatsapp.php','leads'=>'vp_leads.php'];}
 function vp_run_write(string $path,array $state): void {
  $tmp=tempnam(dirname($path),'vp-run-');if($tmp===false)throw new RuntimeException('state');
  try {if(file_put_contents($tmp,json_encode($state,JSON_THROW_ON_ERROR),LOCK_EX)===false||!chmod($tmp,0600)||!rename($tmp,$path))throw new RuntimeException('state');}
