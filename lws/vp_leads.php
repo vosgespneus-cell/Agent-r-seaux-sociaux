@@ -30,6 +30,16 @@ function lead_total(int $purchase,int $quantity,int $diameter,bool $fitting,int 
  $mount=$fitting?($diameter<=15?1500:($diameter<=17?1800:2200)):0;
  return ($purchase+500+$mount)*$quantity+$shipping;
 }
+function lead_send(string $to,string $subject,string $body,string $sender): bool {
+ $c=require __DIR__.'/vp_mail_config.php';if(empty($c['password']))return false;
+ $message='From: '.$sender."\r\nTo: ".$to."\r\nSubject: =?UTF-8?B?".base64_encode($subject)."?=\r\nDate: ".date(DATE_RFC2822)."\r\nMessage-ID: <".bin2hex(random_bytes(16))."@vosgespneus.com>\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n".chunk_split(base64_encode($body),76,"\r\n");
+ $stream=fopen('php://temp','w+');fwrite($stream,$message);rewind($stream);
+ $h=curl_init('smtps://mail84.lwspanel.com:465');curl_setopt_array($h,[CURLOPT_USERNAME=>$sender,CURLOPT_PASSWORD=>$c['password'],CURLOPT_MAIL_FROM=>$sender,CURLOPT_MAIL_RCPT=>[$to],CURLOPT_UPLOAD=>true,CURLOPT_INFILE=>$stream,CURLOPT_INFILESIZE=>strlen($message),CURLOPT_RETURNTRANSFER=>true,CURLOPT_CONNECTTIMEOUT=>10,CURLOPT_TIMEOUT=>30,CURLOPT_SSL_VERIFYPEER=>true,CURLOPT_SSL_VERIFYHOST=>2]);
+ $result=curl_exec($h);$error=curl_errno($h);$code=curl_getinfo($h,CURLINFO_RESPONSE_CODE);curl_close($h);fclose($stream);
+ if($result!==false&&$code===250)return true;
+ if(in_array($error,[6,7,35,60,67],true)||($code>=400&&$code<600))return false;
+ throw new RuntimeException('SMTP_OUTCOME_UNCERTAIN');
+}
 function lead_ingest(PDO $d): int {
  $q=$d->prepare('SELECT e.event_id,e.body FROM vp_events e LEFT JOIN vp_leads l ON l.event_id=e.event_id WHERE e.event_id LIKE ? AND l.event_id IS NULL ORDER BY e.received_at LIMIT 100');$q->execute(['JF-%']);
  $insert=$d->prepare('INSERT IGNORE INTO vp_leads(event_id,payload,state) VALUES(?,?,?)');$n=0;
@@ -93,7 +103,7 @@ try {
  if(in_array('--preview',$argv,true)){echo json_encode(array_map(fn($r)=>['event_id'=>$r['event_id'],'state'=>$r['state'],'request'=>json_decode($r['payload'],true)],$rows),JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT)."\n";exit;}
  $cfg=require __DIR__.'/vp_leads_config.php';
  if(!filter_var($cfg['owner_email']??'',FILTER_VALIDATE_EMAIL)||!filter_var($cfg['sender_email']??'',FILTER_VALIDATE_EMAIL))throw new InvalidArgumentException('MAIL_CONFIG');
- $state=empty($cfg['alerts_enabled'])?'DISABLED':lead_alert($d,$cfg,fn($to,$subject,$body,$sender)=>mail($to,'=?UTF-8?B?'.base64_encode($subject).'?=',$body,['From'=>$sender,'Content-Type'=>'text/plain; charset=UTF-8']));
+ $state=empty($cfg['alerts_enabled'])?'DISABLED':lead_alert($d,$cfg,'lead_send');
  $health=['finished_at'=>time(),'state'=>in_array($state,['FAILED','UNCERTAIN'],true)?'error':'ok','added'=>$added,'pending'=>count($rows),'alert'=>$state];
  file_put_contents(__DIR__.'/vp_leads_status.json.new',json_encode($health));rename(__DIR__.'/vp_leads_status.json.new',__DIR__.'/vp_leads_status.json');
  echo 'LEAD_RUN added='.$added.' pending='.count($rows).' alert='.$state."\n";
