@@ -62,7 +62,7 @@ function follow_run(PDO $d,array $cfg,callable $send): array {
   }catch(Throwable $e){$d->rollBack();throw $e;}
  }
  // Durable reply notification, independently retried after a known SMTP failure.
- $notify=$d->query("SELECT s.mail_event_id,s.lead_event_id,l.payload FROM vp_lead_mail_seen s JOIN vp_leads l ON l.event_id=s.lead_event_id LEFT JOIN vp_lead_outbox o ON o.message_key=SHA2(CONCAT('reply:',s.mail_event_id),256) WHERE s.lead_event_id IS NOT NULL AND (o.message_key IS NULL OR o.state IN ('failed','sending','uncertain')) ORDER BY s.created_at LIMIT 10");
+ $notify=$d->query("SELECT s.mail_event_id,s.lead_event_id,l.payload FROM vp_lead_mail_seen s JOIN vp_leads l ON l.event_id=s.lead_event_id LEFT JOIN vp_lead_outbox o ON o.message_key=CONVERT(SHA2(CONCAT('reply:',s.mail_event_id),256) USING ascii) WHERE s.lead_event_id IS NOT NULL AND (o.message_key IS NULL OR o.state IN ('failed','sending','uncertain')) ORDER BY s.created_at LIMIT 10");
  foreach($notify as $r){$p=json_decode($r['payload'],true);$body="Une réponse client est arrivée pour la demande ".$r['lead_event_id'].".\nConsultez le suivi privé et la boîte contact@vosgespneus.com avant de chiffrer.\n".$p['submission_url']."\nAucun devis ni rendez-vous n’est confirmé automatiquement.";
   $state=follow_delivery($d,hash('sha256','reply:'.$r['mail_event_id']),$r['lead_event_id'],'reply_notice',$cfg['owner_email'],'VOSGES PNEUS : réponse client à traiter',$body,$cfg['sender_email'],$send);if($state!=='accepted')$result['issues']++;
  }
