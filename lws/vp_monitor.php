@@ -30,6 +30,14 @@ function vp_status_snapshot(): array {
  $b=vp_run_read(__DIR__.'/vp_ai_budget.json');$limit=min(20,max(1,(int)($ai['daily_request_limit']??20)));$used=($b['day']??'')===$date->format('Y-m-d')?(int)($b['requests']??0):0;
  $out['ai']=['enabled'=>!empty($ai['enabled']),'requests_today'=>$used,'daily_request_limit'=>$limit,'remaining'=>max(0,$limit-$used)];
  $out['whatsapp']=['receive_enabled'=>!empty($wa['receive_enabled']),'drafts_enabled'=>!empty($wa['drafts_enabled']),'send_enabled'=>!empty($wa['send_enabled']),'access_token_present'=>!empty($wa['access_token']),'production_number_configured'=>!empty($wa['production_phone_id'])&&in_array((string)$wa['production_phone_id'],$wa['phone_ids']??[],true)];
+ $out['whatsapp']['queue_states']=[];$out['whatsapp']['human_review']=0;
+ $waTables=(int)$db->query("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=DATABASE() AND table_name IN ('vp_wa_outbox','vp_wa_drafts')")->fetchColumn();
+ if($waTables===2){
+  foreach($db->query('SELECT state,COUNT(*) AS n FROM vp_wa_outbox GROUP BY state') as $r)$out['whatsapp']['queue_states'][$r['state']]=(int)$r['n'];
+  $out['whatsapp']['human_review']=(int)$db->query("SELECT COUNT(*) FROM vp_wa_drafts WHERE state='review'")->fetchColumn();
+  if($out['whatsapp']['human_review']>0)$out['alerts'][]='whatsapp_human_review';
+  foreach(['failed','uncertain','expired','blocked'] as $state)if(($out['whatsapp']['queue_states'][$state]??0)>0)$out['alerts'][]='whatsapp_'.$state;
+ }
  if(($out['calendar']['states']['review']??0)>0)$out['alerts'][]='calendar_review';if($used>=$limit)$out['alerts'][]='ai_daily_limit';
  $out['limits']=['google_calendar_delivery'=>'Not established by a successful LWS preparation alone','scope'=>'Aggregate operational counts only; no client messages or credentials'];return $out;
 }
