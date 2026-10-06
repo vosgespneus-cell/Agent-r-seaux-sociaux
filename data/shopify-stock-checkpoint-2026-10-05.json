@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-05T12:36:41.915Z",
+  "source": "shopify_admin_connector",
+  "shop": "zaiwdm-st.myshopify.com",
+  "mode": "manual_checkpoint",
+  "automatically_refreshed": false,
+  "publication_allowed": false,
+  "warning": "Instantané Shopify daté. Ne prouve pas le stock physique et ne doit pas autoriser une publication ou une synchronisation automatique.",
+  "items": [
+    {
+      "product_id": "gid://shopify/Product/16014228652363",
+      "handle": "phare-avant-gauche-citroen-berlingo-m59-phase-2-9644150980-6204ax",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "variant_id": "gid://shopify/ProductVariant/58529701200203",
+          "sku": "VP-BER-M59-PHG-9644150980",
+          "inventory_quantity": 1,
+          "price_eur": "49.00"
+        }
+      ]
+    },
+    {
+      "product_id": "gid://shopify/Product/16014230356299",
+      "handle": "feu-arriere-gauche-citroen-berlingo-peugeot-partner-m49-m59-cote-conducteur",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "variant_id": "gid://shopify/ProductVariant/58529706344779",
+          "sku": "VP-BER-PART-FARG-RF",
+          "inventory_quantity": 1,
+          "price_eur": "39.00"
+        }
+      ]
+    },
+    {
+      "product_id": "gid://shopify/Product/16014242218315",
+      "handle": "feu-arriere-droit-citroen-nemo-peugeot-bipper-fiat-fiorino-cote-passager",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "variant_id": "gid://shopify/ProductVariant/58529816871243",
+          "sku": "VP-NEMO-BIP-FARD-01",
+          "inventory_quantity": 1,
+          "price_eur": "49.00"
+        }
+      ]
+    },
+    {
+      "product_id": "gid://shopify/Product/16014340456779",
+      "handle": "demarreur-mitsubishi-psa-1-4-1-6-hdi-m000t22471-9663528880-occasion",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "variant_id": "gid://shopify/ProductVariant/58530241020235",
+          "sku": "VP-DEM-M000T22471",
+          "inventory_quantity": 1,
+          "price_eur": "69.00"
+        }
+      ]
+    }
+  ],
+  "next_requirements": [
+    "Authentification Shopify serveur pour LWS, lecture produits et inventaire uniquement",
+    "Connecteur officiel du canal de publication et détection des annonces existantes",
+    "Validation des conditions de livraison et de retour"
+  ]
+}

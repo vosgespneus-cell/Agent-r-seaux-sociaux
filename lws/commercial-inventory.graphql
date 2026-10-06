@@ -1,0 +1,10 @@
+query CommercialInventory($ids: [ID!]!) {
+  nodes(ids: $ids) {
+    ... on ProductVariant {
+      id
+      sku
+      inventoryQuantity
+      inventoryItem { tracked }
+    }
+  }
+}
