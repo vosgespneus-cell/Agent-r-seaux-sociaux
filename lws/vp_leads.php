@@ -79,10 +79,12 @@ function lead_test(): void {
  echo "LEAD_SELFTEST_OK tariffs quantity drafts test_filter\n";
 }
 require __DIR__.'/vp_lead_followup.php';
+require __DIR__.'/vp_lead_quotes.php';
 if(defined('VP_LEADS_LIBRARY_ONLY'))return;
 try {
  if(PHP_SAPI!=='cli'){http_response_code(404);exit;}
  if(in_array('--selftest',$argv,true)){lead_test();exit;}
+ if(in_array('--selftest-quotes',$argv,true)){quote_test();exit;}
  if(in_array('--selftest-followup',$argv,true)){follow_test();exit;}
  if(in_array('--selftest-db',$argv,true)){
   $d=lead_db();foreach([
@@ -107,8 +109,9 @@ try {
  $cfg=require __DIR__.'/vp_leads_config.php';
  if(!filter_var($cfg['owner_email']??'',FILTER_VALIDATE_EMAIL)||!filter_var($cfg['sender_email']??'',FILTER_VALIDATE_EMAIL))throw new InvalidArgumentException('MAIL_CONFIG');
  $follow=follow_run($d,$cfg,'lead_send');
+ $quotes=quote_run($d);
  $state=empty($cfg['alerts_enabled'])?'DISABLED':lead_alert($d,$cfg,'lead_send');
- $health=['finished_at'=>time(),'state'=>in_array($state,['FAILED','UNCERTAIN'],true)||$follow['issues']>0?'error':'ok','added'=>$added,'pending'=>count($rows),'alert'=>$state,'followup'=>$follow];
+ $health=['finished_at'=>time(),'state'=>in_array($state,['FAILED','UNCERTAIN'],true)||$follow['issues']>0?'error':'ok','added'=>$added,'pending'=>count($rows),'alert'=>$state,'followup'=>$follow,'quotes'=>$quotes];
  file_put_contents(__DIR__.'/vp_leads_status.json.new',json_encode($health));rename(__DIR__.'/vp_leads_status.json.new',__DIR__.'/vp_leads_status.json');
  echo 'LEAD_RUN added='.$added.' pending='.count($rows).' alert='.$state."\n";
  if($health['state']==='error')exit(1);
