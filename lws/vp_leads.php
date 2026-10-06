@@ -45,6 +45,7 @@ function lead_alert(PDO $d,array $cfg,callable $send): string {
  $known=[];foreach($d->query("SELECT event_ids FROM vp_lead_alerts WHERE state IN ('accepted','sending','uncertain')") as $r)foreach(json_decode($r['event_ids'],true) as $id)$known[$id]=true;
  $fresh=array_values(array_filter($rows,fn($r)=>!isset($known[$r['event_id']])));
  $today=(new DateTimeImmutable('now',new DateTimeZone('Europe/Paris')))->format('Y-m-d');
+ if(!$fresh){$last=$d->query("SELECT UNIX_TIMESTAMP(MAX(created_at)) FROM vp_lead_alerts WHERE state IN ('accepted','sending','uncertain')")->fetchColumn();if($last&&(new DateTimeImmutable('@'.(int)$last))->setTimezone(new DateTimeZone('Europe/Paris'))->format('Y-m-d')===$today)return 'ALREADY_ALERTED_TODAY';}
  $ids=array_column($rows,'event_id');sort($ids);
  $key=hash('sha256',($fresh?'new:'.implode(',',array_column($fresh,'event_id')):'reminder:'.$today));
  $get=$d->prepare('SELECT state,TIMESTAMPDIFF(SECOND,updated_at,NOW()) AS age FROM vp_lead_alerts WHERE alert_id=?');$get->execute([$key]);$previous=$get->fetch(PDO::FETCH_ASSOC);
@@ -62,7 +63,7 @@ function lead_alert(PDO $d,array $cfg,callable $send): string {
 function lead_test(): void {
  $b=['form_id'=>'262624697144060','answers'=>[3=>['answer'=>['first'=>'Client','last'=>'Test']],28=>['answer'=>'225/45 R17'],15=>['answer'=>'2'],21=>['answer'=>'Pneus + montage']]];
  $p=lead_prepare($b);if($p['margin_cents_per_tyre']!==500||$p['fitting_cents_per_tyre']!==1800||$p['quantity']!==2||$p['customer_message_sent']!==false)throw new Exception('PREPARE');
- if(lead_total(7000,2,17,true,0)!==19600||lead_total(7000,4,16,true,900)!==40100||lead_total(7000,2,20,true,0)!==20400)throw new Exception('PRICES');
+ if(lead_total(7000,2,17,true,0)!==19600||lead_total(7000,4,16,true,900)!==38100||lead_total(7000,2,20,true,0)!==20400)throw new Exception('PRICES');
  $b['answers'][15]['answer']='4+';if(lead_prepare($b)['quantity']!==null)throw new Exception('QUANTITY');
  $b['answers'][3]['answer']='Test Automatisation';$b['answers'][24]['answer']='TEST TECHNIQUE — aucune commande client';if(lead_prepare($b)!==null)throw new Exception('TEST_FILTER');
  echo "LEAD_SELFTEST_OK tariffs quantity drafts test_filter\n";
@@ -70,6 +71,21 @@ function lead_test(): void {
 try {
  if(PHP_SAPI!=='cli'){http_response_code(404);exit;}
  if(in_array('--selftest',$argv,true)){lead_test();exit;}
+ if(in_array('--selftest-db',$argv,true)){
+  $d=lead_db();foreach([
+   "CREATE TEMPORARY TABLE vp_events(event_id VARCHAR(128) PRIMARY KEY,body TEXT,received_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+   "CREATE TEMPORARY TABLE vp_tasks(event_id VARCHAR(128),status VARCHAR(32))",
+   "CREATE TEMPORARY TABLE vp_leads(event_id VARCHAR(128) PRIMARY KEY,payload TEXT,state VARCHAR(20),created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+   "CREATE TEMPORARY TABLE vp_lead_alerts(alert_id CHAR(64) PRIMARY KEY,state VARCHAR(20),event_ids TEXT,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)"
+  ] as $sql)$d->exec($sql);
+  $b=['form_id'=>'262624697144060','answers'=>[3=>['answer'=>'Fixture client'],28=>['answer'=>'225/45 R17'],15=>['answer'=>'2'],21=>['answer'=>'Pneus + montage']]];
+  $d->prepare('INSERT INTO vp_events(event_id,body) VALUES(?,?)')->execute(['JF-1',json_encode($b)]);
+  if(lead_ingest($d)!==1||lead_ingest($d)!==0||count(lead_pending($d))!==1)throw new Exception('DEDUP');
+  $calls=0;$send=function()use(&$calls){$calls++;return true;};$cfg=['owner_email'=>'fixture@example.com','sender_email'=>'fixture@example.com'];
+  if(lead_alert($d,$cfg,$send)!=='ACCEPTED'||lead_alert($d,$cfg,$send)!=='ALREADY_ALERTED_TODAY'||$calls!==1)throw new Exception('ALERT_DEDUP');
+  $d->exec("UPDATE vp_leads SET state='closed'");if(lead_alert($d,$cfg,$send)!=='NO_PENDING'||$calls!==1)throw new Exception('CLOSE');
+  echo "LEAD_DATABASE_SELFTEST_OK ingest duplicate alert_once close no_external_calls\n";exit;
+ }
  $lock=fopen(__DIR__.'/vp_leads.lock','c');if(!$lock||!flock($lock,LOCK_EX|LOCK_NB)){echo "LEAD_LOCKED\n";exit;}
  $d=lead_db();lead_schema($d);
  if(($argv[1]??'')==='--close'){$id=$argv[2]??'';if(!preg_match('/^JF-\d{1,32}$/D',$id))throw new InvalidArgumentException('EVENT_ID');$q=$d->prepare("UPDATE vp_leads SET state='closed' WHERE event_id=? AND state<>'excluded'");$q->execute([$id]);echo 'LEAD_CLOSED count='.$q->rowCount()."\n";exit;}
