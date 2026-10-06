@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 ini_set('display_errors','0');umask(0077);
-// Private LWS agent. Customer messages are drafts only; alerts go to the owner.
+// Private LWS agent. Prices remain drafts; customer clarification is separately enabled.
 function lead_db(): PDO {$c=require __DIR__.'/vp_config.php';return new PDO($c['db_dsn'],$c['db_user'],$c['db_password'],[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,PDO::ATTR_EMULATE_PREPARES=>false]);}
 function lead_schema(PDO $d): void {
  $d->exec("CREATE TABLE IF NOT EXISTS vp_leads (event_id VARCHAR(128) CHARACTER SET ascii PRIMARY KEY,payload MEDIUMTEXT NOT NULL,state VARCHAR(20) NOT NULL DEFAULT 'new',created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB");
@@ -48,7 +48,7 @@ function lead_ingest(PDO $d): int {
 }
 function lead_pending(PDO $d): array {
  // A task closed elsewhere also stops reminders. The worker's 'nouveau' remains actionable.
- return $d->query("SELECT l.event_id,l.payload,l.state FROM vp_leads l LEFT JOIN vp_tasks t ON t.event_id=l.event_id WHERE l.state IN ('new','contacted','quoted') AND (t.status IS NULL OR t.status NOT IN ('done','closed','completed','termine','terminé','traite','traité','annule','annulé')) ORDER BY l.created_at,l.event_id")->fetchAll(PDO::FETCH_ASSOC);
+ return $d->query("SELECT l.event_id,l.payload,l.state FROM vp_leads l LEFT JOIN vp_tasks t ON t.event_id=l.event_id WHERE l.state IN ('new','contacted','quoted','replied') AND (t.status IS NULL OR t.status NOT IN ('done','closed','completed','termine','terminé','traite','traité','annule','annulé')) ORDER BY l.created_at,l.event_id")->fetchAll(PDO::FETCH_ASSOC);
 }
 function lead_alert(PDO $d,array $cfg,callable $send): string {
  $rows=lead_pending($d);if(!$rows)return 'NO_PENDING';
@@ -63,7 +63,7 @@ function lead_alert(PDO $d,array $cfg,callable $send): string {
  if(!$fresh&&(int)(new DateTimeImmutable('now',new DateTimeZone('Europe/Paris')))->format('G')<9)return 'BEFORE_REMINDER';
  $body="VOSGES PNEUS — demandes à traiter\n\n";
  foreach($rows as $r){$p=json_decode($r['payload'],true);$body.=$p['size'].' | '.$p['season'].' | quantité '.$p['quantity_declared']."\n".$p['submission_url']."\nÉtat : ".$r['state']."\n\n";}
- $body.="Marge : 5 EUR/pneu. Montage/équilibrage : 13-15 pouces 15 EUR ; 16-17 pouces 18 EUR ; au-delà 22 EUR.\nAucun prix fournisseur n'est inventé. Aucun message client n'a été envoyé par cet agent.\nPour arrêter le rappel d'une demande traitée : vp_php vp_leads.php --close JF-identifiant\n";
+ $body.="Marge : 5 EUR/pneu. Montage/équilibrage : 13-15 pouces 15 EUR ; 16-17 pouces 18 EUR ; au-delà 22 EUR.\nLes prix restent en brouillon. Consulter le suivi privé pour les demandes de précisions envoyées et les réponses reçues.\nPour arrêter le rappel d'une demande traitée : vp_php vp_leads.php --close JF-identifiant\n";
  $d->prepare("INSERT INTO vp_lead_alerts(alert_id,state,event_ids) VALUES(?,'sending',?) ON DUPLICATE KEY UPDATE state='sending',updated_at=NOW()")->execute([$key,json_encode($ids)]);
  // 'sending' is persisted before external mail: a crash never blindly resends.
  try {$ok=$send($cfg['owner_email'],'VOSGES PNEUS : '.count($rows).' demande(s) de pneus à traiter',$body,$cfg['sender_email']);$state=$ok?'accepted':'failed';}
@@ -78,9 +78,11 @@ function lead_test(): void {
  $b['answers'][3]['answer']='Test Automatisation';$b['answers'][24]['answer']='TEST TECHNIQUE — aucune commande client';if(lead_prepare($b)!==null)throw new Exception('TEST_FILTER');
  echo "LEAD_SELFTEST_OK tariffs quantity drafts test_filter\n";
 }
+require __DIR__.'/vp_lead_followup.php';
 try {
  if(PHP_SAPI!=='cli'){http_response_code(404);exit;}
  if(in_array('--selftest',$argv,true)){lead_test();exit;}
+ if(in_array('--selftest-followup',$argv,true)){follow_test();exit;}
  if(in_array('--selftest-db',$argv,true)){
   $d=lead_db();foreach([
    "CREATE TEMPORARY TABLE vp_events(event_id VARCHAR(128) PRIMARY KEY,body TEXT,received_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
@@ -103,8 +105,9 @@ try {
  if(in_array('--preview',$argv,true)){echo json_encode(array_map(fn($r)=>['event_id'=>$r['event_id'],'state'=>$r['state'],'request'=>json_decode($r['payload'],true)],$rows),JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT)."\n";exit;}
  $cfg=require __DIR__.'/vp_leads_config.php';
  if(!filter_var($cfg['owner_email']??'',FILTER_VALIDATE_EMAIL)||!filter_var($cfg['sender_email']??'',FILTER_VALIDATE_EMAIL))throw new InvalidArgumentException('MAIL_CONFIG');
+ $follow=follow_run($d,$cfg,'lead_send');
  $state=empty($cfg['alerts_enabled'])?'DISABLED':lead_alert($d,$cfg,'lead_send');
- $health=['finished_at'=>time(),'state'=>in_array($state,['FAILED','UNCERTAIN'],true)?'error':'ok','added'=>$added,'pending'=>count($rows),'alert'=>$state];
+ $health=['finished_at'=>time(),'state'=>in_array($state,['FAILED','UNCERTAIN'],true)||$follow['issues']>0?'error':'ok','added'=>$added,'pending'=>count($rows),'alert'=>$state,'followup'=>$follow];
  file_put_contents(__DIR__.'/vp_leads_status.json.new',json_encode($health));rename(__DIR__.'/vp_leads_status.json.new',__DIR__.'/vp_leads_status.json');
  echo 'LEAD_RUN added='.$added.' pending='.count($rows).' alert='.$state."\n";
  if($health['state']==='error')exit(1);
