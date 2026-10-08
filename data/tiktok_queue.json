@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-06",
+  "updated_at": "2026-10-08",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -107,15 +107,15 @@
     "son commercial autorisé pour contenu promotionnel"
   ],
   "performance_snapshot": {
-    "checked_at": "2026-10-05",
+    "checked_at": "2026-10-08",
     "followers": 4,
     "total_public_videos": 5,
-    "known_video_views": 999,
-    "account_daily_video_views_since_2026_09_28": 1030,
+    "known_video_views": 1002,
+    "account_daily_video_views_since_2026_09_28": 1031,
     "profile_views_since_2026_09_28": 7,
     "comments": 0,
     "shares": 0,
-    "note": "Les cinq vidéos restent publiques. Les compteurs détaillés totalisent 999 vues; l'activité quotidienne cumulée atteint 1 030 vues. Aucun nouvel abonné, commentaire, partage, clic site ou demande commerciale détecté."
+    "note": "Les cinq vidéos restent publiques. Les compteurs détaillés totalisent 1 002 vues; l’activité quotidienne cumulée atteint 1 031 vues. Aucun nouvel abonné, commentaire, partage, clic site ou demande commerciale détecté."
   },
   "ready_drafts": [
     {
@@ -153,10 +153,11 @@
     }
   ],
   "distribution_blocker": {
-    "checked_at": "2026-10-06",
+    "checked_at": "2026-10-08",
     "service": "Metricool / TikTok",
-    "status": "échecs TikTok répétés liés aux médias dépassant 1080p; Instagram et Facebook publient normalement",
+    "status": "Facebook est déconnecté de la marque Metricool; les échecs TikTok liés aux médias dépassant 1080p restent également à prévenir",
     "latest_failures": [
+      "8 octobre 10:00 — Facebook — gardiennage pneus — échec : No Facebook page connected",
       "3 octobre 18:00 — TikTok — feu arrière Peugeot 407 — média au-delà de 1080p",
       "1er octobre 18:00 — TikTok — pompe Delphi — média au-delà de 1080p"
     ],
@@ -165,13 +166,13 @@
       "4 octobre 10:00 — Facebook — feu arrière Peugeot 407 — publiée",
       "5 octobre 10:00 — Facebook — préparation pneus hiver — publiée"
     ],
-    "next_risk": "toute prochaine publication TikTok avec une image d’origine supérieure à 1080p échouera tant que le média n’est pas redimensionné",
+    "next_risk": "toute publication Facebook échouera tant que la page n’est pas reconnectée dans Metricool; toute publication TikTok avec une image supérieure à 1080p échouera aussi",
     "spend_authorized": false,
-    "action": "utiliser uniquement des médias dont la largeur et la hauteur sont chacune inférieures ou égales à 1080 px pour TikTok; le brouillon dépôt a été préparé en 810 × 1080"
+    "action": "reconnecter la page Facebook Vosges Pneus à la marque Metricool avant de reprogrammer le post gardiennage; pour TikTok, utiliser uniquement des médias dont la largeur et la hauteur sont chacune inférieures ou égales à 1080 px"
   },
   "library_media_check": {
-    "checked_at": "2026-10-06",
-    "result": "les deux nouveaux fichiers du jour sont des captures techniques et ne conviennent pas à une publication; la vraie photo du dépôt préparée le 5 octobre reste exploitable",
-    "action": "conserver le brouillon dépôt en 810 × 1080; ne pas utiliser les captures fournisseur/Facebook comme preuve d’intervention réelle"
+    "checked_at": "2026-10-08",
+    "result": "les 23 nouveaux fichiers du jour sont des captures techniques de configuration et ne constituent pas des médias sociaux exploitables ni des preuves d’intervention réelle",
+    "action": "conserver le brouillon dépôt en 810 × 1080; ne publier aucune capture technique"
   }
 }
