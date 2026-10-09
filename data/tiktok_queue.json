@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-08",
+  "updated_at": "2026-10-09",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -107,15 +107,15 @@
     "son commercial autorisé pour contenu promotionnel"
   ],
   "performance_snapshot": {
-    "checked_at": "2026-10-08",
+    "checked_at": "2026-10-09",
     "followers": 4,
     "total_public_videos": 5,
-    "known_video_views": 1002,
+    "known_video_views": 1003,
     "account_daily_video_views_since_2026_09_28": 1031,
     "profile_views_since_2026_09_28": 7,
     "comments": 0,
     "shares": 0,
-    "note": "Les cinq vidéos restent publiques. Les compteurs détaillés totalisent 1 002 vues; l’activité quotidienne cumulée atteint 1 031 vues. Aucun nouvel abonné, commentaire, partage, clic site ou demande commerciale détecté."
+    "note": "Les cinq vidéos restent publiques. Les compteurs détaillés Windsor totalisent 1 003 vues (+1); l’activité quotidienne cumulée reste à 1 031 vues. Aucun nouvel abonné, commentaire, partage, clic site ou demande commerciale détecté."
   },
   "ready_drafts": [
     {
@@ -153,7 +153,7 @@
     }
   ],
   "distribution_blocker": {
-    "checked_at": "2026-10-08",
+    "checked_at": "2026-10-09",
     "service": "Metricool / TikTok",
     "status": "Facebook est déconnecté de la marque Metricool; les échecs TikTok liés aux médias dépassant 1080p restent également à prévenir",
     "latest_failures": [
@@ -171,8 +171,8 @@
     "action": "reconnecter la page Facebook Vosges Pneus à la marque Metricool avant de reprogrammer le post gardiennage; pour TikTok, utiliser uniquement des médias dont la largeur et la hauteur sont chacune inférieures ou égales à 1080 px"
   },
   "library_media_check": {
-    "checked_at": "2026-10-08",
-    "result": "les 23 nouveaux fichiers du jour sont des captures techniques de configuration et ne constituent pas des médias sociaux exploitables ni des preuves d’intervention réelle",
-    "action": "conserver le brouillon dépôt en 810 × 1080; ne publier aucune capture technique"
+    "checked_at": "2026-10-09",
+    "result": "aucun nouveau média utilisateur n’a été ajouté aujourd’hui",
+    "action": "conserver le brouillon dépôt réel en 810 × 1080 et ne rien republier tant que le doublon n’est pas exclu"
   }
 }
