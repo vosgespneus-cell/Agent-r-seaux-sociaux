@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-09",
+  "updated_at": "2026-10-10",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -107,7 +107,7 @@
     "son commercial autorisé pour contenu promotionnel"
   ],
   "performance_snapshot": {
-    "checked_at": "2026-10-09",
+    "checked_at": "2026-10-10",
     "followers": 4,
     "total_public_videos": 5,
     "known_video_views": 1003,
@@ -115,7 +115,7 @@
     "profile_views_since_2026_09_28": 7,
     "comments": 0,
     "shares": 0,
-    "note": "Les cinq vidéos restent publiques. Les compteurs détaillés Windsor totalisent 1 003 vues (+1); l’activité quotidienne cumulée reste à 1 031 vues. Aucun nouvel abonné, commentaire, partage, clic site ou demande commerciale détecté."
+    "note": "Les cinq vidéos restent publiques. Les compteurs détaillés totalisent 1 003 vues. Aucun nouvel abonné, commentaire, partage, clic site ou demande commerciale attribuée à TikTok."
   },
   "ready_drafts": [
     {
@@ -140,20 +140,21 @@
       "format": "photo verticale réelle 810 × 1080",
       "source_media": "/vosges-pneus-stockage-racks-2026-10-05.jpg",
       "source_library_id": "libfile_17d20ad8c50c8191abfdcf90dc9ef48d",
-      "hook": "Le dépôt prend forme chez VOSGES PNEUS",
-      "caption": "Le dépôt VOSGES PNEUS prend forme à Thaon-les-Vosges 🔧 Les rangées de stockage sont en cours d’aménagement pour organiser progressivement les pièces. Pour toute demande, envoyez la référence visible et les informations du véhicule : l’état, la compatibilité, le prix et la disponibilité sont vérifiés avant publication ou vente. #VosgesPneus #ThaonLesVosges #PiecesAuto #AtelierAuto",
+      "hook": "Chaque pièce doit pouvoir être retrouvée rapidement",
+      "caption": "Le dépôt VOSGES PNEUS s’organise à Thaon-les-Vosges 🔧 Le plan retenu prévoit 6 rangées A à F, avec des emplacements précis repris dans Shopify. Après chaque démontage complet, les pièces conservées devront être triées, photographiées, identifiées puis rangées le jour même. Référence, état, compatibilité, prix et disponibilité restent vérifiés avant toute publication ou vente. #VosgesPneus #ThaonLesVosges #PiecesAuto #AtelierAuto",
       "verified_facts": [
         "photo réelle fournie par l’utilisateur et prise dans le dépôt",
-        "rangées de casiers en bois visibles et encore majoritairement vides",
-        "média redimensionné de 1152 × 1536 vers 810 × 1080 sans génération IA",
+        "6 rangées prévues, nommées A à F, avec au moins 10 compartiments et 3 niveaux par compartiment",
+        "processus validé : trier, photographier, identifier et ranger les pièces conservées le jour même",
+        "l’emplacement interne doit être repris dans Shopify pour servir de suivi de stock",
         "aucune pièce, référence, compatibilité, prix ou disponibilité inventés"
       ],
-      "status": "brouillon prêt — publication non lancée",
+      "status": "brouillon amélioré — publication non lancée",
       "duplicate_check": "sujet absent des cinq vidéos TikTok publiques; ne pas publier si un contenu équivalent sur l’aménagement du dépôt apparaît avant diffusion"
     }
   ],
   "distribution_blocker": {
-    "checked_at": "2026-10-09",
+    "checked_at": "2026-10-10",
     "service": "Metricool / TikTok",
     "status": "Facebook est déconnecté de la marque Metricool; les échecs TikTok liés aux médias dépassant 1080p restent également à prévenir",
     "latest_failures": [
@@ -171,8 +172,17 @@
     "action": "reconnecter la page Facebook Vosges Pneus à la marque Metricool avant de reprogrammer le post gardiennage; pour TikTok, utiliser uniquement des médias dont la largeur et la hauteur sont chacune inférieures ou égales à 1080 px"
   },
   "library_media_check": {
-    "checked_at": "2026-10-09",
+    "checked_at": "2026-10-10",
     "result": "aucun nouveau média utilisateur n’a été ajouté aujourd’hui",
-    "action": "conserver le brouillon dépôt réel en 810 × 1080 et ne rien republier tant que le doublon n’est pas exclu"
+    "action": "conserver la vraie photo du dépôt déjà préparée en 810 × 1080; le texte a été amélioré à partir du processus A–F validé, sans publication"
+  },
+  "google_business_snapshot": {
+    "checked_at": "2026-10-10",
+    "delayed_data": [
+      "5 octobre : 16 impressions, 1 clic d’appel, 2 clics site",
+      "6 octobre : 13 impressions, 4 clics d’appel, 1 clic site"
+    ],
+    "opportunity": "5 clics d’appel et 3 clics vers le site en deux jours montrent une intention locale forte; conserver des appels à l’action directs vers téléphone et demande de pneus",
+    "last_post": "5 octobre — LIVE"
   }
 }
