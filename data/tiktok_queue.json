@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-10",
+  "updated_at": "2026-10-11",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -107,15 +107,15 @@
     "son commercial autorisé pour contenu promotionnel"
   ],
   "performance_snapshot": {
-    "checked_at": "2026-10-10",
+    "checked_at": "2026-10-11",
     "followers": 4,
     "total_public_videos": 5,
     "known_video_views": 1003,
-    "account_daily_video_views_since_2026_09_28": 1031,
+    "account_daily_video_views_since_2026_09_28": 1034,
     "profile_views_since_2026_09_28": 7,
     "comments": 0,
     "shares": 0,
-    "note": "Les cinq vidéos restent publiques. Les compteurs détaillés totalisent 1 003 vues. Aucun nouvel abonné, commentaire, partage, clic site ou demande commerciale attribuée à TikTok."
+    "note": "Les cinq vidéos restent publiques. Les compteurs détaillés totalisent 1 003 vues; l’activité quotidienne du compte totalise 1 034 vues depuis le 28 septembre. Aucun nouvel abonné, commentaire, partage, clic site ou demande commerciale attribuée à TikTok."
   },
   "ready_drafts": [
     {
@@ -154,7 +154,7 @@
     }
   ],
   "distribution_blocker": {
-    "checked_at": "2026-10-10",
+    "checked_at": "2026-10-11",
     "service": "Metricool / TikTok",
     "status": "Facebook est déconnecté de la marque Metricool; les échecs TikTok liés aux médias dépassant 1080p restent également à prévenir",
     "latest_failures": [
@@ -172,17 +172,24 @@
     "action": "reconnecter la page Facebook Vosges Pneus à la marque Metricool avant de reprogrammer le post gardiennage; pour TikTok, utiliser uniquement des médias dont la largeur et la hauteur sont chacune inférieures ou égales à 1080 px"
   },
   "library_media_check": {
-    "checked_at": "2026-10-10",
+    "checked_at": "2026-10-11",
     "result": "aucun nouveau média utilisateur n’a été ajouté aujourd’hui",
     "action": "conserver la vraie photo du dépôt déjà préparée en 810 × 1080; le texte a été amélioré à partir du processus A–F validé, sans publication"
   },
   "google_business_snapshot": {
-    "checked_at": "2026-10-10",
+    "checked_at": "2026-10-11",
     "delayed_data": [
       "5 octobre : 16 impressions, 1 clic d’appel, 2 clics site",
-      "6 octobre : 13 impressions, 4 clics d’appel, 1 clic site"
+      "6 octobre : 13 impressions, 4 clics d’appel, 1 demande d’itinéraire, 1 clic site",
+      "7 octobre : 12 impressions, 9 clics d’appel",
+      "8 octobre : 1 demande d’itinéraire"
     ],
-    "opportunity": "5 clics d’appel et 3 clics vers le site en deux jours montrent une intention locale forte; conserver des appels à l’action directs vers téléphone et demande de pneus",
+    "opportunity": "14 clics d’appel, 3 clics vers le site et 2 demandes d’itinéraire du 5 au 8 octobre montrent une intention locale forte; renforcer les appels à l’action vers téléphone et demande de pneus.",
     "last_post": "5 octobre — LIVE"
+  },
+  "seo_snapshot": {
+    "checked_at": "2026-10-11",
+    "data_through": "2026-10-08",
+    "opportunity": "La page d’accueil apparaît souvent en première page pour des requêtes commerciales locales (pneu Épinal, pneu pas cher, garage Vosges, montage de pneus) mais n’a reçu aucun clic dans l’échantillon des 7 et 8 octobre; tester un titre et une meta description plus explicites orientés prix sur demande, montage et localisation, sans promettre de tarif."
   }
 }
