@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-11",
+  "updated_at": "2026-10-12",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -107,7 +107,7 @@
     "son commercial autorisé pour contenu promotionnel"
   ],
   "performance_snapshot": {
-    "checked_at": "2026-10-11",
+    "checked_at": "2026-10-12",
     "followers": 4,
     "total_public_videos": 5,
     "known_video_views": 1003,
@@ -115,7 +115,7 @@
     "profile_views_since_2026_09_28": 7,
     "comments": 0,
     "shares": 0,
-    "note": "Les cinq vidéos restent publiques. Les compteurs détaillés totalisent 1 003 vues; l’activité quotidienne du compte totalise 1 034 vues depuis le 28 septembre. Aucun nouvel abonné, commentaire, partage, clic site ou demande commerciale attribuée à TikTok."
+    "note": "Les cinq vidéos restent publiques. Les compteurs détaillés totalisent 1 003 vues et le compte reste à 4 abonnés. Aucun nouveau commentaire, partage, clic site ou demande commerciale attribuée à TikTok."
   },
   "ready_drafts": [
     {
@@ -151,6 +151,34 @@
       ],
       "status": "brouillon amélioré — publication non lancée",
       "duplicate_check": "sujet absent des cinq vidéos TikTok publiques; ne pas publier si un contenu équivalent sur l’aménagement du dépôt apparaît avant diffusion"
+    },
+    {
+      "id": "quatre_turbos_depot_20261012",
+      "topic": "Quatre turbos du dépôt — identification en cours",
+      "format": "carrousel ou montage vertical avec photos réelles",
+      "source_media": [
+        "libfile_03fb115375348191bec65509e38ab141",
+        "libfile_e200e5dfbe188191b33e9ebe9faf7c58",
+        "libfile_031cfc22dca08191a6197bf5e89beef3",
+        "libfile_8d60d1143cc08191bd9a476b09f30ff8"
+      ],
+      "hook": "Quatre turbos, mais aucune compatibilité supposée",
+      "caption": "Quatre turbos d’occasion ont été photographiés au dépôt VOSGES PNEUS. Chaque pièce est identifiée séparément et reste en brouillon tant que sa référence complète, sa compatibilité, son état, son prix et sa disponibilité ne sont pas vérifiés. #VosgesPneus #ThaonLesVosges #PiecesAuto #Turbo",
+      "verified_facts": [
+        "photos réelles fournies le 12 octobre 2026",
+        "quatre fiches Shopify distinctes existent en brouillon",
+        "aucune pièce n’est annoncée disponible à la vente"
+      ],
+      "status": "brouillon bloqué — ne pas publier",
+      "required_before_publish": [
+        "référence complète de chaque pièce montrée",
+        "compatibilité exacte",
+        "état fonctionnel",
+        "prix",
+        "disponibilité réelle",
+        "emplacement magasin"
+      ],
+      "duplicate_check": "aucun sujet équivalent parmi les cinq vidéos TikTok publiques au contrôle du 12 octobre"
     }
   ],
   "distribution_blocker": {
@@ -172,24 +200,101 @@
     "action": "reconnecter la page Facebook Vosges Pneus à la marque Metricool avant de reprogrammer le post gardiennage; pour TikTok, utiliser uniquement des médias dont la largeur et la hauteur sont chacune inférieures ou égales à 1080 px"
   },
   "library_media_check": {
-    "checked_at": "2026-10-11",
-    "result": "aucun nouveau média utilisateur n’a été ajouté aujourd’hui",
-    "action": "conserver la vraie photo du dépôt déjà préparée en 810 × 1080; le texte a été amélioré à partir du processus A–F validé, sans publication"
+    "checked_at": "2026-10-12",
+    "result": "27 nouvelles photos réelles de pièces ont été ajoutées; quatre groupes ont servi à créer quatre fiches turbo Shopify en brouillon.",
+    "action": "conserver les fiches et le contenu social en brouillon jusqu’à validation de la référence complète, de la compatibilité, de l’état fonctionnel, du prix, de la quantité disponible et de l’emplacement magasin."
   },
   "google_business_snapshot": {
-    "checked_at": "2026-10-11",
+    "checked_at": "2026-10-12",
     "delayed_data": [
-      "5 octobre : 16 impressions, 1 clic d’appel, 2 clics site",
-      "6 octobre : 13 impressions, 4 clics d’appel, 1 demande d’itinéraire, 1 clic site",
-      "7 octobre : 12 impressions, 9 clics d’appel",
-      "8 octobre : 1 demande d’itinéraire"
+      "8 octobre : 11 impressions, 1 clic d’appel, 1 demande d’itinéraire",
+      "9 octobre : 2 impressions, 6 demandes d’itinéraire"
     ],
-    "opportunity": "14 clics d’appel, 3 clics vers le site et 2 demandes d’itinéraire du 5 au 8 octobre montrent une intention locale forte; renforcer les appels à l’action vers téléphone et demande de pneus.",
-    "last_post": "5 octobre — LIVE"
+    "opportunity": "Les 6 demandes d’itinéraire du 9 octobre constituent un signal de visite locale concret; vérifier en atelier si des arrivées peuvent être rattachées à Google.",
+    "last_post": "5 octobre à 16:39 heure de Paris — LIVE; 7 jours complets non encore écoulés au moment du contrôle"
   },
   "seo_snapshot": {
     "checked_at": "2026-10-11",
     "data_through": "2026-10-08",
     "opportunity": "La page d’accueil apparaît souvent en première page pour des requêtes commerciales locales (pneu Épinal, pneu pas cher, garage Vosges, montage de pneus) mais n’a reçu aucun clic dans l’échantillon des 7 et 8 octobre; tester un titre et une meta description plus explicites orientés prix sur demande, montage et localisation, sans promettre de tarif."
-  }
+  },
+  "depot_parts_review": [
+    {
+      "sku": "VP-TURBO-001",
+      "shopify_product_id": "gid://shopify/Product/16075535057227",
+      "title": "Turbo BorgWarner KKK Renault 1.5 dCi – 5439 101 5080 – Occasion",
+      "source_library_id": "libfile_03fb115375348191bec65509e38ab141",
+      "status": "brouillon Shopify bloqué",
+      "verified": [
+        "pièce réelle photographiée",
+        "origine moteur Renault 1.5 dCi confirmée par le mécanicien",
+        "marquage 5439 101 5080 visible"
+      ],
+      "missing": [
+        "référence complète",
+        "compatibilité exacte",
+        "état fonctionnel",
+        "prix",
+        "quantité disponible",
+        "emplacement magasin"
+      ]
+    },
+    {
+      "sku": "VP-TURBO-002",
+      "shopify_product_id": "gid://shopify/Product/16075590205771",
+      "title": "Turbo Mercedes Classe B W245 – Occasion – Référence à confirmer",
+      "source_library_id": "libfile_e200e5dfbe188191b33e9ebe9faf7c58",
+      "status": "brouillon Shopify bloqué",
+      "verified": [
+        "pièce réelle photographiée sous plusieurs angles",
+        "provenance Mercedes Classe B W245 communiquée"
+      ],
+      "missing": [
+        "référence OEM exacte",
+        "motorisation",
+        "compatibilité exacte",
+        "état fonctionnel",
+        "prix",
+        "quantité disponible",
+        "emplacement magasin"
+      ]
+    },
+    {
+      "sku": "VP-TURBO-003",
+      "shopify_product_id": "gid://shopify/Product/16075677368651",
+      "title": "Turbo Garrett GT1852V Renault 2.2 dCi 150 ch – 718089-0007 – Occasion",
+      "source_library_id": "libfile_031cfc22dca08191a6197bf5e89beef3",
+      "status": "brouillon Shopify bloqué",
+      "verified": [
+        "pièce réelle photographiée sous quatre angles",
+        "références Garrett 718089-0007 et Renault 8200447624 recoupées"
+      ],
+      "missing": [
+        "compatibilité finale avec référence de l’ancien turbo et code moteur",
+        "état fonctionnel et jeu d’axe",
+        "prix",
+        "quantité disponible",
+        "emplacement magasin"
+      ]
+    },
+    {
+      "sku": "VP-TURBO-004",
+      "shopify_product_id": "gid://shopify/Product/16075722096971",
+      "title": "Turbo Garrett 756047 – Peugeot Citroën 2.0 HDi 136/140 ch – Occasion",
+      "source_library_id": "libfile_8d60d1143cc08191bd9a476b09f30ff8",
+      "status": "brouillon Shopify bloqué",
+      "verified": [
+        "pièce réelle photographiée sous quatre angles",
+        "famille de référence 756047 identifiée"
+      ],
+      "missing": [
+        "suffixe exact de référence",
+        "compatibilité exacte",
+        "état fonctionnel et jeu d’axe",
+        "prix",
+        "quantité disponible",
+        "emplacement magasin"
+      ]
+    }
+  ]
 }
