@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-12",
+  "updated_at": "2026-10-13",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -107,7 +107,7 @@
     "son commercial autorisé pour contenu promotionnel"
   ],
   "performance_snapshot": {
-    "checked_at": "2026-10-12",
+    "checked_at": "2026-10-13",
     "followers": 4,
     "total_public_videos": 5,
     "known_video_views": 1003,
@@ -115,7 +115,7 @@
     "profile_views_since_2026_09_28": 7,
     "comments": 0,
     "shares": 0,
-    "note": "Les cinq vidéos restent publiques. Les compteurs détaillés totalisent 1 003 vues et le compte reste à 4 abonnés. Aucun nouveau commentaire, partage, clic site ou demande commerciale attribuée à TikTok."
+    "note": "Les cinq vidéos restent publiques. Le compte reste à 4 abonnés, sans nouvelle vidéo, commentaire, partage, clic site ou demande commerciale attribuée à TikTok au contrôle du 13 octobre."
   },
   "ready_drafts": [
     {
@@ -179,6 +179,35 @@
         "emplacement magasin"
       ],
       "duplicate_check": "aucun sujet équivalent parmi les cinq vidéos TikTok publiques au contrôle du 12 octobre"
+    },
+    {
+      "id": "turbo_garrett_partial_20261013",
+      "topic": "Turbo Garrett partiel — identification en cours",
+      "format": "montage vertical à partir de cinq photos réelles",
+      "source_media": [
+        "libfile_6f480f1619f08191b985bed4c5de3b2b",
+        "libfile_7553f2ce2d088191bda0ae4146d0a493",
+        "libfile_c7cded108178819188f0d0a0375c60eb",
+        "libfile_37454a811c648191bc3f5700ce804a3d",
+        "libfile_d78aa36eb3e88191ba66062255dcae9b"
+      ],
+      "hook": "Une pièce d’occasion ne se publie pas avant d’être correctement identifiée",
+      "caption": "Nouveau turbo d’occasion photographié au dépôt VOSGES PNEUS. L’identification est en cours : la pièce restera en brouillon tant que sa référence complète, sa compatibilité, son état, son prix et sa disponibilité ne seront pas vérifiés. #VosgesPneus #ThaonLesVosges #PiecesAuto #Turbo",
+      "verified_facts": [
+        "cinq photos réelles ajoutées le 13 octobre 2026",
+        "marque Garrett visible",
+        "aucune compatibilité, disponibilité ni remise en état supposée"
+      ],
+      "status": "brouillon bloqué — ne pas publier",
+      "required_before_publish": [
+        "référence complète",
+        "compatibilité exacte",
+        "état fonctionnel et jeu d’axe",
+        "prix",
+        "disponibilité réelle",
+        "emplacement magasin"
+      ],
+      "duplicate_check": "aucun sujet équivalent parmi les cinq vidéos TikTok publiques; vérifier à nouveau avant toute diffusion"
     }
   ],
   "distribution_blocker": {
@@ -200,18 +229,19 @@
     "action": "reconnecter la page Facebook Vosges Pneus à la marque Metricool avant de reprogrammer le post gardiennage; pour TikTok, utiliser uniquement des médias dont la largeur et la hauteur sont chacune inférieures ou égales à 1080 px"
   },
   "library_media_check": {
-    "checked_at": "2026-10-12",
-    "result": "27 nouvelles photos réelles de pièces ont été ajoutées; quatre groupes ont servi à créer quatre fiches turbo Shopify en brouillon.",
-    "action": "conserver les fiches et le contenu social en brouillon jusqu’à validation de la référence complète, de la compatibilité, de l’état fonctionnel, du prix, de la quantité disponible et de l’emplacement magasin."
+    "checked_at": "2026-10-13",
+    "result": "5 nouvelles photos réelles montrent un turbo Garrett partiel; un brouillon social factuel a été ajouté à la file.",
+    "action": "ne pas publier avant validation de la référence complète, de la compatibilité, de l’état fonctionnel, du prix, de la disponibilité et de l’emplacement magasin."
   },
   "google_business_snapshot": {
-    "checked_at": "2026-10-12",
+    "checked_at": "2026-10-13",
     "delayed_data": [
-      "8 octobre : 11 impressions, 1 clic d’appel, 1 demande d’itinéraire",
-      "9 octobre : 2 impressions, 6 demandes d’itinéraire"
+      "9 octobre : 9 impressions, 2 clics d’appel, 6 demandes d’itinéraire, 1 clic vers le site",
+      "10 octobre : 1 impression, 7 demandes d’itinéraire"
     ],
-    "opportunity": "Les 6 demandes d’itinéraire du 9 octobre constituent un signal de visite locale concret; vérifier en atelier si des arrivées peuvent être rattachées à Google.",
-    "last_post": "5 octobre à 16:39 heure de Paris — LIVE; 7 jours complets non encore écoulés au moment du contrôle"
+    "opportunity": "13 demandes d’itinéraire sur les 9 et 10 octobre constituent un signal de visites locales à rapprocher des passages en atelier.",
+    "last_post": "13 octobre 2026 à 15:45 heure de Paris — LIVE",
+    "last_post_url": "https://local.google.com/place?id=7949441121821933413&use=posts&lpsid=CIHM0ogKEK7I56_hwdLLQQ"
   },
   "seo_snapshot": {
     "checked_at": "2026-10-11",
@@ -289,6 +319,33 @@
       ],
       "missing": [
         "suffixe exact de référence",
+        "compatibilité exacte",
+        "état fonctionnel et jeu d’axe",
+        "prix",
+        "quantité disponible",
+        "emplacement magasin"
+      ]
+    },
+    {
+      "sku": "A1315",
+      "shopify_product_id": "gid://shopify/Product/16076003639627",
+      "title": "Turbo d'occasion avec ensemble catalyseur – P22001696-027 – A13-1-5",
+      "source_library_ids": [
+        "libfile_6f480f1619f08191b985bed4c5de3b2b",
+        "libfile_7553f2ce2d088191bda0ae4146d0a493",
+        "libfile_c7cded108178819188f0d0a0375c60eb",
+        "libfile_37454a811c648191bc3f5700ce804a3d",
+        "libfile_d78aa36eb3e88191ba66062255dcae9b"
+      ],
+      "status": "brouillon Shopify bloqué",
+      "verified": [
+        "pièce réelle photographiée sous cinq angles",
+        "marque Garrett visible",
+        "référence P22001696-027 enregistrée dans le titre",
+        "SKU A1315"
+      ],
+      "missing": [
+        "référence constructeur complète recoupée",
         "compatibilité exacte",
         "état fonctionnel et jeu d’axe",
         "prix",
