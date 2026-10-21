@@ -95,3 +95,16 @@ Aucun paiement, achat fournisseur, commande supplémentaire ni mail envoyé.
 Restent : test d'enregistrement autorisé, purge des données temporaires,
 provenance des mails, collecte planifiée, page client de production, stock/prix/frais,
 connexion autonome Shopify, tests de paiement et confirmations.
+
+## Catalogue contrôlé après le dernier devis
+Recherche réelle Sunny, 195/65 R16 : la ligne NL 106 Sunny 104/102T affiche
+9 unités et 57,79 EUR TTC au moment du contrôle. Cela concorde avec le modèle,
+la dimension et le prix du dernier devis. Le PID/EAN exact de la ligne de
+catalogue n'a pas été rapproché du PID extrait du mail ; aucune réservation.
+Le catalogue précise que montage/équilibrage, valves et retraitement des pneus
+sont exclus du prix affiché. La livraison et ses frais restent non résolus.
+Ne pas présumer que ces postes sont inclus dans les tarifs atelier, ni leur
+ajouter un supplément sans confirmer leur traitement commercial.
+La période de gardiennage reste également à préciser.
+Aucune tentative d'enregistrement des options ou de transfert de secret refusée
+n'a été répétée. Le contrôle catalogue est distinct et en lecture seule.
