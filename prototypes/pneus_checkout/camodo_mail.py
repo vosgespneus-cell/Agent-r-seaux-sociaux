@@ -84,11 +84,11 @@ def parse_selection(html):
     if expected not in rows:
         raise ValueError("unknown_columns")
     items = [r for r in rows if len(r) == 7 and
-             re.search(r"\b[0-9]{3}/[0-9]{2}\s+R[0-9]{2}\b", r[0])]
+             re.search(r"\b[0-9]{3}/[0-9]{2}\s+R\s*[0-9]{2}\b", r[0])]
     if len(items) != 1:
         raise ValueError("single_product_required")
     item = items[0]
-    title = item[0].split("Base de calcul HT", 1)[0].strip()
+    title = re.split(r"Base de calcul HT|Consommation de carburant", item[0], maxsplit=1)[0].strip()
     qty = quantity(item[1])
     unit, total = cents(item[5]), cents(item[6])
     if not 0 < unit <= 10_000_000 or total != qty*unit:
