@@ -62,3 +62,36 @@ Aucun contournement ni autre transfert de secret n'a été tenté. Le formulaire
 Contrôle serveur : credentials_present=false, token_present=false.
 La connexion autonome LWS reste à finaliser par une procédure autorisée indépendante.
 Le site public et le paiement restent inchangés.
+
+## Nouveau devis et page d'essai
+Un nouveau mail a été reçu le 21 octobre à 20 h 27 (Paris). Le lecteur initial
+rejetait sa dimension écrite « R 16 ». Le parseur Python et la sonde PHP acceptent
+désormais les espaces et retirent l'étiquette énergie de la désignation.
+Le format « R16 » reste couvert. 17 tests Python passent, 7 cas PHP de sonde
+et 10 cas PHP de calcul/identification client passent sur LWS.
+L'extraction du nouveau mail réussit et le champ Courriel est identifié.
+Le marqueur TEST AUTRE PC 21 OCTOBRE n'est pas présent dans le mail observé.
+La réception seule ne confirme pas l'état visuel après envoi sur l'autre PC.
+
+review_lib.php, review_import.php et review_page.php sont installés sur LWS.
+Le script CLI exige --owner-test et un UID explicite. Il n'est pas planifié.
+Un seul devis a été importé pour l'essai, sans envoi client. La sélection et le
+courriel sont stockés dans une base SQLite privée 0600, dossier 0700.
+Lien aléatoire de 256 bits haché en base, valable une heure, transmis dans le
+fragment puis échangé contre une session Secure/HttpOnly/SameSite Strict.
+Le site public Shopify est inchangé. La route d'essai LWS ne montre aucune
+sélection sans lien/session valide et n'affiche pas les coordonnées client.
+Le statut de provenance n'est pas authentifié : usage propriétaire uniquement.
+
+La page réelle a été observée : quatre pneus, 231,16 EUR TTC, montage facultatif,
+gardiennage par paire, récapitulatif et paiement désactivé. Le navigateur a ensuite
+refusé le test des options (browser URL policy). Aucun contournement ni enregistrement
+via un autre canal n'a été tenté. Contrôle SQL en lecture seule : saved=0,
+fitting=0, storage_pairs=0. Le test d'enregistrement navigateur n'est donc PAS validé.
+Les tarifs de prestations sont explicitement ceux de l'essai, leur validité
+commerciale et la durée de garde restent à confirmer.
+
+Aucun paiement, achat fournisseur, commande supplémentaire ni mail envoyé.
+Restent : test d'enregistrement autorisé, purge des données temporaires,
+provenance des mails, collecte planifiée, page client de production, stock/prix/frais,
+connexion autonome Shopify, tests de paiement et confirmations.
