@@ -28,11 +28,13 @@ Aucun abonnement ajouté, paiement, envoi client ni achat fournisseur effectué.
 ## Suite nécessaire
 La connexion de stock existante sur LWS attend exactement read_products et
 read_inventory. Ne pas étendre ses droits : son contrôle rejetterait le changement.
-Une application séparée pour les commandes a été créée dans le Dev Dashboard,
-après accord explicite : write_draft_orders et read_orders. Version active :
-pneus-test-20261021. Installation lancée mais non confirmée : l'observation de
-l'administration Shopify est bloquée par la protection navigateur des identifiants.
-Une reprise manuelle est nécessaire. Aucun secret lu ni configuration LWS ajoutée.
+L'application séparée VOSGES PNEUS - commandes pneus est créée et installée sur
+la boutique de production, vérification visuelle du statut Installé dans le
+Dev Dashboard. Les droits write_draft_orders et read_orders ont été autorisés.
+Le raccordement des identifiants LWS n'est pas terminé : la validation automatique
+de sécurité a refusé la saisie du secret via le navigateur. Aucun secret n'a été
+lu ni enregistré. Le formulaire temporaire a été désactivé (expiration à zéro).
+Aucune connexion autonome aux commandes n'est active.
 
 Il reste à raccorder la relève et l'extraction client, authentifier la provenance,
 envoyer un lien personnel à durée limitée, livrer la page HTTPS des options,
