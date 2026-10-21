@@ -49,3 +49,13 @@ python -m unittest discover -s prototypes/pneus_checkout -p 'test_*.py' -v
 Les prix de prestations utilisés pour les essais ne valident pas leur configuration
 commerciale actuelle, notamment la durée de gardiennage. Aucun mail brut, secret,
 lien réel fournisseur ou donnée personnelle n'est enregistré dans ce dépôt.
+
+## Complément : essai privé et frais
+La page d'essai LWS affiche désormais une sélection provenant d'un vrai devis.
+Son enregistrement d'options n'est pas validé (refus de la politique URL navigateur).
+Le test ne remplace pas un parcours client de production. Aucun lien client envoyé.
+Le dernier contrôle catalogue montre le modèle SUNNY NL106 195/65 R16 à 57,79 EUR
+TTC, stock affiché 9, sans réservation ; le PID/EAN précis reste à rapprocher.
+Le prix catalogue exclut montage/équilibrage, valves et retraitement. Leur inclusion
+dans les forfaits atelier, les frais de livraison et la durée du gardiennage
+doivent être confirmés avant toute activation d'un paiement.
