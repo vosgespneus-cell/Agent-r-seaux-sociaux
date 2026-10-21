@@ -20,9 +20,8 @@ try{
     }
     if(($argv[1]??'')!=='--owner-test'||!ctype_digit($argv[2]??''))throw new RuntimeException('owner_test_uid_required');
     $uid=(int)$argv[2];if($uid<1)throw new RuntimeException('invalid_uid');
-    // Load the previously tested CLI probe without emitting its summary.
-    $argv=['probe','--uid',(string)$uid];ob_start();
-    require '/home/vp_pneus_probe_20261021/camodo_readonly.php';ob_end_clean();
+    define('VP_CAMODO_LIBRARY_ONLY',true);
+    require '/home/vp_pneus_probe_20261021/camodo_readonly.php';
     $m=require '/home/vp_mail_config.php';
     $imap=@imap_open('{mail84.lwspanel.com:993/imap/ssl}INBOX','contact@vosgespneus.com',$m['password'],OP_READONLY,1);
     if(!$imap)throw new RuntimeException('imap_unavailable');
@@ -34,7 +33,7 @@ try{
         if(!$status||!$status->uidvalidity)throw new RuntimeException('uidvalidity_required');
         $source='owner-test:'.$status->uidvalidity.':'.$uid;
     }finally{imap_close($imap);}
-    if(!preg_match('/\bR([0-9]{2})\b/',$selection['title'],$rim))throw new RuntimeException('rim_required');
+    if(!preg_match('/\bR\s*([0-9]{2})\b/',$selection['title'],$rim))throw new RuntimeException('rim_required');
     $db=reviewInit();$id=bin2hex(random_bytes(16));$cap=bin2hex(random_bytes(32));$now=time();
     $find=$db->prepare('SELECT id FROM quotes WHERE source_key=?');$find->execute([$source]);$existing=$find->fetchColumn();
     if($existing){$id=$existing;$stmt=$db->prepare('UPDATE quotes SET capability_hash=?,expires=? WHERE id=?');$stmt->execute([hash('sha256',$cap),$now+3600,$id]);}
