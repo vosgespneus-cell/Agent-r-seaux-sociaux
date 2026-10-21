@@ -37,7 +37,7 @@ function selectionFromHtml(string $html): array {
         throw new RuntimeException('unknown_price_layout');
     }
     $items = array_values(array_filter($rows, fn($r) => count($r) === 7 &&
-        preg_match('/\b[0-9]{3}\/[0-9]{2}\s+R[0-9]{2}\b/u', $r[0])));
+        preg_match('/\b[0-9]{3}\/[0-9]{2}\s+R\s*[0-9]{2}\b/u', $r[0])));
     if (count($items) !== 1) throw new RuntimeException('single_product_required');
     $item = $items[0];
     if (!preg_match('/^([0-9]{1,2}),00$/D', $item[1], $m)) {
@@ -73,7 +73,7 @@ function selectionFromHtml(string $html): array {
         !preg_match('/^[A-Za-z0-9_-]{1,128}$/D', $q['PID']) || $q['Menge'] !== (string)$qty) {
         throw new RuntimeException('invalid_supplier_reference');
     }
-    return ['title'=>trim(explode('Base de calcul HT', $item[0], 2)[0]),
+    return ['title'=>trim(preg_split('/Base de calcul HT|Consommation de carburant/u', $item[0], 2)[0]),
         'reference'=>$q['PID'], 'quantity'=>$qty, 'mail_unit_ttc_cents'=>$unit,
         'mail_total_ttc_cents'=>$total, 'supplier_recheck_required'=>true,
         'source_authenticated'=>false, 'payment_enabled'=>false];
@@ -103,6 +103,8 @@ function htmlParts($imap, int $uid, object $part, string $section=''): array {
     return [$body];
 }
 
+if (defined('VP_CAMODO_LIBRARY_ONLY') && VP_CAMODO_LIBRARY_ONLY) return;
+
 try {
     if (($argv[1]??'') === '--self-test') {
         $fixture = file_get_contents(__DIR__.'/camodo_fixture.html');
@@ -110,13 +112,15 @@ try {
         if ($r['quantity'] !== 4 || $r['mail_unit_ttc_cents'] !== 5990 || $r['mail_total_ttc_cents'] !== 23960) {
             throw new RuntimeException('fixture_failed');
         }
+        $spaced = selectionFromHtml(str_replace('R16 91V Example Tyre', 'R 16 91V Example Tyre Consommation de carburant C', $fixture));
+        if ($spaced['title'] !== '205/55 R 16 91V Example Tyre') throw new RuntimeException('spaced_rim_failed');
         foreach ([['PV TTC','PV HT'],['59,90 €','59.90 €'],['Menge=4','Menge=3'],
             ['PID=EXAMPLE_1','PID=a&PID=b'],['s-h-o-p24.pneus100.fr','example.org']] as [$a,$b]) {
             try { selectionFromHtml(str_replace($a,$b,$fixture)); }
             catch (RuntimeException $e) { continue; }
             throw new RuntimeException('negative_fixture_failed');
         }
-        echo "SELF_TEST_OK cases=6\n"; exit;
+        echo "SELF_TEST_OK cases=7\n"; exit;
     }
     if (($argv[1]??'') !== '--uid' || !ctype_digit($argv[2]??'') || (int)$argv[2] < 1) {
         throw new RuntimeException('usage_uid_required');
