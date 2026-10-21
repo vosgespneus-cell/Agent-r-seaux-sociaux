@@ -16,6 +16,12 @@ HTML = '''<table>
 
 
 class MailTests(unittest.TestCase):
+    def test_spaced_rim_and_energy_label(self):
+        html = HTML.replace('R16 91V Example Tyre', 'R 16 91V Example Tyre Consommation de carburant C Adhérence sur sol mouillé B')
+        out = parse_selection(html)
+        self.assertEqual(out['title'], '205/55 R 16 91V Example Tyre')
+        self.assertEqual(out['mail_total_ttc_cents'], 23960)
+
     def test_retail_not_purchase_and_no_network(self):
         out = parse_selection(HTML)
         self.assertEqual(out['mail_unit_ttc_cents'], 5990)
