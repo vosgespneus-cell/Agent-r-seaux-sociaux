@@ -50,3 +50,15 @@ dépense ou d'achat fournisseur n'est déduite de cette demande de connexion.
 Page personnelle HTTPS, délivrance du lien, provenance mail, rapprochement client,
 planification, stock/prix actuel fournisseur, frais réels, paiement de test,
 confirmations et commande fournisseur. Le parcours complet n'est pas livré.
+
+## Reprise après installation par le propriétaire
+Installation confirmée visuellement sur VOSGES PNEUS, domaine technique attendu,
+statut Installé et forfait Basic. shopify_connect.php a été préparé, vérifié par
+lint PHP sur LWS et servi sur une route temporaire aléatoire. Il vérifie TLS,
+origine/CSRF, expiration, nombre de tentatives et droits OAuth avant stockage privé.
+La saisie via browserAuth a été refusée par la validation automatique de sécurité.
+Aucun contournement ni autre transfert de secret n'a été tenté. Le formulaire a
+été désactivé immédiatement en fixant son expiration à zéro.
+Contrôle serveur : credentials_present=false, token_present=false.
+La connexion autonome LWS reste à finaliser par une procédure autorisée indépendante.
+Le site public et le paiement restent inchangés.
