@@ -30,12 +30,18 @@ requiresShipping=false dans ce test technique : la logistique réelle
 Le module de stock existant utilise des identifiants OAuth JSON privés et
 contrôle exactement read_inventory + read_products. Aucun secret lu ni affiché.
 Ne pas modifier ces permissions pour ne pas casser ce contrôle existant.
-Formulaire d'une application dédiée préparé, non soumis :
+Application dédiée créée et version publiée après accord explicite du propriétaire :
 - Nom : VOSGES PNEUS - commandes pneus
 - Version : pneus-test-20261021
 - Portées : write_draft_orders,read_orders
 - Intégration dans l'admin désactivée ; aucun flux hérité.
-Création/installation et stockage des nouveaux identifiants restent à autoriser.
+Création et installation autorisées par le propriétaire. Création confirmée dans le
+Dev Dashboard, version active pneus-test-20261021. Installation lancée mais état
+inconnu : l'observation de l'administration Shopify est bloquée par la protection
+des identifiants du navigateur, y compris après navigation explicite à l'origine.
+Ne pas confondre version active avec application installée. Aucun secret client
+n'a été lu ou transféré, aucune connexion de commandes configurée sur LWS.
+Une reprise manuelle sur l'écran d'installation est nécessaire à ce stade.
 Ces droits permettraient de gérer les brouillons et lire les commandes, avec les
 données clients associées, pour vérifier le paiement. Aucune autorisation de
 dépense ou d'achat fournisseur n'est déduite de cette demande de connexion.
