@@ -9,21 +9,22 @@ boîte. Aucune redirection Gmail ni nouvelle connexion mail n'est nécessaire.
 Le HTML contient les coordonnées client, le commentaire, la désignation, la
 quantité, les colonnes PA HT et PV TTC et un total TTC.
 Le lien « Ajouter au panier » vise le fournisseur, chemin /shop/wk.html,
-avec les paramètres PID et Menge. Seuls l'hôte, le chemin et les noms des
-paramètres ont été relevés : aucun lien n'a été suivi. La forme et la sémantique
-de la valeur PID restent à vérifier avant de considérer la référence validée.
+avec les paramètres PID et Menge. La sonde a extrait une référence de format
+attendu et une quantité cohérente, sans suivre le lien ni imprimer sa valeur.
+L'identité de l'offre et son stock/prix actuels restent à vérifier chez le fournisseur.
 Le mail avertit que prix et stock peuvent changer.
 Aucune donnée personnelle, aucun mail brut ni lien réel n'est inclus au dépôt.
 
-## Code préparé, non déployé
+## Code et sonde privée
 - camodo_mail.py : extraction stricte du format HTML français observé, séparation
   PA HT / PV TTC, quantités entières, sommes en centimes et contrôle des totaux.
   Le parseur ne fait aucun appel réseau. Il accepte uniquement un article et un
   lien fournisseur du format attendu, sinon il rejette pour examen.
 - test_camodo_mail.py : exemple synthétique reprenant la structure observée,
-  prix et référence fictifs. Le parseur complet n'a PAS encore été exécuté
-  sur le mail réel. L'extraction MIME, les coordonnées et le commentaire,
-  la provenance et la validation de PID restent à raccorder.
+  prix et référence fictifs. La version PHP camodo_readonly.php a désormais été
+  installée hors racine web et testée sur un vrai mail avec succès. Le MIME et
+  la référence PID ont été extraits. Les coordonnées, le commentaire et
+  l'authentification de provenance restent à raccorder.
 - sessions.py : sessions privées éphémères, rapprochement marqueur + email,
   empreintes HMAC et jeton, expiration, idempotence et gestion des conflits.
 - pricing.py : calcul des options avec configuration tarifaire explicite.
@@ -34,8 +35,10 @@ Aucune donnée personnelle, aucun mail brut ni lien réel n'est inclus au dépô
 16 tests unitaires passent : extraction synthétique, calcul et rapprochement.
 Syntaxe JavaScript de l'aperçu précédemment vérifiée avec node --check.
 Pas de test réel mail → session → panier → paiement.
-Aucun déploiement LWS de ce prototype, changement Shopify, envoi de mail,
-achat fournisseur ou paiement effectué.
+Sonde PHP CLI privée déployée sur LWS : lint et 6 cas serveur réussis, extraction
+réelle réussie. Trois calculs Shopify et un brouillon TEST #D1 réalisés, sans
+facture envoyée. Aucun parcours public, cron, paiement ni achat fournisseur.
+Voir VERIFICATION_20261021.md pour les résultats et les droits Shopify préparés.
 
 ## Blocages concrets et suite
 1. La demande réelle contient le commentaire standard, sans marqueur de session.
