@@ -6,7 +6,7 @@ if(($_SERVER['HTTP_HOST']??'')!=='agents.vosgespneus.com'||empty($_SERVER['HTTPS
     http_response_code(404);exit;
 }
 $nonce=base64_encode(random_bytes(24));
-header('Cache-Control: no-store');header('Referrer-Policy: no-referrer');header('X-Robots-Tag: noindex, nofollow, noarchive');
+header('Cache-Control: no-store');header('Referrer-Policy: same-origin');header('X-Robots-Tag: noindex, nofollow, noarchive');
 header('X-Content-Type-Options: nosniff');header('X-Frame-Options: DENY');
 header("Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; script-src 'nonce-$nonce'; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'");
 ini_set('session.use_strict_mode','1');session_name('vp_pneus_review');session_save_path(VP_REVIEW_DIR.'/sessions');
