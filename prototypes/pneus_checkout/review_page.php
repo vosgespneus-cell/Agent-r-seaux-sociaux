@@ -40,6 +40,15 @@ if($quote&&($_SERVER['REQUEST_METHOD']??'')==='POST'){
     }catch(Throwable $e){$error='Les options n’ont pas été enregistrées. Vérifiez la quantité puis réessayez.';}
 }
 if($quote)$tot=reviewTotals($quote,(string)$quote['quantity'],(string)$quote['fitting'],(string)$quote['storage_pairs']);
+$bridgeJob=null;
+if($quote&&$quote['saved']){
+    try{
+        if($db->query("SELECT 1 FROM sqlite_master WHERE type='table' AND name='shopify_bridge_jobs'")->fetchColumn()){
+            $j=$db->prepare('SELECT state,order_name FROM shopify_bridge_jobs WHERE quote_id=?');
+            $j->execute([$quote['id']]);$bridgeJob=$j->fetch(PDO::FETCH_ASSOC)?:null;
+        }
+    }catch(Throwable $ignored){}
+}
 ?><!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Votre sélection de pneus — VOSGES PNEUS</title>
 <script nonce="<?=reviewH($nonce)?>">document.documentElement.dataset.opening=location.hash?'1':'0';</script>
@@ -50,7 +59,9 @@ if($quote)$tot=reviewTotals($quote,(string)$quote['quantity'],(string)$quote['fi
 <main class="wrap"><div class="test"><strong>ESSAI PRIVÉ</strong> — Aucun achat ni paiement. Montage, valve et recyclage chiffrés selon les tarifs confirmés ; durée du gardiennage à confirmer.</div>
 <p id="link-status" class="notice" role="status">Ouverture de votre sélection…</p><section id="quote-view"><?php if(!$quote): ?><h1>Votre sélection de pneus</h1><p id="access" class="notice">Ouvrez votre lien personnel pour retrouver votre sélection. Ce lien peut avoir expiré.</p>
 <?php else: ?><h1>Complétez votre sélection</h1><p class="sub">Vos pneus sont repris du devis. Choisissez les prestations qui vous conviennent.</p><div class="steps">1. Pneus sélectionnés &nbsp; · &nbsp; 2. Prestations &nbsp; · &nbsp; 3. Vérification avant paiement</div>
-<?php if($quote['saved']): ?><div class="success" role="status">Vos options sont enregistrées pour cet essai. Aucune commande n’est passée.</div><?php endif; ?>
+<?php if(($bridgeJob['state']??'')==='completed'): ?><div class="success" role="status">Votre commande de test <?=reviewH($bridgeJob['order_name'])?> est confirmée. Aucun débit réel.</div>
+<?php elseif($quote['saved']): ?><div class="success" role="status">Vos options sont enregistrées pour cet essai. Aucune commande n’est passée.</div><?php endif; ?>
+<?php if(($bridgeJob['state']??'')==='private_draft_stock_pending'): ?><p class="notice">Votre sélection est préparée. Nous devons confirmer la disponibilité, les frais et les modalités de remise avant tout paiement.</p><?php endif; ?>
 <?php if($error): ?><p class="error" role="alert"><?=reviewH($error)?></p><?php endif; ?>
 <form method="post"><input type="hidden" name="action" value="save"><input type="hidden" name="csrf" value="<?=reviewH($_SESSION['csrf'])?>"><div class="grid"><section>
 <div class="card"><span class="pill">Pneus sélectionnés</span><div class="tyre"><?=reviewH($quote['title'])?></div><p class="sub"><?=reviewMoney((int)$quote['unit_cents'])?> TTC par pneu</p><label for="qty">Quantité</label><br><input id="qty" name="quantity" type="number" min="1" max="<?=reviewH($quote['quoted_quantity'])?>" value="<?=reviewH($quote['quantity'])?>" required><div class="small">La disponibilité sera revérifiée avant tout paiement.</div></div>
