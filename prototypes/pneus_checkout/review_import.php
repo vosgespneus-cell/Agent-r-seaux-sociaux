@@ -26,8 +26,8 @@ try{
     if(($argv[1]??'')!=='--owner-test'||!ctype_digit($argv[2]??''))throw new RuntimeException('owner_test_uid_required');
     $uid=(int)$argv[2];if($uid<1)throw new RuntimeException('invalid_uid');
     define('VP_CAMODO_LIBRARY_ONLY',true);
-    require '/home/vp_pneus_probe_20261021/camodo_readonly.php';
-    $m=require '/home/vp_mail_config.php';
+    require dirname(VP_REVIEW_DIR).'/vp_pneus_probe_20261021/camodo_readonly.php';
+    $m=require dirname(VP_REVIEW_DIR).'/vp_mail_config.php';
     $imap=@imap_open('{mail84.lwspanel.com:993/imap/ssl}INBOX','contact@vosgespneus.com',$m['password'],OP_READONLY,1);
     if(!$imap)throw new RuntimeException('imap_unavailable');
     try{
