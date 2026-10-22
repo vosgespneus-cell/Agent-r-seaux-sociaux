@@ -5,7 +5,7 @@ if(PHP_SAPI!=='cli'){http_response_code(404);exit;}
 ini_set('display_errors','0');umask(0077);
 require __DIR__.'/review_lib.php';
 define('VP_CAMODO_LIBRARY_ONLY',true);
-require '/home/vp_pneus_probe_20261021/camodo_readonly.php';
+require dirname(VP_REVIEW_DIR).'/vp_pneus_probe_20261021/camodo_readonly.php';
 
 function intakeTestMarker(string $html): bool {
     $dom=new DOMDocument();$old=libxml_use_internal_errors(true);
@@ -27,7 +27,11 @@ function intakeFingerprint(array $selection,string $email): string {
 }
 function intakeChild(string $script,array $args): void {
     if(!function_exists('exec'))throw new RuntimeException('child_execution_unavailable');
-    $command=escapeshellarg(PHP_BINARY).' '.escapeshellarg(__DIR__.'/'.$script);
+    $command=escapeshellarg(PHP_BINARY);
+    $ini=php_ini_loaded_file();
+    if($ini)$command.=' -c '.escapeshellarg($ini);
+    $command.=' -d '.escapeshellarg('extension_dir='.ini_get('extension_dir'));
+    $command.=' '.escapeshellarg(__DIR__.'/'.$script);
     foreach($args as $arg)$command.=' '.escapeshellarg((string)$arg);
     $output=[];$code=1;exec($command.' 2>&1',$output,$code);
     // Child output may contain personal links: never log it.
@@ -42,7 +46,8 @@ try {
         $s=['reference'=>'EXAMPLE','quantity'=>4,'mail_unit_ttc_cents'=>4603];
         if(intakeFingerprint($s,'TEST@example.invalid')!==intakeFingerprint($s,'test@example.invalid'))throw new RuntimeException('case_failed');
         if(intakeFingerprint($s,'test@example.invalid')===intakeFingerprint(array_replace($s,['quantity'=>2]),'test@example.invalid'))throw new RuntimeException('quantity_failed');
-        echo "INTAKE_TEST_SELF_TEST_OK cases=5\n";exit;
+        intakeChild('review_notify.php',['--self-test']);
+        echo "INTAKE_TEST_SELF_TEST_OK cases=6\n";exit;
     }
     $mode=$argv[1]??'--scan';
     if(!in_array($mode,['--scan','--run-tests'],true))throw new RuntimeException('invalid_mode');
@@ -56,7 +61,7 @@ try {
     $db=reviewDb();
     $db->exec('CREATE TABLE IF NOT EXISTS intake_test_receipts(
       source_key TEXT PRIMARY KEY, fingerprint TEXT NOT NULL, state TEXT NOT NULL, created INTEGER NOT NULL)');
-    $mailConfig=require '/home/vp_mail_config.php';
+    $mailConfig=require dirname(VP_REVIEW_DIR).'/vp_mail_config.php';
     $imap=@imap_open('{mail84.lwspanel.com:993/imap/ssl}INBOX','contact@vosgespneus.com',$mailConfig['password'],OP_READONLY,1);
     if(!$imap)throw new RuntimeException('imap_unavailable');
     try {
