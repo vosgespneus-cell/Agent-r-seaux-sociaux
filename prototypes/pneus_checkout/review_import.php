@@ -6,16 +6,21 @@ require __DIR__.'/review_lib.php';
 try{
     if(($argv[1]??'')==='--self-test'){
         $base=['quoted_quantity'=>4,'unit_cents'=>5718,'rim'=>16];
-        foreach([[0,0,22872],[1,0,28872],[1,2,34872]] as [$f,$s,$expected]){
+        foreach([[0,0,22872],[1,0,31072],[1,2,37072]] as [$f,$s,$expected]){
             if(reviewTotals($base,'4',(string)$f,(string)$s)['total']!==$expected)throw new RuntimeException('test_total_failed');
         }
         foreach([['5','0','0'],['4','2','0'],['4','1','13'],['1.5','0','0'],['04','0','0']] as $bad){
             try{reviewTotals($base,...$bad);}catch(RuntimeException $e){continue;}
             throw new RuntimeException('test_validation_failed');
         }
+        foreach([13=>2050,16=>2050,17=>2350,18=>2350,19=>2750,22=>2750] as $rim=>$service){
+            $case=['quoted_quantity'=>4,'unit_cents'=>5779,'rim'=>$rim];
+            $out=reviewTotals($case,'4','1','0');
+            if($out['total']!==23116+4*$service||$out['valve_total']!==1200||$out['recycling_total']!==1000)throw new RuntimeException('test_supplements_failed');
+        }
         $fake='<table><tr><th>Courriel:</th><td>test@example.invalid</td></tr></table>';
         if(reviewCustomerEmail($fake)!=='test@example.invalid')throw new RuntimeException('test_email_failed');
-        try{reviewCustomerEmail($fake.$fake);}catch(RuntimeException $e){echo "REVIEW_SELF_TEST_OK cases=10\n";exit;}
+        try{reviewCustomerEmail($fake.$fake);}catch(RuntimeException $e){echo "REVIEW_SELF_TEST_OK cases=16\n";exit;}
         throw new RuntimeException('test_duplicate_email_failed');
     }
     if(($argv[1]??'')!=='--owner-test'||!ctype_digit($argv[2]??''))throw new RuntimeException('owner_test_uid_required');
