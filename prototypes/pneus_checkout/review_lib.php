@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 // Private owner-test workflow. No mail sending, supplier call or Shopify write.
-const VP_REVIEW_DIR='/home/vp_pneus_review';
+const VP_REVIEW_DIR=__DIR__; // Same private directory in web and LWS cron namespaces.
 function reviewDb(): PDO {
     umask(0077);
     if(!is_dir(VP_REVIEW_DIR))throw new RuntimeException('review_not_initialized');
