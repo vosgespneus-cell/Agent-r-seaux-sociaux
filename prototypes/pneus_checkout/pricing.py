@@ -35,13 +35,15 @@ class VerifiedOffer:
 class Tariffs:
     # Explicit server configuration, not values submitted by the customer.
     fitting_13_16_cents: int
-    fitting_17_cents: int
-    fitting_18_plus_cents: int
+    fitting_17_18_cents: int
+    fitting_19_plus_cents: int
     storage_pair_cents: int
     storage_period: str
-    other_required_fees_cents: int  # Shipping/valves/recycling, if applicable.
+    other_required_fees_cents: int  # Resolved delivery/other fees; exclude workshop lines below.
     required_fees_label: str
     max_offer_age_seconds: int = 300
+    valve_unit_ttc_cents: int = 300
+    recycling_unit_ttc_cents: int = 250
 
 
 def calculate(offer, tariffs, *, quantity, fitting=False, storage_pairs=0, now):
@@ -60,8 +62,9 @@ def calculate(offer, tariffs, *, quantity, fitting=False, storage_pairs=0, now):
         raise ValueError("invalid_options")
     for name in ("unit_ttc_cents", "available", "rim_inches"):
         integer(getattr(offer, name), name, 1 if name != "available" else 0)
-    for name in ("fitting_13_16_cents", "fitting_17_cents", "fitting_18_plus_cents",
-                 "storage_pair_cents", "other_required_fees_cents"):
+    for name in ("fitting_13_16_cents", "fitting_17_18_cents", "fitting_19_plus_cents",
+                 "storage_pair_cents", "other_required_fees_cents",
+                 "valve_unit_ttc_cents", "recycling_unit_ttc_cents"):
         integer(getattr(tariffs, name), name)
     integer(tariffs.max_offer_age_seconds, "max_offer_age_seconds", 1)
     if not all(isinstance(s, str) and s.strip() for s in
@@ -79,12 +82,16 @@ def calculate(offer, tariffs, *, quantity, fitting=False, storage_pairs=0, now):
         if offer.rim_inches < 13:
             raise ValueError("fitting_tariff_unavailable")
         rate = (tariffs.fitting_13_16_cents if offer.rim_inches <= 16 else
-                tariffs.fitting_17_cents if offer.rim_inches == 17 else
-                tariffs.fitting_18_plus_cents)
+                tariffs.fitting_17_18_cents if offer.rim_inches <= 18 else
+                tariffs.fitting_19_plus_cents)
         if rate == 0:
             raise ValueError("fitting_tariff_unavailable")
         lines.append({"kind": "fitting", "label": "Montage et équilibrage",
                       "quantity": quantity, "unit_ttc_cents": rate})
+        lines.append({"kind": "valves", "label": "Valve standard",
+                      "quantity": quantity, "unit_ttc_cents": tariffs.valve_unit_ttc_cents})
+        lines.append({"kind": "recycling", "label": "Recyclage du pneu usagé",
+                      "quantity": quantity, "unit_ttc_cents": tariffs.recycling_unit_ttc_cents})
     if storage_pairs:
         if not tariffs.storage_period.strip() or tariffs.storage_pair_cents == 0:
             raise ValueError("storage_tariff_unavailable")
