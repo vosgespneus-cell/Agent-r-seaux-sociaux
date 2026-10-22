@@ -1,4 +1,4 @@
-# Parcours pneus — état du 21 octobre 2026
+# Parcours pneus — état du 22 octobre 2026
 
 Le parcours d'achat complet n'est pas en production. Le site existant est préservé.
 Aucun abonnement ajouté, paiement, envoi client ni achat fournisseur effectué.
@@ -56,6 +56,13 @@ Son enregistrement d'options n'est pas validé (refus de la politique URL naviga
 Le test ne remplace pas un parcours client de production. Aucun lien client envoyé.
 Le dernier contrôle catalogue montre le modèle SUNNY NL106 195/65 R16 à 57,79 EUR
 TTC, stock affiché 9, sans réservation ; le PID/EAN précis reste à rapprocher.
-Le prix catalogue exclut montage/équilibrage, valves et retraitement. Leur inclusion
-dans les forfaits atelier, les frais de livraison et la durée du gardiennage
-doivent être confirmés avant toute activation d'un paiement.
+Le prix catalogue exclut montage/équilibrage, valves et retraitement. Valve et recyclage sont désormais confirmés en supplément du montage,
+à 3 EUR et 2,50 EUR par pneu. Les frais de livraison et la durée du gardiennage
+restent à confirmer avant toute activation d'un paiement.
+
+## Reprise du 22 octobre
+Les tarifs confirmés sont intégrés dans le code et les exemples : 20,50 EUR jusqu'à
+16 pouces, 23,50 EUR pour 17–18 pouces, 27,50 EUR à partir de 19 pouces.
+18 tests Python et syntaxe JavaScript vérifiés. Ces nouveaux fichiers PHP ne sont
+pas encore déployés sur LWS. Voir VERIFICATION_20261022.md pour l'audit du thème
+non publié et les blocages. Le site actif et les paiements restent inchangés.
