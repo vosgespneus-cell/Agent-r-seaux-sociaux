@@ -16,14 +16,15 @@ La page d'essai PHP et la démonstration HTML reprennent ces suppléments.
 Aucun paiement ou achat fournisseur n'est activé.
 
 ## Validation
-18 tests Python passent. Ils couvrent les limites de diamètre (16/17/18/19),
+22 tests Python passent. Ils couvrent les limites de diamètre (16/17/18/19),
 les quantités 1/2/4, le montage facultatif, les suppléments, les frais séparés,
 le stock et la péremption. Syntaxe JavaScript de l'aperçu validée par node --check.
 Exemple arithmétique utilisant le dernier mail, pas une offre fournisseur actuelle :
 4 SUNNY à 57,79 EUR + 4 x 20,50 EUR = 313,16 EUR TTC, hors livraison éventuelle.
 La durée commerciale du gardiennage n'est pas confirmée.
-Les nouveaux fichiers PHP n'ont pas encore été testés ni déployés sur LWS
-pendant cette reprise. Le test navigateur d'enregistrement précédemment refusé
+Les trois fichiers PHP ont été installés sur LWS après contrôle SHA-256,
+avec sauvegardes privées hors racine web. Le test PHP installé réussit :
+REVIEW_SELF_TEST_OK cases=16. Le paiement reste désactivé. Le test navigateur d'enregistrement précédemment refusé
 n'a pas été retenté.
 
 ## État Shopify effectivement relu
@@ -55,3 +56,17 @@ Il reste à traiter les problèmes du thème, le lien entre sélection Camodo et
 produit Shopify, l'authenticité des mails, les frais/délais fournisseur, le stock
 réel, la collecte et les confirmations automatiques. Le parcours de paiement
 complet reste non testé et ne doit pas être publié.
+
+## Calcul réel Shopify sans création de commande
+Les appels draftOrderCalculate ont renvoyé zéro erreur :
+- 4 SUNNY à 57,79 EUR, sans montage : 231,16 EUR TTC, TVA 38,53 EUR ;
+- avec 4 variantes réelles du forfait jusqu’à 16 pouces : 313,16 EUR TTC, TVA 52,20 EUR ;
+- avec lignes détaillées montage/valves/recyclage et deux paires en gardiennage
+  de test : 373,16 EUR TTC, TVA 62,20 EUR.
+Ces montants ne prouvent ni le stock fournisseur actuel ni la durée de gardiennage.
+shopify_preview.py prépare uniquement le calcul et refuse les divergences de
+montant, devise, base fiscale, quantités et services incomplets. Il ne crée
+aucune commande, ne communique aucun secret et ne fournit aucun lien payable.
+Ce module Python est préparé sur la branche, pas intégré au processus LWS.
+Aucun envoi de confirmation ni test d’encaissement n’a été effectué.
+Le parcours complet reste bloqué et non publié.
