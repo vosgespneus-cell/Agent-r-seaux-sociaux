@@ -37,7 +37,7 @@ function vpConnectHttp(string $url, array $values): array {
     return $response;
 }
 if(PHP_SAPI==='cli') { echo "WEB_BOOTSTRAP_ONLY\n";exit; }
-header('Cache-Control: no-store');header('Referrer-Policy: no-referrer');
+header('Cache-Control: no-store');header('Referrer-Policy: same-origin');
 header('X-Content-Type-Options: nosniff');header('X-Frame-Options: DENY');
 header("Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'");
 $bootstrap=VP_CONNECT_DIR.'/bootstrap.json';
