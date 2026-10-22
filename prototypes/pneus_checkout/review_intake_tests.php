@@ -63,8 +63,11 @@ try {
         $status=imap_status($imap,'{mail84.lwspanel.com:993/imap/ssl}INBOX',SA_UIDVALIDITY);
         if(!$status||!$status->uidvalidity)throw new RuntimeException('uidvalidity_required');
         if(($config['uidvalidity']??0)!==(int)$status->uidvalidity)throw new RuntimeException('mailbox_identity_changed');
-        $uids=imap_search($imap,'UID '.$minimum.':* FROM camodo',SE_UID)?:[];
-        $uids=array_slice(array_values(array_filter($uids,fn($uid)=>(int)$uid>=$minimum)),0,20);
+        // Some IMAP servers reject UID criteria in SEARCH; SE_UID still
+        // returns stable UIDs. Filter locally and prioritize newest tests.
+        $uids=imap_search($imap,'FROM camodo',SE_UID)?:[];
+        $uids=array_values(array_filter($uids,fn($uid)=>(int)$uid>=$minimum));
+        rsort($uids,SORT_NUMERIC);$uids=array_slice($uids,0,20);
         $summary=['scanned'=>0,'already_attempted'=>0,'ineligible'=>0,'recent_duplicate'=>0,'eligible'=>0,'sent_attempts'=>0,'errors'=>0];
         foreach($uids as $uid){
             $summary['scanned']++;$source='owner-test:'.$status->uidvalidity.':'.$uid;
