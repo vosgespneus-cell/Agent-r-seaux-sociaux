@@ -13,7 +13,11 @@ function intakeTestMarker(string $html): bool {
     libxml_clear_errors();libxml_use_internal_errors($old);
     foreach($dom->getElementsByTagName('div') as $node){
         $classes=preg_split('/\s+/',$node->getAttribute('class'));
-        if(in_array('zusatztext',$classes,true)&&preg_match('/\btest\b/iu',cleanText($node)))return true;
+        if(!in_array('zusatztext',$classes,true))continue;
+        $paragraphs=[];
+        foreach($node->getElementsByTagName('p') as $p)$paragraphs[]=cleanText($p);
+        $comment=$paragraphs?implode(' ',$paragraphs):cleanText($node);
+        if(preg_match('/\btest\b/iu',$comment))return true;
     }
     return false;
 }
