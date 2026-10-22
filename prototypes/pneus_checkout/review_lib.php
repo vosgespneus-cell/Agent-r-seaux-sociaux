@@ -52,11 +52,14 @@ function reviewTotals(array $quote,$quantity,$fitting,$pairs): array {
     $f=reviewInteger($fitting,0,1);$s=reviewInteger($pairs,0,12);
     $rim=(int)$quote['rim'];
     if($f&&$rim<13)throw new RuntimeException('missing_fitting_tariff');
-    // Explicitly TEST rates. Commercial validity and storage term still pending.
-    $rate=$rim<=16?1500:($rim===17?1800:2200);
+    // Owner-confirmed fitting supplements, EUR/TTC per tyre. Storage term pending.
+    $rate=$rim<=16?1500:($rim<=18?1800:2200);
     $tyres=(int)$quote['unit_cents']*$q;$fit=$f?$rate*$q:0;$storage=$s*3000;
+    $valves=$f?300*$q:0;$recycling=$f?250*$q:0;
     return ['quantity'=>$q,'fitting'=>$f,'storage_pairs'=>$s,'tyres'=>$tyres,
-        'fitting_total'=>$fit,'storage_total'=>$storage,'total'=>$tyres+$fit+$storage,'fitting_rate'=>$rate];
+        'fitting_total'=>$fit,'valve_total'=>$valves,'recycling_total'=>$recycling,
+        'storage_total'=>$storage,'total'=>$tyres+$fit+$valves+$recycling+$storage,
+        'fitting_rate'=>$rate,'fitting_bundle_rate'=>$rate+550];
 }
 function reviewMoney(int $cents): string {
     return number_format(intdiv($cents,100),0,',',' ').','.str_pad((string)($cents%100),2,'0',STR_PAD_LEFT).' €';
