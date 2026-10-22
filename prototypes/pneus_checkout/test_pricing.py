@@ -18,18 +18,37 @@ class PricingTest(unittest.TestCase):
     def test_itemized_ttc_and_optional_services(self):
         self.assertEqual(self.quote()["total_ttc_cents"], 17480)
         q = self.quote(fitting=True, storage_pairs=2)
-        self.assertEqual(q["total_ttc_cents"], 29480)
-        self.assertEqual([x["total_ttc_cents"] for x in q["lines"]], [17480, 6000, 6000])
+        self.assertEqual(q["total_ttc_cents"], 31680)
+        self.assertEqual([x["total_ttc_cents"] for x in q["lines"]], [17480, 6000, 1200, 1000, 6000])
         self.assertFalse(q["payment_enabled"])
         self.assertFalse(q["supplier_reservation"])
 
     def test_all_fitting_bands_and_required_fees(self):
-        for rim, fitting_total in [(13,6000),(16,6000),(17,7200),(18,8800),(22,8800)]:
+        for rim, fitting_total in [(13,6000),(16,6000),(17,7200),(18,7200),(19,8800),(22,8800)]:
             q = calculate(replace(self.offer, rim_inches=rim),
                           replace(self.tariffs, other_required_fees_cents=2595,
                                   required_fees_label="Frais test"),
                           quantity=4, fitting=True, now=self.now)
-            self.assertEqual(q["total_ttc_cents"],17480+fitting_total+2595)
+            self.assertEqual(q["total_ttc_cents"],17480+fitting_total+2200+2595)
+
+    def test_confirmed_supplements_are_per_tyre_only_with_fitting(self):
+        sunny = replace(self.offer, unit_ttc_cents=5779)
+        for rim, service_unit in [(13,2050),(16,2050),(17,2350),(18,2350),(19,2750),(22,2750)]:
+            for quantity in [1,2,4]:
+                with self.subTest(rim=rim, quantity=quantity):
+                    offer = replace(sunny, rim_inches=rim)
+                    fitted = calculate(offer,self.tariffs,quantity=quantity,fitting=True,now=self.now)
+                    self.assertEqual(fitted['total_ttc_cents'],quantity*(5779+service_unit))
+                    amounts = {line['kind']:line['total_ttc_cents'] for line in fitted['lines']}
+                    self.assertEqual(amounts['valves'],300*quantity)
+                    self.assertEqual(amounts['recycling'],250*quantity)
+                    bare = calculate(offer,self.tariffs,quantity=quantity,now=self.now)
+                    self.assertEqual(bare['total_ttc_cents'],5779*quantity)
+                    self.assertEqual([line['kind'] for line in bare['lines']],['tyres'])
+        for value in [True,-1,2.5]:
+            with self.assertRaises(ValueError):
+                calculate(sunny,replace(self.tariffs,valve_unit_ttc_cents=value),
+                          quantity=4,fitting=True,now=self.now)
 
     def test_invalid_quantities_and_boolean_values(self):
         for qty in [0,-1,1.5,"4",True,25]:
