@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-20",
+  "updated_at": "2026-10-23",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -107,15 +107,15 @@
     "son commercial autorisé pour contenu promotionnel"
   ],
   "performance_snapshot": {
-    "checked_at": "2026-10-20",
+    "checked_at": "2026-10-23",
+    "source": "Metricool",
     "followers": 4,
-    "total_public_videos": 5,
-    "known_video_views": 1003,
-    "profile_views_today": 0,
-    "comments": 0,
-    "shares": 0,
-    "leads": 0,
-    "note": "Aucune nouvelle vidéo publique, aucun commentaire, partage, clic commercial ou lead détecté le 20 octobre. Le compte reste à 4 abonnés et 5 vidéos; aucune nouvelle éligibilité de monétisation n’est démontrée."
+    "new_videos_since_2026_10_20": 0,
+    "views_since_2026_10_20": 0,
+    "comments_since_2026_10_20": 0,
+    "shares_since_2026_10_20": 0,
+    "profile_views_since_2026_10_20": 0,
+    "note": "Aucun nouveau signal TikTok utile. Les lectures TikTok via Windsor.ai sont suspendues par la limite du forfait gratuit et ne sont pas utilisées comme données."
   },
   "ready_drafts": [
     {
@@ -229,51 +229,24 @@
     "action": "reconnecter la page Facebook Vosges Pneus à la marque Metricool avant de reprogrammer le post gardiennage; pour TikTok, utiliser uniquement des médias dont la largeur et la hauteur sont chacune inférieures ou égales à 1080 px"
   },
   "library_media_check": {
-    "checked_at": "2026-10-20",
-    "result": "Des images récentes aux noms génériques sont présentes, mais aucune n’est explicitement identifiée comme média VOSGES PNEUS avec des faits vérifiables.",
-    "action": "Ne pas les utiliser ni publier. Conserver les brouillons existants; toute pièce reste bloquée tant que référence, compatibilité, état, prix et disponibilité ne sont pas tous vérifiés."
+    "checked_at": "2026-10-23",
+    "result": "Les nouveaux fichiers identifiables appartiennent à TRANSMALIN/EUROTRANS et ont été exclus. Les autres nouveaux éléments sont des captures techniques du parcours VOSGES PNEUS, non adaptées à une publication sociale.",
+    "action": "Aucun nouveau média d’intervention ou de pièce exploitable; conserver les brouillons existants sans publication."
   },
   "google_business_snapshot": {
-    "checked_at": "2026-10-20",
-    "data_through": "2026-10-17",
-    "period_totals_2026_10_09_to_17": {
-      "impressions": 68,
-      "direction_requests": 32,
-      "call_clicks": 14,
-      "website_clicks": 10
-    },
-    "newly_available_since_previous_check": {
-      "impressions": 8,
-      "direction_requests": 3,
-      "call_clicks": 2,
-      "website_clicks": 0
-    },
-    "reviews": "Aucun nouvel avis les 19–20 octobre; aucune réponse à publier.",
-    "search_keywords": "Aucune donnée de mots-clés disponible dans l’extraction du jour.",
-    "published_post": {
+    "checked_at": "2026-10-23",
+    "last_verified_post": {
       "published_at": "2026-10-20T15:54:45+02:00",
-      "state": "LIVE",
+      "last_verified_state": "LIVE",
       "topic": "Préparer une demande de pneus hiver",
       "url": "https://local.google.com/place?id=7949441121821933413&use=posts&lpsid=CIHM0ogKEJ_9iq_UxZPhKQ"
-    }
+    },
+    "blocker": "Les lectures Google Business via Windsor.ai sont suspendues car 4 comptes sont connectés alors que le forfait gratuit en autorise 1. Avis, performances, mots-clés et statut actuel des posts non vérifiables aujourd’hui."
   },
   "seo_snapshot": {
-    "checked_at": "2026-10-20",
-    "data_through": "2026-10-19",
-    "ga4": {
-      "sessions": 7,
-      "active_users": 5,
-      "engaged_sessions": 4,
-      "screen_page_views": 12,
-      "key_events": 0
-    },
-    "results": [
-      "19 octobre : « pneu epinal » — 3 impressions, position moyenne 1, aucun clic",
-      "19 octobre : « vente pneus occasion particulier » — 6 impressions, position 1, aucun clic",
-      "19 octobre : « pneu 235 60 r16 » — 3 impressions, position 2, aucun clic",
-      "19 octobre : « pneu » — 6 impressions, position moyenne 3,67, aucun clic"
-    ],
-    "opportunity": "Priorité concrète : renforcer le titre et la meta-description de l’accueil avec « pneus à Épinal / Thaon-les-Vosges » et un appel à demander une disponibilité par dimension. Vérifier aussi le marquage des appels/formulaires : GA4 enregistre 7 sessions mais aucun événement clé sur les 19–20 octobre."
+    "checked_at": "2026-10-23",
+    "blocker": "Les lectures Search Console et GA4 via Windsor.ai sont suspendues par la limite du forfait gratuit; les valeurs factices renvoyées ont été écartées.",
+    "last_verified_opportunity": "Renforcer le titre et la meta-description de l’accueil autour de pneus à Épinal / Thaon-les-Vosges et d’une demande par dimension; vérifier le marquage des appels et formulaires."
   },
   "depot_parts_review": [
     {
@@ -382,27 +355,33 @@
     }
   ],
   "supplier_snapshot": {
-    "checked_at": "2026-10-20",
-    "opportunity": "ALZURA/Tyre24 propose officiellement une API pour relier ERP ou boutique, avec disponibilité/prix multi-fournisseurs; piste à évaluer seulement après rétablissement de Shopify.",
-    "constraints": "Aucun abonnement ni dépense engagé. Le compte Pneus100 reste à activer avec un KBIS lisible."
+    "checked_at": "2026-10-23",
+    "opportunity": "TASY propose officiellement un dropshipping pneus avec API moderne ou flux XML/SFTP : catalogue, stock, prix, commandes, statuts et expédition directe au client sous le nom du vendeur, avec commande test avant mise en production.",
+    "next_step": "Demander les conditions France et la documentation technique à dropshipping@tasy.cz, sans souscrire ni engager de dépense."
   },
   "access_blockers": {
     "shopify": {
-      "checked_at": "2026-10-20",
-      "status": "réauthentification toujours requise",
-      "impact": "commandes, ventes, stocks, incohérences et nouvelles pièces depuis le 16 octobre non vérifiables",
-      "action": "reconnecter l’application Shopify à la boutique VOSGES PNEUS; aucune donnée n’a été modifiée"
+      "checked_at": "2026-10-23",
+      "status": "réauthentification toujours requise dans le connecteur",
+      "impact": "La commande test #1003 connue par ailleurs ne peut pas être vérifiée ici; commandes, ventes, stocks et changements de catalogue restent non contrôlables.",
+      "action": "Reconnecter l’application Shopify à la boutique VOSGES PNEUS."
+    },
+    "windsor_ai": {
+      "checked_at": "2026-10-23",
+      "status": "lectures suspendues sur le forfait gratuit",
+      "impact": "Google Business, avis, GA4, Search Console et TikTok ne peuvent pas être contrôlés de façon fiable.",
+      "action": "Dans Windsor.ai, conserver un seul compte connecté sans dépense, ou indiquer lesquels déconnecter; les données factices du jour ont été ignorées."
     }
   },
   "metricool_snapshot": {
-    "checked_at": "2026-10-20",
+    "checked_at": "2026-10-23",
     "scheduled_posts_next_14_days": 0,
     "failures_today": 0,
-    "blocker": "La marque Metricool ne présente toujours aucune page Facebook connectée; toute nouvelle programmation Facebook reste bloquée jusqu’à reconnexion.",
-    "tiktok": "0 nouvelle vidéo, vue, interaction, visite de profil ou nouvel abonné sur les 19–20 octobre."
+    "blocker": "La marque Metricool ne présente toujours aucune page Facebook connectée.",
+    "tiktok": "4 abonnés; aucune nouvelle vidéo, vue, interaction ou visite de profil détectée du 20 au 23 octobre."
   },
   "jotform_snapshot": {
-    "checked_at": "2026-10-20",
+    "checked_at": "2026-10-23",
     "form_id": "262624835646061",
     "new_submissions": 0,
     "callbacks_due": 0
