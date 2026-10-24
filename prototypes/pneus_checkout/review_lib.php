@@ -53,7 +53,7 @@ function reviewTotals(array $quote,$quantity,$fitting,$pairs): array {
     $rim=(int)$quote['rim'];
     if($f&&$rim<13)throw new RuntimeException('missing_fitting_tariff');
     // Owner-confirmed fitting supplements, EUR/TTC per tyre. Storage term pending.
-    $rate=$rim<=16?1500:($rim<=18?1800:2200);
+    $rate=$rim<=16?1500:($rim<=17?1800:2200);
     $tyres=(int)$quote['unit_cents']*$q;$fit=$f?$rate*$q:0;$storage=$s*3000;
     $valves=$f?300*$q:0;$recycling=$f?250*$q:0;
     return ['quantity'=>$q,'fitting'=>$f,'storage_pairs'=>$s,'tyres'=>$tyres,
