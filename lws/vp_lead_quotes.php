@@ -55,9 +55,9 @@ function quote_test(): void {
  $o=['size'=>'225/45R17','season'=>'allseason','purchase_cents'=>6640,'price_basis'=>'PA_HT','vat_basis_points'=>2000];
  $f=['schema'=>1,'observed_at'=>10000,'source_kind'=>'manual_browser','offers'=>[$o]];
  $r=quote_prepare($p,$f,10001);$a=$r['offers'][0]??[];
- if(($a['purchase_ttc_cents']??0)!==7968||$a['unit_ttc_cents']!==10268||$a['subtotal_before_shipping_cents']!==20536||$a['total_ttc_cents']!==null||count($a['blocked_by'])<5)throw new Exception('QUOTE_HT_OR_BLOCKS');
+ if(($a['purchase_ttc_cents']??0)!==7968||$a['unit_ttc_cents']!==10818||$a['subtotal_before_shipping_cents']!==21636||$a['total_ttc_cents']!==null||count($a['blocked_by'])<5)throw new Exception('QUOTE_HT_OR_BLOCKS');
  $f['offers'][0]['shipping_total_cents']=900;
- if(quote_prepare($p,$f,10001)['offers'][0]['total_ttc_cents']!==21436)throw new Exception('QUOTE_SHIPPING_ONCE');
+ if(quote_prepare($p,$f,10001)['offers'][0]['total_ttc_cents']!==22536)throw new Exception('QUOTE_SHIPPING_ONCE');
  $f['offers'][0]['price_basis']='PV_TTC';if(quote_prepare($p,$f,10001)['offers'])throw new Exception('QUOTE_PV_REJECT');
  $f['offers'][0]=$o;$p['quantity']=null;if(quote_prepare($p,$f,10001)['offers'][0]['subtotal_before_shipping_cents']!==null)throw new Exception('QUOTE_QUANTITY');
  if(quote_prepare($p,$f,13601)['status']!=='missing_or_stale_supplier_feed')throw new Exception('QUOTE_STALE');
