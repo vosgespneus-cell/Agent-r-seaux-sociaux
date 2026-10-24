@@ -15,7 +15,7 @@ function lead_prepare(array $b): ?array {
  if($name==='Test Automatisation'&&str_contains($comment,'TEST TECHNIQUE'))return null;
  $size=$get(28);if($size==='Autre dimension')$size=$get(29);
  $diameter=null;if(preg_match('/\bR\s*(\d{2})\b/i',$size,$m))$diameter=(int)$m[1];
- $mount=$diameter!==null&&$diameter>=13?($diameter<=15?1500:($diameter<=17?1800:2200)):null;
+ $mount=$diameter!==null&&$diameter>=13?($diameter<=16?1500:($diameter<=17?1800:2200)):null;
  $phone=preg_replace('/\D/','',$get(4));$quantity=$get(15);$exact=ctype_digit($quantity)&&(int)$quantity>=1&&(int)$quantity<=20?(int)$quantity:null;
  $service=$get(21);$fitting=$service==='Pneus + montage';
  $missing=['prix achat TTC Allopneus','disponibilité et délai','frais de livraison'];
@@ -27,8 +27,8 @@ function lead_prepare(array $b): ?array {
 }
 function lead_total(int $purchase,int $quantity,int $diameter,bool $fitting,int $shipping): int {
  if($purchase<=0||$quantity<1||$quantity>20||$diameter<13||$diameter>30||$shipping<0)throw new InvalidArgumentException('PRICE_INPUT');
- $mount=$fitting?($diameter<=15?1500:($diameter<=17?1800:2200)):0;
- return ($purchase+500+$mount)*$quantity+$shipping;
+ $mount=$fitting?($diameter<=16?1500:($diameter<=17?1800:2200)):0;
+ return ($purchase+500+$mount+($fitting?550:0))*$quantity+$shipping;
 }
 function lead_send(string $to,string $subject,string $body,string $sender): bool {
  $c=require __DIR__.'/vp_mail_config.php';if(empty($c['password']))return false;
@@ -73,7 +73,12 @@ function lead_alert(PDO $d,array $cfg,callable $send): string {
 function lead_test(): void {
  $b=['form_id'=>'262624697144060','answers'=>[3=>['answer'=>['first'=>'Client','last'=>'Test']],28=>['answer'=>'225/45 R17'],15=>['answer'=>'2'],21=>['answer'=>'Pneus + montage']]];
  $p=lead_prepare($b);if($p['margin_cents_per_tyre']!==500||$p['fitting_cents_per_tyre']!==1800||$p['quantity']!==2||$p['customer_message_sent']!==false)throw new Exception('PREPARE');
- if(lead_total(7000,2,17,true,0)!==18600||lead_total(7000,4,16,true,900)!==38100||lead_total(7000,2,20,true,0)!==19400)throw new Exception('PRICES');
+ if(lead_total(7000,2,17,true,0)!==19700||lead_total(7000,4,16,true,900)!==39100||lead_total(7000,2,20,true,0)!==20500)throw new Exception('PRICES');
+ foreach([13=>1500,16=>1500,17=>1800,18=>2200,19=>2200] as $rim=>$rate){
+  foreach([1,2,4] as $qty){
+   if(lead_total(7000,$qty,$rim,true,900)!==(7500+$rate+550)*$qty+900||lead_total(7000,$qty,$rim,false,900)!==7500*$qty+900)throw new Exception('TARIFF_BANDS_AND_SUPPLEMENTS');
+  }
+ }
  $b['answers'][15]['answer']='4+';if(lead_prepare($b)['quantity']!==null)throw new Exception('QUANTITY');
  $b['answers'][3]['answer']='Test Automatisation';$b['answers'][24]['answer']='TEST TECHNIQUE — aucune commande client';if(lead_prepare($b)!==null)throw new Exception('TEST_FILTER');
  echo "LEAD_SELFTEST_OK tariffs quantity drafts test_filter\n";
