@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-23",
+  "updated_at": "2026-10-24",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -107,15 +107,15 @@
     "son commercial autorisé pour contenu promotionnel"
   ],
   "performance_snapshot": {
-    "checked_at": "2026-10-23",
+    "checked_at": "2026-10-24",
     "source": "Metricool",
     "followers": 4,
-    "new_videos_since_2026_10_20": 0,
-    "views_since_2026_10_20": 0,
-    "comments_since_2026_10_20": 0,
-    "shares_since_2026_10_20": 0,
-    "profile_views_since_2026_10_20": 0,
-    "note": "Aucun nouveau signal TikTok utile. Les lectures TikTok via Windsor.ai sont suspendues par la limite du forfait gratuit et ne sont pas utilisées comme données."
+    "new_videos_since_2026_10_17": 0,
+    "views_since_2026_10_17": 6,
+    "comments_since_2026_10_17": 0,
+    "shares_since_2026_10_17": 0,
+    "profile_views_since_2026_10_17": 2,
+    "note": "Aucune nouvelle vidéo détectée. Metricool remonte 6 vues de vidéos du compte et 2 visites de profil le 22 octobre, sans commentaire, partage ni nouvel abonné. Les lectures TikTok via Windsor.ai restent suspendues et sont écartées."
   },
   "ready_drafts": [
     {
@@ -208,44 +208,75 @@
         "emplacement magasin"
       ],
       "duplicate_check": "aucun sujet équivalent parmi les cinq vidéos TikTok publiques; vérifier à nouveau avant toute diffusion"
+    },
+    {
+      "id": "pompes_injection_depot_20261024",
+      "topic": "Deux pompes à injection du dépôt — identification en cours",
+      "format": "montage vertical à partir de neuf photos réelles",
+      "source_media": [
+        "libfile_d548e16eef5881919f6924964bd01f00",
+        "libfile_b4e499276be081918530ab365a299eea",
+        "libfile_607331e838e48191ba2f0fce06d8ed44",
+        "libfile_4706b1c11b5c8191b9f0407db3e37682",
+        "libfile_ba98bf714f308191838b71958869b860",
+        "libfile_f2d023df3200819186a1381f4ec24731",
+        "libfile_9f6b298342948191aa5837ea500eba59",
+        "libfile_750add3bb7c0819182d3a7fd68ecb957",
+        "libfile_30e5d7ea9b888191bb6b58ba444ae035"
+      ],
+      "hook": "Une référence lisible ne suffit pas pour publier une pièce",
+      "caption": "Deux pompes à injection d’occasion ont été photographiées au dépôt VOSGES PNEUS. L’une porte les références Bosch 0 445 010 102 et PSA 9683703780 ; l’identification de l’autre, de marque Delphi, reste partielle. Elles restent en brouillon tant que compatibilité exacte, état fonctionnel, prix et disponibilité commerciale ne sont pas entièrement vérifiés. #VosgesPneus #ThaonLesVosges #PiecesAuto #InjectionDiesel",
+      "verified_facts": [
+        "neuf photos réelles ajoutées le 24 octobre 2026",
+        "références Bosch 0 445 010 102 et PSA 9683703780 lisibles sur une pompe",
+        "marque Delphi visible sur une seconde pompe",
+        "deux pièces non testées",
+        "aucune remise en état ni compatibilité exacte affirmée"
+      ],
+      "status": "brouillon bloqué — ne pas publier",
+      "required_before_publish": [
+        "référence complète de la pompe Delphi",
+        "compatibilité exacte de chaque pompe",
+        "état fonctionnel après test",
+        "prix",
+        "disponibilité réelle",
+        "emplacement validé pour chaque pièce"
+      ],
+      "duplicate_check": "aucun sujet équivalent parmi les cinq vidéos TikTok publiques connues; vérifier à nouveau avant toute diffusion"
     }
   ],
   "distribution_blocker": {
-    "checked_at": "2026-10-11",
-    "service": "Metricool / TikTok",
-    "status": "Facebook est déconnecté de la marque Metricool; les échecs TikTok liés aux médias dépassant 1080p restent également à prévenir",
+    "checked_at": "2026-10-24",
+    "service": "Metricool",
+    "status": "La page Facebook VosgesPneus 103147888661034 est reconnectée. Les échecs TikTok historiques liés aux médias dépassant 1080p restent à prévenir.",
     "latest_failures": [
-      "8 octobre 10:00 — Facebook — gardiennage pneus — échec : No Facebook page connected",
+      "8 octobre 10:00 — Facebook — gardiennage pneus — échec historique : No Facebook page connected",
       "3 octobre 18:00 — TikTok — feu arrière Peugeot 407 — média au-delà de 1080p",
       "1er octobre 18:00 — TikTok — pompe Delphi — média au-delà de 1080p"
     ],
-    "successful_posts": [
-      "3 octobre 18:00 — Instagram — feu arrière Peugeot 407 — publiée",
-      "4 octobre 10:00 — Facebook — feu arrière Peugeot 407 — publiée",
-      "5 octobre 10:00 — Facebook — préparation pneus hiver — publiée"
-    ],
-    "next_risk": "toute publication Facebook échouera tant que la page n’est pas reconnectée dans Metricool; toute publication TikTok avec une image supérieure à 1080p échouera aussi",
+    "next_risk": "Pour TikTok, utiliser uniquement des médias dont la largeur et la hauteur sont chacune inférieures ou égales à 1080 px.",
     "spend_authorized": false,
-    "action": "reconnecter la page Facebook Vosges Pneus à la marque Metricool avant de reprogrammer le post gardiennage; pour TikTok, utiliser uniquement des médias dont la largeur et la hauteur sont chacune inférieures ou égales à 1080 px"
+    "action": "Aucune action Facebook requise; vérifier les dimensions des médias avant toute future programmation TikTok."
   },
   "library_media_check": {
-    "checked_at": "2026-10-23",
-    "result": "Les nouveaux fichiers identifiables appartiennent à TRANSMALIN/EUROTRANS et ont été exclus. Les autres nouveaux éléments sont des captures techniques du parcours VOSGES PNEUS, non adaptées à une publication sociale.",
-    "action": "Aucun nouveau média d’intervention ou de pièce exploitable; conserver les brouillons existants sans publication."
+    "checked_at": "2026-10-24",
+    "result": "De nouvelles photos réelles VOSGES PNEUS montrent notamment deux pompes à injection; un brouillon concret a été ajouté avec les neuf médias concernés.",
+    "action": "Conserver le brouillon sans publication tant que référence Delphi, compatibilités exactes, tests, prix et disponibilité ne sont pas entièrement vérifiés."
   },
   "google_business_snapshot": {
-    "checked_at": "2026-10-23",
+    "checked_at": "2026-10-24",
     "last_verified_post": {
       "published_at": "2026-10-20T15:54:45+02:00",
       "last_verified_state": "LIVE",
       "topic": "Préparer une demande de pneus hiver",
       "url": "https://local.google.com/place?id=7949441121821933413&use=posts&lpsid=CIHM0ogKEJ_9iq_UxZPhKQ"
     },
-    "blocker": "Les lectures Google Business via Windsor.ai sont suspendues car 4 comptes sont connectés alors que le forfait gratuit en autorise 1. Avis, performances, mots-clés et statut actuel des posts non vérifiables aujourd’hui."
+    "blocker": "Les lectures Google Business via Windsor.ai restent suspendues car 4 comptes sont connectés alors que le forfait gratuit en autorise 1. Avis, performances, mots-clés et statut actuel des posts non vérifiables aujourd’hui.",
+    "publication_decision": "Aucun post Google créé : la dernière publication vérifiée date de 4 jours, donc le seuil de 7 jours n’est pas atteint."
   },
   "seo_snapshot": {
-    "checked_at": "2026-10-23",
-    "blocker": "Les lectures Search Console et GA4 via Windsor.ai sont suspendues par la limite du forfait gratuit; les valeurs factices renvoyées ont été écartées.",
+    "checked_at": "2026-10-24",
+    "blocker": "Les lectures Search Console et GA4 via Windsor.ai restent suspendues par la limite du forfait gratuit; les lignes factices du 24 octobre ont été écartées.",
     "last_verified_opportunity": "Renforcer le titre et la meta-description de l’accueil autour de pneus à Épinal / Thaon-les-Vosges et d’une demande par dimension; vérifier le marquage des appels et formulaires."
   },
   "depot_parts_review": [
@@ -361,27 +392,45 @@
   },
   "access_blockers": {
     "shopify": {
-      "checked_at": "2026-10-23",
+      "checked_at": "2026-10-24",
       "status": "réauthentification toujours requise dans le connecteur",
-      "impact": "La commande test #1003 connue par ailleurs ne peut pas être vérifiée ici; commandes, ventes, stocks et changements de catalogue restent non contrôlables.",
+      "impact": "Commandes, ventes, stocks et changements de catalogue restent non contrôlables.",
       "action": "Reconnecter l’application Shopify à la boutique VOSGES PNEUS."
     },
     "windsor_ai": {
-      "checked_at": "2026-10-23",
+      "checked_at": "2026-10-24",
       "status": "lectures suspendues sur le forfait gratuit",
       "impact": "Google Business, avis, GA4, Search Console et TikTok ne peuvent pas être contrôlés de façon fiable.",
-      "action": "Dans Windsor.ai, conserver un seul compte connecté sans dépense, ou indiquer lesquels déconnecter; les données factices du jour ont été ignorées."
+      "action": "Dans Windsor.ai, conserver un seul compte connecté sans dépense; les quatre connecteurs actuellement présents sont GA4, Google Business, Search Console et TikTok Organic."
     }
   },
   "metricool_snapshot": {
-    "checked_at": "2026-10-23",
-    "scheduled_posts_next_14_days": 0,
+    "checked_at": "2026-10-24",
+    "facebook_connection": "connectée à VosgesPneus 103147888661034",
+    "scheduled_posts_next_14_days": 6,
+    "created_today": [
+      {
+        "publication_date": "2026-11-02T10:00:00+01:00",
+        "uuid": "6014189878406104891",
+        "status": "PENDING"
+      },
+      {
+        "publication_date": "2026-11-04T12:00:00+01:00",
+        "uuid": "-5829777339348466513",
+        "status": "PENDING"
+      },
+      {
+        "publication_date": "2026-11-06T10:00:00+01:00",
+        "uuid": "5414033882776947741",
+        "status": "PENDING"
+      }
+    ],
     "failures_today": 0,
-    "blocker": "La marque Metricool ne présente toujours aucune page Facebook connectée.",
-    "tiktok": "4 abonnés; aucune nouvelle vidéo, vue, interaction ou visite de profil détectée du 20 au 23 octobre."
+    "published_feed_posts_last_14_days": 0,
+    "tiktok": "4 abonnés; aucune nouvelle vidéo. Metricool remonte 6 vues et 2 visites de profil le 22 octobre, sans interaction ni nouvel abonné."
   },
   "jotform_snapshot": {
-    "checked_at": "2026-10-23",
+    "checked_at": "2026-10-24",
     "form_id": "262624835646061",
     "new_submissions": 0,
     "callbacks_due": 0
