@@ -24,7 +24,7 @@ class PricingTest(unittest.TestCase):
         self.assertFalse(q["supplier_reservation"])
 
     def test_all_fitting_bands_and_required_fees(self):
-        for rim, fitting_total in [(13,6000),(16,6000),(17,7200),(18,7200),(19,8800),(22,8800)]:
+        for rim, fitting_total in [(13,6000),(16,6000),(17,7200),(18,8800),(19,8800),(22,8800)]:
             q = calculate(replace(self.offer, rim_inches=rim),
                           replace(self.tariffs, other_required_fees_cents=2595,
                                   required_fees_label="Frais test"),
@@ -33,7 +33,7 @@ class PricingTest(unittest.TestCase):
 
     def test_confirmed_supplements_are_per_tyre_only_with_fitting(self):
         sunny = replace(self.offer, unit_ttc_cents=5779)
-        for rim, service_unit in [(13,2050),(16,2050),(17,2350),(18,2350),(19,2750),(22,2750)]:
+        for rim, service_unit in [(13,2050),(16,2050),(17,2350),(18,2750),(19,2750),(22,2750)]:
             for quantity in [1,2,4]:
                 with self.subTest(rim=rim, quantity=quantity):
                     offer = replace(sunny, rim_inches=rim)
