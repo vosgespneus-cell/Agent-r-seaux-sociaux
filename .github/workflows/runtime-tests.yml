@@ -35,3 +35,8 @@ jobs:
         run: |
           php -l lws/vp_readiness.php
           php lws/vp_readiness.php --selftest
+
+      - name: Check private cart final guard
+        run: |
+          php -l lws/vp_completed_guard_20261025.php
+          php lws/vp_completed_guard_20261025.php --self-test
