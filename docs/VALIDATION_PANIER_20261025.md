@@ -29,3 +29,13 @@ Le parcours public n'est donc pas validé de bout en bout. Aucun élargissement 
 ## Script
 
 À placer dans le répertoire privé `home` de l'installation LWS existante. `--stage` prépare une page de validation ; `--activate` installe cette page après validation manuelle ; `--verify` contrôle les tarifs et compare les enregistrements à la sauvegarde `vp_pneus_review/review.before-20261025.sqlite`. Ne pas exécuter `--activate` sans valider préalablement la page séparée. Ce script ne contient aucun secret.
+
+## Validation depuis un nouveau mail de l'agent
+
+Après autorisation explicite de l'utilisateur, un unique nouveau mail d'essai a été envoyé et sa réception dans la boîte destinataire confirmée. Le lien a été extrait du message reçu, puis ouvert dans le navigateur. Les options montage, valves, recyclage et deux paires de gardiennage ont été enregistrées sur une nouvelle sélection fictive.
+
+La tâche cron existante a ensuite créé exactement un nouveau brouillon Shopify (created=1, errors=0). Le lien s'est affiché automatiquement sans actualisation manuelle et sans lancement manuel du bridge. Son ouverture a affiché les cinq lignes attendues et le total de 326,12 € TTC à l'écran de paiement. Aucun moyen de paiement n'a été saisi et aucune commande n'a été confirmée.
+
+Le modèle d'envoi a passé ses cinq contrôles ; l'envoi était limité à l'adresse approuvée. Le lanceur de test ferme son curseur et sa connexion SQLite avant d'appeler l'agent pour éviter de bloquer sa transaction. La configuration d'envoi a été restaurée désactivée après cet envoi unique. Les anciens enregistrements demeurent inchangés.
+
+Ce test valide le segment mail de l'agent → lien personnel → options → préparation automatique Shopify → écran de paiement pour une sélection fictive. Il ne valide pas une nouvelle demande fournisseur ni les confirmations post-paiement. Le lanceur est un outil CLI manuel à usage d'essai, sans nouvelle tâche planifiée.
