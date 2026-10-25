@@ -39,3 +39,13 @@ La tâche cron existante a ensuite créé exactement un nouveau brouillon Shopif
 Le modèle d'envoi a passé ses cinq contrôles ; l'envoi était limité à l'adresse approuvée. Le lanceur de test ferme son curseur et sa connexion SQLite avant d'appeler l'agent pour éviter de bloquer sa transaction. La configuration d'envoi a été restaurée désactivée après cet envoi unique. Les anciens enregistrements demeurent inchangés.
 
 Ce test valide le segment mail de l'agent → lien personnel → options → préparation automatique Shopify → écran de paiement pour une sélection fictive. Il ne valide pas une nouvelle demande fournisseur ni les confirmations post-paiement. Le lanceur est un outil CLI manuel à usage d'essai, sans nouvelle tâche planifiée.
+
+## Finalisation préparée, non déployée
+
+La lecture Shopify de la commande #1003 confirme test=true, displayFinancialStatus=PAID et 184,12 EUR. Cette commande antérieure ne constitue pas un nouveau test du paiement du panier à 326,12 EUR.
+
+Le contrôle du bridge actuel ne vérifie pas explicitement PAID avant de marquer un essai COMPLETED comme terminé. Le script CLI vp_completed_guard_20261025.php prépare ce contrôle strict sans ajouter de mutation financière. Les états en attente, autorisés, partiels et remboursés sont refusés, de même que les commandes non test. Il corrige aussi deux attentes obsolètes du tarif 18 pouces dans review_import.php et cart_checks.php, sans modifier les tarifs de calcul déjà corrects.
+
+Ce script ne touche ni SQLite, ni les demandes clôturées, ni les emails. Il impose des ancres exactes, conserve les sauvegardes et propose --check avant --apply. Les tests automatiques de la branche contrôlent sa syntaxe et ses cas de paiement. Après copie dans vp_pneus_review, son application doit se faire sous contrôle, hors exécution concurrente de la tâche cron ; les trois fichiers ne sont pas remplacés dans une transaction unique.
+
+**Non déployé sur LWS.** Le navigateur partagé a perdu son état de connexion sécurisé et refuse la reprise de l'administration. Aucun contournement de session n'a été utilisé. Il reste donc à appliquer puis vérifier ce dernier correctif sur le serveur et à refaire les contrôles du parcours privé. Le tarif du gardiennage reste à préciser quant à sa durée avant activation commerciale.
