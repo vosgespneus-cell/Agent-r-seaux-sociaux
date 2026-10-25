@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-24",
+  "updated_at": "2026-10-25",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -107,15 +107,15 @@
     "son commercial autorisé pour contenu promotionnel"
   ],
   "performance_snapshot": {
-    "checked_at": "2026-10-24",
+    "checked_at": "2026-10-25",
     "source": "Metricool",
     "followers": 4,
-    "new_videos_since_2026_10_17": 0,
-    "views_since_2026_10_17": 6,
-    "comments_since_2026_10_17": 0,
-    "shares_since_2026_10_17": 0,
-    "profile_views_since_2026_10_17": 2,
-    "note": "Aucune nouvelle vidéo détectée. Metricool remonte 6 vues de vidéos du compte et 2 visites de profil le 22 octobre, sans commentaire, partage ni nouvel abonné. Les lectures TikTok via Windsor.ai restent suspendues et sont écartées."
+    "new_videos_since_2026_10_18": 0,
+    "views_since_2026_10_18": 6,
+    "comments_since_2026_10_18": 0,
+    "shares_since_2026_10_18": 0,
+    "profile_views_since_2026_10_18": 2,
+    "note": "Aucun nouveau signal TikTok depuis le contrôle du 24 octobre. Les 6 vues et 2 visites de profil restent concentrées sur le 22 octobre; les lectures Windsor.ai sont toujours suspendues et écartées."
   },
   "ready_drafts": [
     {
@@ -259,12 +259,12 @@
     "action": "Aucune action Facebook requise; vérifier les dimensions des médias avant toute future programmation TikTok."
   },
   "library_media_check": {
-    "checked_at": "2026-10-24",
-    "result": "De nouvelles photos réelles VOSGES PNEUS montrent notamment deux pompes à injection; un brouillon concret a été ajouté avec les neuf médias concernés.",
-    "action": "Conserver le brouillon sans publication tant que référence Delphi, compatibilités exactes, tests, prix et disponibilité ne sont pas entièrement vérifiés."
+    "checked_at": "2026-10-25",
+    "result": "Aucun nouveau média photo ou vidéo VOSGES PNEUS reçu depuis le contrôle du 24 octobre.",
+    "action": "Conserver le brouillon des deux pompes à injection sans publication tant que références, compatibilités, tests, prix et disponibilité ne sont pas entièrement vérifiés."
   },
   "google_business_snapshot": {
-    "checked_at": "2026-10-24",
+    "checked_at": "2026-10-25",
     "last_verified_post": {
       "published_at": "2026-10-20T15:54:45+02:00",
       "last_verified_state": "LIVE",
@@ -272,11 +272,11 @@
       "url": "https://local.google.com/place?id=7949441121821933413&use=posts&lpsid=CIHM0ogKEJ_9iq_UxZPhKQ"
     },
     "blocker": "Les lectures Google Business via Windsor.ai restent suspendues car 4 comptes sont connectés alors que le forfait gratuit en autorise 1. Avis, performances, mots-clés et statut actuel des posts non vérifiables aujourd’hui.",
-    "publication_decision": "Aucun post Google créé : la dernière publication vérifiée date de 4 jours, donc le seuil de 7 jours n’est pas atteint."
+    "publication_decision": "Aucun post Google créé : la dernière publication vérifiée date de 5 jours, donc le seuil de 7 jours n’est pas atteint."
   },
   "seo_snapshot": {
-    "checked_at": "2026-10-24",
-    "blocker": "Les lectures Search Console et GA4 via Windsor.ai restent suspendues par la limite du forfait gratuit; les lignes factices du 24 octobre ont été écartées.",
+    "checked_at": "2026-10-25",
+    "blocker": "Les lectures Search Console et GA4 via Windsor.ai restent suspendues par la limite du forfait gratuit; les lignes factices du 25 octobre ont été écartées.",
     "last_verified_opportunity": "Renforcer le titre et la meta-description de l’accueil autour de pneus à Épinal / Thaon-les-Vosges et d’une demande par dimension; vérifier le marquage des appels et formulaires."
   },
   "depot_parts_review": [
@@ -386,51 +386,35 @@
     }
   ],
   "supplier_snapshot": {
-    "checked_at": "2026-10-23",
-    "opportunity": "TASY propose officiellement un dropshipping pneus avec API moderne ou flux XML/SFTP : catalogue, stock, prix, commandes, statuts et expédition directe au client sous le nom du vendeur, avec commande test avant mise en production.",
-    "next_step": "Demander les conditions France et la documentation technique à dropshipping@tasy.cz, sans souscrire ni engager de dépense."
+    "checked_at": "2026-10-25",
+    "opportunity": "Aucune évolution B2B/API plus concrète détectée aujourd’hui que les pistes déjà suivies (Allopneus, ALZURA/Tyre24 et TASY).",
+    "next_step": "Attendre les réponses fournisseurs et finaliser d’abord la reconnexion Shopify, sans souscription ni dépense."
   },
   "access_blockers": {
     "shopify": {
-      "checked_at": "2026-10-24",
+      "checked_at": "2026-10-25",
       "status": "réauthentification toujours requise dans le connecteur",
       "impact": "Commandes, ventes, stocks et changements de catalogue restent non contrôlables.",
       "action": "Reconnecter l’application Shopify à la boutique VOSGES PNEUS."
     },
     "windsor_ai": {
-      "checked_at": "2026-10-24",
+      "checked_at": "2026-10-25",
       "status": "lectures suspendues sur le forfait gratuit",
       "impact": "Google Business, avis, GA4, Search Console et TikTok ne peuvent pas être contrôlés de façon fiable.",
       "action": "Dans Windsor.ai, conserver un seul compte connecté sans dépense; les quatre connecteurs actuellement présents sont GA4, Google Business, Search Console et TikTok Organic."
     }
   },
   "metricool_snapshot": {
-    "checked_at": "2026-10-24",
+    "checked_at": "2026-10-25",
     "facebook_connection": "connectée à VosgesPneus 103147888661034",
     "scheduled_posts_next_14_days": 6,
-    "created_today": [
-      {
-        "publication_date": "2026-11-02T10:00:00+01:00",
-        "uuid": "6014189878406104891",
-        "status": "PENDING"
-      },
-      {
-        "publication_date": "2026-11-04T12:00:00+01:00",
-        "uuid": "-5829777339348466513",
-        "status": "PENDING"
-      },
-      {
-        "publication_date": "2026-11-06T10:00:00+01:00",
-        "uuid": "5414033882776947741",
-        "status": "PENDING"
-      }
-    ],
+    "created_today": [],
     "failures_today": 0,
     "published_feed_posts_last_14_days": 0,
-    "tiktok": "4 abonnés; aucune nouvelle vidéo. Metricool remonte 6 vues et 2 visites de profil le 22 octobre, sans interaction ni nouvel abonné."
+    "tiktok": "4 abonnés; aucune nouvelle vidéo ou interaction. Les derniers signaux restent 6 vues et 2 visites de profil le 22 octobre."
   },
   "jotform_snapshot": {
-    "checked_at": "2026-10-24",
+    "checked_at": "2026-10-25",
     "form_id": "262624835646061",
     "new_submissions": 0,
     "callbacks_due": 0
