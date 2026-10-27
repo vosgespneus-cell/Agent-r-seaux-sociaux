@@ -132,8 +132,8 @@
         "aucune réparation terminée revendiquée",
         "aucun modèle ou compatibilité supposé"
       ],
-      "status": "brouillon prêt — publication non lancée",
-      "duplicate_check": "ne pas republier si cette séquence correspond à la vidéo TikTok 7690671550118350102"
+      "status": "bloqué — média déjà publié sur TikTok",
+      "duplicate_check": "doublon confirmé : le fichier correspond à la vidéo publique TikTok 7690671550118350102; ne pas republier"
     },
     {
       "id": "depot_stockage_library_20261005",
@@ -144,14 +144,14 @@
       "hook": "Chaque pièce doit pouvoir être retrouvée rapidement",
       "caption": "Le dépôt VOSGES PNEUS s’organise à Thaon-les-Vosges 🔧 Le plan retenu prévoit 6 rangées A à F, avec des emplacements précis repris dans Shopify. Après chaque démontage complet, les pièces conservées devront être triées, photographiées, identifiées puis rangées le jour même. Référence, état, compatibilité, prix et disponibilité restent vérifiés avant toute publication ou vente. #VosgesPneus #ThaonLesVosges #PiecesAuto #AtelierAuto",
       "verified_facts": [
-        "photo réelle fournie par l’utilisateur et prise dans le dépôt",
+        "fichier présent dans la Library mais marqué model_generated=true",
         "6 rangées prévues, nommées A à F, avec au moins 10 compartiments et 3 niveaux par compartiment",
         "processus validé : trier, photographier, identifier et ranger les pièces conservées le jour même",
         "l’emplacement interne doit être repris dans Shopify pour servir de suivi de stock",
         "aucune pièce, référence, compatibilité, prix ou disponibilité inventés"
       ],
-      "status": "brouillon amélioré — publication non lancée",
-      "duplicate_check": "sujet absent des cinq vidéos TikTok publiques; ne pas publier si un contenu équivalent sur l’aménagement du dépôt apparaît avant diffusion"
+      "status": "bloqué — métadonnée Library model_generated=true",
+      "duplicate_check": "ne pas publier ni présenter comme photo réelle du dépôt tant que son origine n’est pas clarifiée"
     },
     {
       "id": "quatre_turbos_depot_20261012",
@@ -260,9 +260,9 @@
     "action": "Aucune action Facebook requise; vérifier les dimensions des médias avant toute future programmation TikTok."
   },
   "library_media_check": {
-    "checked_at": "2026-10-26",
-    "result": "Aucun nouveau média photo ou vidéo VOSGES PNEUS reçu depuis le contrôle du 25 octobre.",
-    "action": "Conserver les brouillons existants sans publication prématurée."
+    "checked_at": "2026-10-27",
+    "result": "La vidéo WhatsApp du 28 septembre est bien un média non généré, mais elle correspond à une vidéo TikTok déjà publique (7690671550118350102). L’image des racks du 5 octobre porte la métadonnée Library model_generated=true et ne peut pas être présentée comme une intervention réelle.",
+    "action": "Aucun brouillon publié. Conserver la vidéo en référence sans doublon et bloquer l’image des racks jusqu’à clarification de son origine."
   },
   "google_business_snapshot": {
     "checked_at": "2026-10-27",
