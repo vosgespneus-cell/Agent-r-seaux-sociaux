@@ -107,15 +107,16 @@
     "son commercial autorisé pour contenu promotionnel"
   ],
   "performance_snapshot": {
-    "checked_at": "2026-10-26",
+    "checked_at": "2026-10-27",
     "source": "Metricool",
     "followers": 4,
+    "public_videos": 6,
     "new_videos_since_2026_10_19": 0,
     "views_since_2026_10_19": 8,
     "comments_since_2026_10_19": 0,
     "shares_since_2026_10_19": 0,
     "profile_views_since_2026_10_19": 2,
-    "note": "Aucune nouvelle vidéo, interaction ni abonné. Metricool conserve 4 abonnés; les lectures Windsor.ai restent suspendues et sont écartées."
+    "note": "Aucune nouvelle vidéo, interaction ni abonné. Les six vidéos publiques connues totalisent 1 012 vues; les deux contenus atelier sur le Crafter 2022 dominent avec 285 et 259 vues. Une ancienne vidéo de recrutement transport médical (1 vue) est hors sujet VOSGES PNEUS et doit être examinée manuellement, sans suppression automatique."
   },
   "ready_drafts": [
     {
@@ -264,19 +265,19 @@
     "action": "Conserver les brouillons existants sans publication prématurée."
   },
   "google_business_snapshot": {
-    "checked_at": "2026-10-26",
+    "checked_at": "2026-10-27",
     "last_verified_post": {
       "published_at": "2026-10-20T15:54:45+02:00",
       "last_verified_state": "LIVE",
       "topic": "Préparer une demande de pneus hiver",
       "url": "https://local.google.com/place?id=7949441121821933413&use=posts&lpsid=CIHM0ogKEJ_9iq_UxZPhKQ"
     },
-    "blocker": "Les lectures Google Business via Windsor.ai restent suspendues car 4 comptes sont connectés alors que le forfait gratuit en autorise 1. Avis, performances, mots-clés et statut actuel des posts non vérifiables aujourd’hui.",
-    "publication_decision": "Aucun post Google créé : moins de 7 jours complets se sont écoulés depuis la dernière publication vérifiée."
+    "blocker": "Windsor.ai suspend les lectures réelles car 4 comptes sont connectés alors que le forfait gratuit en autorise 1. Les lignes zéro/factices du 27 octobre ont été écartées.",
+    "publication_decision": "Aucun post Google créé: il est impossible de confirmer l’absence de nouvelle publication et le statut LIVE du dernier post sans lecture fiable."
   },
   "seo_snapshot": {
-    "checked_at": "2026-10-26",
-    "blocker": "Les lectures Search Console et GA4 via Windsor.ai restent suspendues par la limite du forfait gratuit; les lignes factices du 26 octobre ont été écartées.",
+    "checked_at": "2026-10-27",
+    "blocker": "Search Console et GA4 via Windsor.ai restent suspendus par la limite du forfait gratuit; toutes les lignes factices du 27 octobre ont été écartées.",
     "last_verified_opportunity": "Renforcer le titre et la meta-description de l’accueil autour de pneus à Épinal / Thaon-les-Vosges et d’une demande par dimension; vérifier le marquage des appels et formulaires."
   },
   "depot_parts_review": [
@@ -386,50 +387,81 @@
     }
   ],
   "supplier_snapshot": {
-    "checked_at": "2026-10-26",
-    "opportunity": "Aucune nouvelle opportunité B2B/API gratuite et plus concrète que les pistes déjà suivies (Allopneus, ALZURA/Tyre24 et TASY).",
-    "next_step": "Attendre les réponses fournisseurs et finaliser d’abord la reconnexion Shopify, sans souscription ni dépense."
+    "checked_at": "2026-10-27",
+    "opportunity": "Aucune évolution plus concrète que les pistes déjà suivies. TASY confirme toujours catalogue, stocks, prix, commandes, suivi et expédition directe via API ou XML/SFTP avec commande test. Pneus100 reste une plateforme B2B gratuite sans engagement avec stocks et prix fournisseurs actualisés, déjà cohérente avec l’intégration 100pneus existante.",
+    "next_step": "Finaliser la reconnexion Shopify et comparer ensuite une dimension test identique chez TASY et Pneus100, sans souscription ni dépense."
   },
   "access_blockers": {
     "shopify": {
-      "checked_at": "2026-10-26",
-      "status": "réauthentification toujours requise dans ce connecteur malgré les travaux manuels en cours dans Shopify",
-      "impact": "Commandes, ventes, stocks et changements de catalogue ne peuvent pas être vérifiés automatiquement ici.",
-      "action": "Reconnecter l’application Shopify utilisée par ce contrôle, sans modifier le parcours LWS–Shopify validé."
+      "checked_at": "2026-10-27",
+      "status": "réauthentification requise",
+      "impact": "Commandes, ventes, stocks et changements de catalogue non vérifiables automatiquement.",
+      "action": "Reconnecter l’application Shopify utilisée par ce contrôle sans modifier le parcours LWS–Shopify."
     },
     "windsor_ai": {
-      "checked_at": "2026-10-26",
-      "status": "lectures suspendues sur le forfait gratuit",
-      "impact": "Google Business, avis, GA4, Search Console et TikTok ne peuvent pas être contrôlés de façon fiable.",
-      "action": "Dans Windsor.ai, conserver un seul compte connecté sans dépense; les quatre connecteurs actuellement présents sont GA4, Google Business, Search Console et TikTok Organic."
+      "checked_at": "2026-10-27",
+      "status": "lectures réelles suspendues sur le forfait gratuit",
+      "impact": "Avis, GBP, GA4 et Search Console non vérifiables; réponses d’avis et post Google non exécutés.",
+      "action": "Conserver un seul des quatre comptes connectés dans Windsor.ai, ou utiliser une autre connexion dédiée, sans engager de dépense."
     }
   },
   "metricool_snapshot": {
-    "checked_at": "2026-10-26",
+    "checked_at": "2026-10-27",
     "facebook_connection": "connectée à VosgesPneus 103147888661034",
     "published_today": [
       {
-        "publication_date": "2026-10-26T10:00:00+01:00",
-        "uuid": "1839938320281124898",
+        "publication_date": "2026-10-27T10:00:00+01:00",
+        "uuid": "-753324325289834989",
         "status": "PUBLISHED",
-        "public_url": "https://facebook.com/1394379956209882/posts/1441516234829587"
+        "public_url": "https://facebook.com/1394379956209882/posts/1442474151400462"
       }
     ],
     "scheduled_posts_through_2026_11_09": 6,
-    "created_today": [
-      {
-        "publication_date": "2026-11-09T10:00:00+01:00",
-        "uuid": "-1134811424595098420",
-        "status": "PENDING"
-      }
-    ],
+    "created_today": [],
     "failures_today": 0,
-    "tiktok": "4 abonnés; aucune nouvelle vidéo, interaction ou évolution d’éligibilité vérifiable."
+    "facebook_comparison": {
+      "period_1": "2026-10-12 au 2026-10-18",
+      "period_2": "2026-10-19 au 2026-10-25",
+      "followers_period_1": 14,
+      "followers_period_2": 14,
+      "page_views_period_1": 15,
+      "page_views_period_2": 22,
+      "note": "Visites en hausse de 7 (+46,7 %) sur périodes calendaires égales, mais plusieurs champs journaliers sont absents. Interactions et clics ne sont pas comparables de façon fiable car Metricool renvoie surtout des valeurs nulles."
+    },
+    "tiktok": "4 abonnés; 6 vidéos publiques; aucune nouvelle vidéo, aucun commentaire ni partage; 8 vues et 2 visites de profil du 19 au 26 octobre."
   },
   "jotform_snapshot": {
-    "checked_at": "2026-10-26",
+    "checked_at": "2026-10-27",
     "form_id": "262624835646061",
     "new_submissions": 0,
     "callbacks_due": 0
+  },
+  "public_catalog_review": {
+    "checked_at": "2026-10-27",
+    "public_videos": 6,
+    "highest_views": [
+      {
+        "video_id": "7690505922355023126",
+        "topic": "Crafter 2022 — moteur déposé / segmentation",
+        "views": 285,
+        "comments": 0,
+        "shares": 0
+      },
+      {
+        "video_id": "7690500014744882454",
+        "topic": "Crafter 2022 — intervention segmentation",
+        "views": 259,
+        "comments": 0,
+        "shares": 0
+      }
+    ],
+    "anomaly": {
+      "video_id": "7683814378478619937",
+      "topic": "recrutement chauffeur-livreur médical",
+      "views": 1,
+      "reason": "contenu non lié à VOSGES PNEUS visible sur le compte @vosgespneus",
+      "action": "revue manuelle recommandée; aucune suppression automatique"
+    },
+    "editorial_conclusion": "Les coulisses réelles de l’atelier sont le seul thème ayant dépassé 250 vues. Prioriser une nouvelle séquence réelle distincte d’intervention atelier; ne pas republier la vidéo moteur déjà publique."
   }
 }
