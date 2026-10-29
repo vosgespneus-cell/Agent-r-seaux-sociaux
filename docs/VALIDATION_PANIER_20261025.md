@@ -1,0 +1,51 @@
+# Validation du panier — 25 octobre 2026
+
+Le récapitulatif privé attendait une actualisation manuelle après l'enregistrement des options. Un ancien lien Shopify restait également visible après une modification non enregistrée.
+
+Le correctif ajoute un contrôle de disponibilité du panier toutes les cinq secondes (arrêt après six minutes), lié à la session et au snapshot des options déjà contrôlé par la page. Il suspend cette attente et masque le lien dès qu'un champ est modifié. L'endpoint ne renvoie ni identité ni URL de paiement. Les autorisations et destinataires d'essai restent inchangés.
+
+## Validation effectuée sur LWS
+
+- Syntaxe PHP de la page de validation : correcte.
+- 108 combinaisons de tarifs : correctes (13–16 pouces : 15 €, 17 pouces : 18 €, 18 pouces et plus : 22 €, valve 3 € et recyclage 2,50 € par pneu monté, gardiennage 30 € par paire).
+- Auto-test existant du bridge : 7 cas réussis.
+- Nouveau cas fictif indépendant : 4 pneus à 46,03 €, montage 60 €, valves 12 €, recyclage 10 €, 2 paires en gardiennage 60 € ; total Shopify 326,12 € TTC, cinq lignes visibles à l'écran de paiement.
+- Modification du même cas : 2 pneus sans montage, 1 paire en gardiennage ; total 122,06 €. Retour à toutes les options : 326,12 €. Même lien de checkout, zéro création supplémentaire lors des mises à jour.
+- Apparition automatique du lien après traitement, sans actualisation manuelle : observée.
+- Lien masqué dès modification de quantité non enregistrée : observé.
+- Comparaison à la sauvegarde antérieure : 12 enregistrements précédents, dont 6 sélections, strictement inchangés. Les cinq demandes clôturées n'ont pas été relancées.
+- Aucun paiement, aucune facture envoyée et aucune commande fournisseur déclenchés.
+
+Le correctif a été validé sur une page séparée puis activé sur le récapitulatif privé, avec sauvegarde préalable. La tâche existante traite les essais toutes les cinq minutes.
+
+## Limite bloquante du parcours public
+
+Le catalogue public utilise le module B2C Camodo/Pneus100 v9.9. Les réglages du compte consultés proposent l'affichage en iframe/lien et l'envoi des demandes de devis par courriel. Les domaines VOSGES PNEUS sont correctement autorisés. Aucun raccordement direct de la sélection au panier Shopify n'a été identifié dans ces réglages.
+
+Le traitement LWS existant reste limité aux adresses de test autorisées et au marqueur de test. Ses données proviennent d'un devis reçu par email, et sa source n'est pas authentifiée par le parseur actuel. La vérification du stock fournisseur, des frais et des modalités de remise reste requise avant activation commerciale.
+
+Le parcours public n'est donc pas validé de bout en bout. Aucun élargissement de diffusion ni activation commerciale n'a été réalisé. Les confirmations post-paiement n'ont pas été testées pendant cette intervention.
+
+## Script
+
+À placer dans le répertoire privé `home` de l'installation LWS existante. `--stage` prépare une page de validation ; `--activate` installe cette page après validation manuelle ; `--verify` contrôle les tarifs et compare les enregistrements à la sauvegarde `vp_pneus_review/review.before-20261025.sqlite`. Ne pas exécuter `--activate` sans valider préalablement la page séparée. Ce script ne contient aucun secret.
+
+## Validation depuis un nouveau mail de l'agent
+
+Après autorisation explicite de l'utilisateur, un unique nouveau mail d'essai a été envoyé et sa réception dans la boîte destinataire confirmée. Le lien a été extrait du message reçu, puis ouvert dans le navigateur. Les options montage, valves, recyclage et deux paires de gardiennage ont été enregistrées sur une nouvelle sélection fictive.
+
+La tâche cron existante a ensuite créé exactement un nouveau brouillon Shopify (created=1, errors=0). Le lien s'est affiché automatiquement sans actualisation manuelle et sans lancement manuel du bridge. Son ouverture a affiché les cinq lignes attendues et le total de 326,12 € TTC à l'écran de paiement. Aucun moyen de paiement n'a été saisi et aucune commande n'a été confirmée.
+
+Le modèle d'envoi a passé ses cinq contrôles ; l'envoi était limité à l'adresse approuvée. Le lanceur de test ferme son curseur et sa connexion SQLite avant d'appeler l'agent pour éviter de bloquer sa transaction. La configuration d'envoi a été restaurée désactivée après cet envoi unique. Les anciens enregistrements demeurent inchangés.
+
+Ce test valide le segment mail de l'agent → lien personnel → options → préparation automatique Shopify → écran de paiement pour une sélection fictive. Il ne valide pas une nouvelle demande fournisseur ni les confirmations post-paiement. Le lanceur est un outil CLI manuel à usage d'essai, sans nouvelle tâche planifiée.
+
+## Finalisation préparée, non déployée
+
+La lecture Shopify de la commande #1003 confirme test=true, displayFinancialStatus=PAID et 184,12 EUR. Cette commande antérieure ne constitue pas un nouveau test du paiement du panier à 326,12 EUR.
+
+Le contrôle du bridge actuel ne vérifie pas explicitement PAID avant de marquer un essai COMPLETED comme terminé. Le script CLI vp_completed_guard_20261025.php prépare ce contrôle strict sans ajouter de mutation financière. Les états en attente, autorisés, partiels et remboursés sont refusés, de même que les commandes non test. Il corrige aussi deux attentes obsolètes du tarif 18 pouces dans review_import.php et cart_checks.php, sans modifier les tarifs de calcul déjà corrects.
+
+Ce script ne touche ni SQLite, ni les demandes clôturées, ni les emails. Il impose des ancres exactes, conserve les sauvegardes et propose --check avant --apply. Les tests automatiques de la branche contrôlent sa syntaxe et ses cas de paiement. Après copie dans vp_pneus_review, son application doit se faire sous contrôle, hors exécution concurrente de la tâche cron ; les trois fichiers ne sont pas remplacés dans une transaction unique.
+
+**Non déployé sur LWS.** Le navigateur partagé a perdu son état de connexion sécurisé et refuse la reprise de l'administration. Aucun contournement de session n'a été utilisé. Il reste donc à appliquer puis vérifier ce dernier correctif sur le serveur et à refaire les contrôles du parcours privé. Le tarif du gardiennage reste à préciser quant à sa durée avant activation commerciale.
