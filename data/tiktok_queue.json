@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-26",
+  "updated_at": "2026-10-29",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -107,7 +107,7 @@
     "son commercial autorisé pour contenu promotionnel"
   ],
   "performance_snapshot": {
-    "checked_at": "2026-10-27",
+    "checked_at": "2026-10-29",
     "source": "Metricool",
     "followers": 4,
     "public_videos": 6,
@@ -116,7 +116,7 @@
     "comments_since_2026_10_19": 0,
     "shares_since_2026_10_19": 0,
     "profile_views_since_2026_10_19": 2,
-    "note": "Aucune nouvelle vidéo, interaction ni abonné. Les six vidéos publiques connues totalisent 1 012 vues; les deux contenus atelier sur le Crafter 2022 dominent avec 285 et 259 vues. Une ancienne vidéo de recrutement transport médical (1 vue) est hors sujet VOSGES PNEUS et doit être examinée manuellement, sans suppression automatique."
+    "note": "Aucune nouvelle vidéo, interaction ni abonné. Les six vidéos publiques connues totalisent 1 012 vues; les contenus atelier sur le Crafter 2022 dominent avec 285 et 259 vues. Une ancienne vidéo de recrutement transport médical (1 vue) reste hors sujet VOSGES PNEUS et doit être examinée manuellement, sans suppression automatique."
   },
   "ready_drafts": [
     {
