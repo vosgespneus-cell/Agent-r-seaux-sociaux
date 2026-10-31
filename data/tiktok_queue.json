@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-29",
+  "updated_at": "2026-10-31",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -107,7 +107,7 @@
     "son commercial autorisé pour contenu promotionnel"
   ],
   "performance_snapshot": {
-    "checked_at": "2026-10-29",
+    "checked_at": "2026-10-31",
     "source": "Metricool",
     "followers": 4,
     "public_videos": 6,
@@ -116,7 +116,18 @@
     "comments_since_2026_10_19": 0,
     "shares_since_2026_10_19": 0,
     "profile_views_since_2026_10_19": 2,
-    "note": "Aucune nouvelle vidéo, interaction ni abonné. Les six vidéos publiques connues totalisent 1 012 vues; les contenus atelier sur le Crafter 2022 dominent avec 285 et 259 vues. Une ancienne vidéo de recrutement transport médical (1 vue) reste hors sujet VOSGES PNEUS et doit être examinée manuellement, sans suppression automatique."
+    "total_public_video_views": 1013,
+    "top_topics": [
+      {
+        "topic": "Crafter 2022 — moteur déposé",
+        "views": 285
+      },
+      {
+        "topic": "Crafter 2022 — segmentation",
+        "views": 259
+      }
+    ],
+    "note": "Aucune nouvelle vidéo, interaction ni demande commerciale vérifiée. Les contenus réels d’atelier sur le Crafter 2022 restent les plus performants. L’ancienne vidéo de recrutement transport médical (1 vue) demeure hors sujet et doit être examinée manuellement, sans suppression automatique."
   },
   "ready_drafts": [
     {
@@ -213,7 +224,7 @@
     {
       "id": "pompes_injection_depot_20261024",
       "topic": "Deux pompes à injection du dépôt — identification en cours",
-      "format": "montage vertical à partir de neuf photos réelles",
+      "format": "montage vertical 25–30 s à partir de neuf photos réelles",
       "source_media": [
         "libfile_d548e16eef5881919f6924964bd01f00",
         "libfile_b4e499276be081918530ab365a299eea",
@@ -225,8 +236,8 @@
         "libfile_750add3bb7c0819182d3a7fd68ecb957",
         "libfile_30e5d7ea9b888191bb6b58ba444ae035"
       ],
-      "hook": "Une référence lisible ne suffit pas pour publier une pièce",
-      "caption": "Deux pompes à injection d’occasion ont été photographiées au dépôt VOSGES PNEUS. L’une porte les références Bosch 0 445 010 102 et PSA 9683703780 ; l’identification de l’autre, de marque Delphi, reste partielle. Elles restent en brouillon tant que compatibilité exacte, état fonctionnel, prix et disponibilité commerciale ne sont pas entièrement vérifiés. #VosgesPneus #ThaonLesVosges #PiecesAuto #InjectionDiesel",
+      "hook": "Deux pompes diesel : ce qu’on peut vérifier sur la plaque, et ce qu’il faut encore contrôler avant de les proposer",
+      "caption": "Deux pompes à injection d’occasion sont en cours d’identification au dépôt VOSGES PNEUS. La première porte les références Bosch 0 445 010 102 et PSA 9683703780. La seconde est une Delphi dont la référence complète reste à relever. Elles ne seront proposées qu’après vérification de la compatibilité, de l’état fonctionnel, du prix et de la disponibilité. #VosgesPneus #ThaonLesVosges #PiecesAuto #InjectionDiesel",
       "verified_facts": [
         "neuf photos réelles ajoutées le 24 octobre 2026",
         "références Bosch 0 445 010 102 et PSA 9683703780 lisibles sur une pompe",
@@ -234,7 +245,7 @@
         "deux pièces non testées",
         "aucune remise en état ni compatibilité exacte affirmée"
       ],
-      "status": "brouillon bloqué — ne pas publier",
+      "status": "brouillon amélioré — publication bloquée jusqu’aux faits vérifiés",
       "required_before_publish": [
         "référence complète de la pompe Delphi",
         "compatibilité exacte de chaque pompe",
@@ -243,7 +254,16 @@
         "disponibilité réelle",
         "emplacement validé pour chaque pièce"
       ],
-      "duplicate_check": "aucun sujet équivalent parmi les cinq vidéos TikTok publiques connues; vérifier à nouveau avant toute diffusion"
+      "duplicate_check": "aucun sujet équivalent parmi les cinq vidéos TikTok publiques connues; vérifier à nouveau avant toute diffusion",
+      "storyboard": [
+        "0–3 s : montrer les deux pompes — texte écran « Deux pompes, aucune compatibilité supposée »",
+        "3–9 s : gros plan plaque Bosch — texte « Bosch 0 445 010 102 / PSA 9683703780 »",
+        "9–15 s : gros plan pompe Delphi — texte « Référence complète encore à relever »",
+        "15–22 s : vues sous plusieurs angles — texte « Non testées : état, prix et disponibilité à confirmer »",
+        "22–30 s : écran de fin — texte « Une pièce d’occasion ne se publie qu’après vérification complète »"
+      ],
+      "voiceover": "On a photographié deux pompes à injection au dépôt. La référence Bosch est lisible, mais la Delphi reste à identifier complètement. Avant toute publication, on doit encore confirmer la compatibilité, tester l’état, fixer le prix et vérifier la disponibilité.",
+      "last_improved_at": "2026-10-31"
     }
   ],
   "distribution_blocker": {
@@ -393,16 +413,16 @@
   },
   "access_blockers": {
     "shopify": {
-      "checked_at": "2026-10-27",
+      "checked_at": "2026-10-31",
       "status": "réauthentification requise",
       "impact": "Commandes, ventes, stocks et changements de catalogue non vérifiables automatiquement.",
       "action": "Reconnecter l’application Shopify utilisée par ce contrôle sans modifier le parcours LWS–Shopify."
     },
     "windsor_ai": {
-      "checked_at": "2026-10-27",
+      "checked_at": "2026-10-31",
       "status": "lectures réelles suspendues sur le forfait gratuit",
-      "impact": "Avis, GBP, GA4 et Search Console non vérifiables; réponses d’avis et post Google non exécutés.",
-      "action": "Conserver un seul des quatre comptes connectés dans Windsor.ai, ou utiliser une autre connexion dédiée, sans engager de dépense."
+      "impact": "Avis, GBP, GA4, Search Console et TikTok Windsor non vérifiables; toutes les lignes zéro/factices ont été écartées.",
+      "action": "Conserver un seul des quatre comptes connectés dans Windsor.ai ou utiliser des connecteurs directs; aucune dépense engagée."
     }
   },
   "metricool_snapshot": {
