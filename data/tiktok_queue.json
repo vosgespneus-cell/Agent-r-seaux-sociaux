@@ -285,19 +285,19 @@
     "action": "Aucun brouillon publié. Conserver la vidéo en référence sans doublon et bloquer l’image des racks jusqu’à clarification de son origine."
   },
   "google_business_snapshot": {
-    "checked_at": "2026-10-27",
+    "checked_at": "2026-11-01",
     "last_verified_post": {
       "published_at": "2026-10-20T15:54:45+02:00",
       "last_verified_state": "LIVE",
       "topic": "Préparer une demande de pneus hiver",
       "url": "https://local.google.com/place?id=7949441121821933413&use=posts&lpsid=CIHM0ogKEJ_9iq_UxZPhKQ"
     },
-    "blocker": "Windsor.ai suspend les lectures réelles car 4 comptes sont connectés alors que le forfait gratuit en autorise 1. Les lignes zéro/factices du 27 octobre ont été écartées.",
-    "publication_decision": "Aucun post Google créé: il est impossible de confirmer l’absence de nouvelle publication et le statut LIVE du dernier post sans lecture fiable."
+    "blocker": "Windsor.ai renvoie des lignes factices et suspend les lectures car 4 comptes VOSGES PNEUS sont connectés alors que le forfait gratuit en autorise 1.",
+    "publication_decision": "Aucun avis traité et aucun post Google créé : impossible de vérifier les avis, la date du dernier post et son statut réel."
   },
   "seo_snapshot": {
-    "checked_at": "2026-10-27",
-    "blocker": "Search Console et GA4 via Windsor.ai restent suspendus par la limite du forfait gratuit; toutes les lignes factices du 27 octobre ont été écartées.",
+    "checked_at": "2026-11-01",
+    "blocker": "Search Console et GA4 via Windsor.ai restent suspendus par la limite du forfait gratuit; les zéros du 1er novembre ont été écartés comme factices.",
     "last_verified_opportunity": "Renforcer le titre et la meta-description de l’accueil autour de pneus à Épinal / Thaon-les-Vosges et d’une demande par dimension; vérifier le marquage des appels et formulaires."
   },
   "depot_parts_review": [
@@ -407,38 +407,56 @@
     }
   ],
   "supplier_snapshot": {
-    "checked_at": "2026-10-27",
-    "opportunity": "Aucune évolution plus concrète que les pistes déjà suivies. TASY confirme toujours catalogue, stocks, prix, commandes, suivi et expédition directe via API ou XML/SFTP avec commande test. Pneus100 reste une plateforme B2B gratuite sans engagement avec stocks et prix fournisseurs actualisés, déjà cohérente avec l’intégration 100pneus existante.",
-    "next_step": "Finaliser la reconnexion Shopify et comparer ensuite une dimension test identique chez TASY et Pneus100, sans souscription ni dépense."
+    "checked_at": "2026-11-01",
+    "opportunity": "ALZURA confirme une BASIC API REST gratuite pour relier une boutique ou un ERP. TyreAPI documente une API universelle (catalogue, stocks, prix, commandes et statuts) connectant plus de 40 fournisseurs, mais demande un contact pour le tarif. Pneus100 reste exploitable gratuitement en démo avec stocks et prix actualisés.",
+    "next_step": "Après reconnexion Shopify, comparer une dimension test identique chez Pneus100 et ALZURA Basic; garder TyreAPI comme piste multi-fournisseurs sans engagement tant que le prix n’est pas connu."
   },
   "access_blockers": {
     "shopify": {
-      "checked_at": "2026-10-31",
+      "checked_at": "2026-11-01",
       "status": "réauthentification requise",
       "impact": "Commandes, ventes, stocks et changements de catalogue non vérifiables automatiquement.",
       "action": "Reconnecter l’application Shopify utilisée par ce contrôle sans modifier le parcours LWS–Shopify."
     },
     "windsor_ai": {
-      "checked_at": "2026-10-31",
+      "checked_at": "2026-11-01",
       "status": "lectures réelles suspendues sur le forfait gratuit",
-      "impact": "Avis, GBP, GA4, Search Console et TikTok Windsor non vérifiables; toutes les lignes zéro/factices ont été écartées.",
+      "impact": "Avis, GBP, GA4, Search Console et TikTok Windsor non vérifiables; les lignes zéro/factices ont été écartées.",
       "action": "Conserver un seul des quatre comptes connectés dans Windsor.ai ou utiliser des connecteurs directs; aucune dépense engagée."
     }
   },
   "metricool_snapshot": {
-    "checked_at": "2026-10-27",
+    "checked_at": "2026-11-01",
     "facebook_connection": "connectée à VosgesPneus 103147888661034",
-    "published_today": [
+    "scheduled_posts_through_2026_11_13": 6,
+    "created_today": [],
+    "failures_today": "aucun échec visible dans les publications accessibles; les alertes historiques ne sont pas exposées par l’outil des publications programmées",
+    "facebook_recent_posts": [
       {
-        "publication_date": "2026-10-27T10:00:00+01:00",
-        "uuid": "-753324325289834989",
-        "status": "PUBLISHED",
-        "public_url": "https://facebook.com/1394379956209882/posts/1442474151400462"
+        "date": "2026-10-26",
+        "impressions": 16,
+        "reach": 10,
+        "clicks": 0
+      },
+      {
+        "date": "2026-10-27",
+        "impressions": 12,
+        "reach": 9,
+        "clicks": 0
+      },
+      {
+        "date": "2026-10-28",
+        "impressions": 12,
+        "reach": 8,
+        "clicks": 0
+      },
+      {
+        "date": "2026-10-30",
+        "impressions": 12,
+        "reach": 4,
+        "clicks": 1
       }
     ],
-    "scheduled_posts_through_2026_11_09": 6,
-    "created_today": [],
-    "failures_today": 0,
     "facebook_comparison": {
       "period_1": "2026-10-12 au 2026-10-18",
       "period_2": "2026-10-19 au 2026-10-25",
@@ -446,18 +464,18 @@
       "followers_period_2": 14,
       "page_views_period_1": 15,
       "page_views_period_2": 22,
-      "note": "Visites en hausse de 7 (+46,7 %) sur périodes calendaires égales, mais plusieurs champs journaliers sont absents. Interactions et clics ne sont pas comparables de façon fiable car Metricool renvoie surtout des valeurs nulles."
+      "note": "Visites disponibles en hausse de 7 (+46,7 %) sur périodes calendaires égales, avec plusieurs valeurs journalières absentes. Interactions et clics ne sont pas comparables de façon fiable."
     },
-    "tiktok": "4 abonnés; 6 vidéos publiques; aucune nouvelle vidéo, aucun commentaire ni partage; 8 vues et 2 visites de profil du 19 au 26 octobre."
+    "tiktok": "4 abonnés; 6 vidéos publiques; 1 013 vues cumulées et 9 likes; aucun commentaire ni partage; 8 vues et 2 visites de profil du 19 au 31 octobre."
   },
   "jotform_snapshot": {
-    "checked_at": "2026-10-27",
+    "checked_at": "2026-11-01",
     "form_id": "262624835646061",
     "new_submissions": 0,
     "callbacks_due": 0
   },
   "public_catalog_review": {
-    "checked_at": "2026-10-27",
+    "checked_at": "2026-11-01",
     "public_videos": 6,
     "highest_views": [
       {
@@ -482,6 +500,8 @@
       "reason": "contenu non lié à VOSGES PNEUS visible sur le compte @vosgespneus",
       "action": "revue manuelle recommandée; aucune suppression automatique"
     },
-    "editorial_conclusion": "Les coulisses réelles de l’atelier sont le seul thème ayant dépassé 250 vues. Prioriser une nouvelle séquence réelle distincte d’intervention atelier; ne pas republier la vidéo moteur déjà publique."
+    "editorial_conclusion": "Les deux vidéos Crafter réelles restent en tête (285 et 259 vues). Prioriser une nouvelle séquence réelle distincte d’intervention atelier; ne pas republier la vidéo moteur déjà publique.",
+    "total_views": 1013,
+    "total_likes": 9
   }
 }
