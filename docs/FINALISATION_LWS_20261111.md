@@ -81,3 +81,24 @@ Restaurer les quatre scripts originaux depuis home/nina_finalisation_20261111/ v
 ### Blocage réel et limites
 
 Le compte Google est déconnecté dans le navigateur ; la liste des applications autorisées exige une authentification utilisateur. Le connecteur Gmail permet la lecture des mails mais ne fournit pas cette administration OAuth. LWS reste accessible. Le blocage universel des campagnes Gmail ne peut pas être certifié tant que l'expéditeur n'est pas identifié et contrôlé. Les domaines et adresses professionnels supplémentaires, le mécanisme STOP de bout en bout, et la livraison actuelle sur boîtes de contrôle restent à vérifier. Ne pas annoncer « sécurisation définitive terminée ».
+
+
+## Résolution de l'identification Gmail et test contrôlé — 11 novembre 2026
+
+Cette mise à jour remplace le blocage d'authentification et l'identité inconnue signalés dans le contrôle précédent.
+
+- Connexion Google effectuée et compte vosgespneus@gmail.com vérifié. Le filtre « Accès à Gmail (3) » affiche OpenAI, Make et Mistral AI.
+- Origine applicative de la campagne identifiée : l'en-tête HTTPREST « from 77377267392 » correspond exactement au paramètre product=77377267392 de la fiche Google OpenAI. La fiche indique chatgpt.com, un accès accordé le 21 septembre à 09:03 et le droit de consulter, rédiger et envoyer les mails. Cela identifie OpenAI/ChatGPT comme client applicatif ; cela ne retrouve pas encore la conversation ou l'action historique qui a déclenché chaque message.
+- Make a un autre projet, 511227409495 ; Mistral AI, 652928176132. Les deux ont des droits d'envoi. Aucun accès n'a été révoqué : retirer OpenAI couperait aussi les fonctions Gmail légitimes et d'autres accès Google.
+- Test unique autorisé entre boîtes du dirigeant : [TEST INTERNE VP-EMAIL-20261111-A], vosgespneus@gmail.com vers transmalin1@gmail.com. Envoi ID 1a1ca547a3344911 ; réception distincte ID 1a1ca5483405e607 à 12h18 Paris. Étiquettes INBOX et CATEGORY_PERSONAL, pas SPAM. Le serveur destinataire indique SPF=pass, DKIM=pass (gmail.com, sélecteur 20260707) et DMARC=pass. L'en-tête HTTPREST porte aussi 77377267392. Réception et classement principal vérifiés sur ce test seulement, aucune promesse générale de délivrabilité.
+- Recherche in:scheduled dans Gmail VOSGES PNEUS : aucun message retourné. Aucune campagne envoyée ou réexpédiée pendant ce contrôle.
+- Vérification limitée des anciens scénarios Make, sans création, exécution manuelle ni abonnement : cinq scénarios visibles dans My Team ; quatre inactifs, seul « Integration WhatsApp Business Cloud » (7361819) marqué actif. Aucune campagne Gmail visible dans cette liste. Diagramme complet non vérifié. Ancien scénario WhatsApp conservé sans modification pour éviter une interruption hors périmètre mail.
+- Décision réaffirmée par Adam : LWS est l'architecture retenue ; ne pas reconstruire de flux dans Make ni souscrire une offre. Cette lecture de Make était uniquement un contrôle d'une ancienne intégration.
+- Suspension de prospection inscrite dans l'automatisation de coordination et relue après écriture. Ce garde-fou de consigne n'est pas un pare-feu universel de Gmail. Aucun blocage technique global sélectif des campagnes n'est démontré pour les trois applications autorisées. Les devis et réponses clients légitimes ne sont pas désactivés.
+
+### Restant ouvert
+
+- Vérification de bout en bout du respect des oppositions STOP : recherche ciblée sans opposition identifiée, mais mécanisme automatique non validé. Ne pas reprendre de prospection avant validation.
+- Historique exact de la campagne côté conversation/action ChatGPT non retrouvé. Ne pas attribuer les envois à LWS ou Make.
+- Contrôle des autres adresses professionnelles effectivement utilisées et test actuel du transport SMTP des agents LWS non réalisés ; l'exemple contact@vosgespneus.com du 10/11 reste une preuve historique positive.
+- Deux incidents fonctionnels du superviseur toujours présents. Le périmètre e-mail ne doit pas être déclaré intégralement sécurisé.
