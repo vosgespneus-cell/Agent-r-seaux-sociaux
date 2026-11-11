@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-02",
+  "updated_at": "2026-11-11",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -107,16 +107,14 @@
     "son commercial autorisé pour contenu promotionnel"
   ],
   "performance_snapshot": {
-    "checked_at": "2026-11-02",
+    "checked_at": "2026-11-11",
     "source": "Metricool",
     "followers": 4,
     "public_videos": 6,
-    "new_videos_since_2026_10_19": 0,
-    "views_since_2026_10_19": 8,
-    "comments_since_2026_10_19": 0,
-    "shares_since_2026_10_19": 0,
-    "profile_views_since_2026_10_19": 2,
-    "total_public_video_views": 1029,
+    "new_videos_since_2026_11_02": 0,
+    "comments_since_2026_11_02": 0,
+    "shares_since_2026_11_02": 0,
+    "total_public_video_views": 1018,
     "total_likes": 9,
     "top_topics": [
       {
@@ -128,7 +126,7 @@
         "views": 259
       }
     ],
-    "note": "Aucune nouvelle vidéo, aucun commentaire, partage ni demande commerciale vérifiée. Les contenus réels d’atelier sur le Crafter 2022 restent les plus performants. L’ancienne vidéo de recrutement transport médical (1 vue) demeure hors sujet et doit être examinée manuellement, sans suppression automatique."
+    "note": "Aucune nouvelle vidéo, aucun commentaire, partage ni demande commerciale vérifiée. Les contenus réels d’atelier sur le Crafter 2022 restent les plus performants."
   },
   "ready_drafts": [
     {
@@ -264,7 +262,15 @@
         "22–30 s : écran de fin — texte « Une pièce d’occasion ne se publie qu’après vérification complète »"
       ],
       "voiceover": "On a photographié deux pompes à injection au dépôt. La référence Bosch est lisible, mais la Delphi reste à identifier complètement. Avant toute publication, on doit encore confirmer la compatibilité, tester l’état, fixer le prix et vérifier la disponibilité.",
-      "last_improved_at": "2026-10-31"
+      "last_improved_at": "2026-11-11",
+      "export_spec": {
+        "canvas": "1080 × 1920 px vertical",
+        "source_rule": "utiliser uniquement les neuf photos réelles référencées dans source_media",
+        "duration_seconds": "25–30",
+        "safe_zone": "garder références et textes au centre, hors zones d’interface TikTok",
+        "ai_rule": "aucune image générée ni reconstitution présentée comme intervention réelle"
+      },
+      "publication_gate": "Ne pas publier tant que la référence Delphi, les compatibilités, l’état fonctionnel, le prix, la disponibilité et les emplacements ne sont pas tous vérifiés."
     }
   ],
   "distribution_blocker": {
