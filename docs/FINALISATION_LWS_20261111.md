@@ -102,3 +102,12 @@ Cette mise à jour remplace le blocage d'authentification et l'identité inconnu
 - Historique exact de la campagne côté conversation/action ChatGPT non retrouvé. Ne pas attribuer les envois à LWS ou Make.
 - Contrôle des autres adresses professionnelles effectivement utilisées et test actuel du transport SMTP des agents LWS non réalisés ; l'exemple contact@vosgespneus.com du 10/11 reste une preuve historique positive.
 - Deux incidents fonctionnels du superviseur toujours présents. Le périmètre e-mail ne doit pas être déclaré intégralement sécurisé.
+
+
+## Test SMTP LWS reçu — 11 novembre 2026, 12h25 Paris
+
+- Test privé isolé ajouté dans home/vp_email_control_20261111.php, mode 0600, sans modification des cinq scripts de production ni de la crontab. Il charge seulement le garde-fou et extrait la fonction lead_send déployée ; il n'exécute ni ingestion, ni base, ni pont Shopify.
+- Destinataire unique de contrôle : vosgespneus@gmail.com. Expéditeur contact@vosgespneus.com. Objet [TEST INTERNE VP-SMTP-20261111-B]. Transport identique à lead_send : SMTPS mail84.lwspanel.com:465, vérifications TLS conservées. Aucun secret affiché ou versionné.
+- Tentative enregistrée AVANT transport dans un reçu privé créé exclusivement (fopen x), même en cas de résultat incertain. Premier résultat SMTP_ACCEPTED_250 (accepté par le relais LWS, pas à lui seul une preuve de livraison finale). Deuxième exécution : ALREADY_ATTEMPTED_NO_RESEND ; aucun second appel SMTP.
+- Réception Gmail vérifiée, message 1a1ca5b1c0da43e9, INBOX sans SPAM. Le serveur destinataire Gmail confirme SPF=pass, DKIM=pass (vosgespneus.com, sélecteur dkim), DMARC=pass. Onglet Principal non établi pour ce second test.
+- Ce résultat clôt la vérification actuelle du transport SMTP isolé de lead_send ; il ne valide pas un nouveau parcours client complet, les autres adresses, les oppositions STOP ou un blocage universel des campagnes Gmail. Le test Gmail A reste reçu dans INBOX/CATEGORY_PERSONAL. Deux messages de contrôle au total, aucun prospect contacté.
