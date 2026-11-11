@@ -53,3 +53,31 @@ Les douze non-distributions ont été lues intégralement : cinq destinataires i
 ## Retour arrière
 
 Restaurer les quatre scripts originaux depuis home/nina_finalisation_20261111/ vers leurs emplacements respectifs, puis vérifier la syntaxe. Conserver le module de garde tant qu'un script le charge. Pour les deux statuts MySQL, utiliser les lignes exactes de manual_tasks.before.json dans une transaction ciblée, après nouvelle vérification d'absence d'évolution; ne pas restaurer globalement la base. Les CSV conservent leur identité et leur historique de versions.
+
+
+## Contrôle complémentaire e-mails — 11 novembre 2026, vers 12h15 Paris
+
+### Vérifié en lecture sur la production
+
+- Les cinq empreintes SHA-256 ci-dessus sont toujours identiques. Aucun redéploiement ni changement de crontab. Empreinte de la crontab courante et de la sauvegarde ciblée identique : 2f8e471bddc7afebc1867f71ff01f332b7e431203ef53ffea9231952cce74688.
+- Derniers passages observés : mail 12h10, leads 12h14, state=ok et exit_code=0. Les journaux montrent MAIL_SYNC_OK count=0 et LEAD_RUN added=0 pending=0. Cela ne teste pas une nouvelle demande réelle. Les compteurs historiques failures restent 46 et 31.
+- Fichiers d'erreur mail/leads/superviseur : dernières modifications respectivement 30/10, 22/10, 22/10. Derniers cycles superviseur : checked=10, retries=0, incidents=2. Pas de certification globale de santé.
+- Recherche textuelle Gmail API dans les PHP et shell de home : aucun fichier correspondant à gmail.googleapis, gmailapi, HTTPREST ou googleapis.com/auth/gmail. Résultat limité à ces chemins, extensions et motifs, pas une preuve d'absence de toute intégration.
+- Trois workflows du dépôt lus : python-check.yml, runtime-tests.yml, supervision.yml. Ils exécutent des tests et exemples ; aucun envoi Gmail ni déclenchement planifié de campagne dans ces définitions.
+
+### Délivrabilité
+
+- DNS vosgespneus.com : SPF unique observé « v=spf1 mx:vosgespneus.com a:mail.vosgespneus.com a:mailphp.lws-hosting.com -all » ; DKIM publié au sélecteur dkim ; DMARC « v=DMARC1; p=quarantine; ». Aucun DNS modifié.
+- Un message réel de contact@vosgespneus.com vers la boîte de contrôle Gmail, daté du 10/11, a été relu : SPF/DKIM/DMARC pass et étiquette INBOX. C'est une preuve sur cet exemple, pas sur les messages clients et pas sur l'onglet Principal.
+- Gmail.com : SPF redirect=_spf.google.com ; DMARC p=none, sp=quarantine. La signature Gmail d'un message effectivement livré reste à vérifier ; aucun nouveau test envoyé.
+- Un original de campagne confirme HTTPREST et le numéro de projet 77377267392. Ce numéro ne suffit pas à attribuer une application OAuth. Identité de l'application toujours inconnue.
+- Recherches Gmail après le 11/11 : aucun envoyé ni nouveau mailer-daemon retourné au moment de la requête. Recherche ciblée de STOP/désinscription depuis le 10/11 : pas de demande identifiée dans les résultats ; ce n'est pas un contrôle exhaustif des oppositions ni une validation du mécanisme automatique.
+
+### Correction réellement appliquée
+
+- Automatisation existante de coordination mise à jour sans modifier sa cadence ni créer de tâche : suspension explicite de la prospection VOSGES PNEUS jusqu'à levée par Adam, interdiction de renvoyer les tentatives failed/incertaines, respect des exclusions et STOP. Les réponses légitimes clients restent permises avec leurs protections. Réponse de mise à jour confirmée avec le texte enregistré.
+- Aucune permission révoquée, aucun prospect contacté, aucun code de production changé. Les tests anti-doublons déjà validés n'ont pas été rejoués inutilement.
+
+### Blocage réel et limites
+
+Le compte Google est déconnecté dans le navigateur ; la liste des applications autorisées exige une authentification utilisateur. Le connecteur Gmail permet la lecture des mails mais ne fournit pas cette administration OAuth. LWS reste accessible. Le blocage universel des campagnes Gmail ne peut pas être certifié tant que l'expéditeur n'est pas identifié et contrôlé. Les domaines et adresses professionnels supplémentaires, le mécanisme STOP de bout en bout, et la livraison actuelle sur boîtes de contrôle restent à vérifier. Ne pas annoncer « sécurisation définitive terminée ».
