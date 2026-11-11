@@ -3,7 +3,7 @@ declare(strict_types=1);
 ini_set('display_errors','0');umask(0077);
 
 // Private CLI runner: only these existing agents can be launched.
-function vp_run_jobs(): array {return ['mail'=>'vp_mail.php','jotform'=>'vp_jotform.php','worker'=>'vp_worker.php','ai'=>'vp_ai_mail.php','calendar'=>'vp_calendar.php'];}
+function vp_run_jobs(): array {return ['mail'=>'vp_mail.php','jotform'=>'vp_jotform.php','worker'=>'vp_worker.php','ai'=>'vp_ai_mail.php','calendar'=>'vp_calendar.php','whatsapp'=>'vp_whatsapp.php','leads'=>'vp_leads.php'];}
 function vp_run_write(string $path,array $state): void {
  $tmp=tempnam(dirname($path),'vp-run-');if($tmp===false)throw new RuntimeException('state');
  try {if(file_put_contents($tmp,json_encode($state,JSON_THROW_ON_ERROR),LOCK_EX)===false||!chmod($tmp,0600)||!rename($tmp,$path))throw new RuntimeException('state');}
@@ -15,6 +15,8 @@ function vp_run_health(array $s,int $now): string {
  if($now-$t>900)return 'stale';return ($s['state']??'')==='ok'?'ok':(($s['state']??'')==='running'?'running':'error');
 }
 function vp_run_execute(string $job,array $command,string $dir): int {
+    // Serialize child agents across cron phases to protect the shared process quota.
+    $global=fopen($dir.'/vp_run_global.lock','c');if(!$global)throw new RuntimeException('global_lock');if(!flock($global,LOCK_EX|LOCK_NB)){fclose($global);return 0;}
  $lock=fopen($dir.'/vp_run_'.$job.'.lock','c');if(!$lock)throw new RuntimeException('lock');
  if(!flock($lock,LOCK_EX|LOCK_NB)){fclose($lock);return 0;}
  try {
@@ -25,7 +27,7 @@ function vp_run_execute(string $job,array $command,string $dir): int {
   $s['finished_at']=time();$s['exit_code']=$exit;$s['state']=$exit===0?'ok':'error';
   if($exit===0)$s['last_success_at']=$s['finished_at'];else $s['failures']++;
   vp_run_write($path,$s);return $exit===0?0:1;
- }finally {flock($lock,LOCK_UN);fclose($lock);}
+ }finally {flock($lock,LOCK_UN);fclose($lock);flock($global,LOCK_UN);fclose($global);}
 }
 if(defined('VP_RUN_LIBRARY_ONLY'))return;
 if(PHP_SAPI!=='cli')exit(1);
