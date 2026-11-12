@@ -1,0 +1,22 @@
+const vm=require('node:vm'),fs=require('node:fs'),assert=require('node:assert/strict');
+const c=vm.createContext({});vm.runInContext(fs.readFileSync(__dirname+'/Code.gs','utf8'),c);
+assert.throws(()=>c.date_('2026-02-30'));assert.throws(()=>c.time_('25:00'));
+assert.throws(()=>c.num_('',100));assert.throws(()=>c.num_(-1,100));assert.equal(c.clean_('=IMPORTXML()',40),"'=IMPORTXML()");
+assert.equal(c.safeEqual_('a','a'),true);assert.equal(c.safeEqual_('a','b'),false);
+let m=Array(26).fill('');m[0]='2026-11-12';
+const p={routeDate:'2026-11-12',endDate:'2026-11-13',start:'23:30',end:'00:30',kmStart:10,kmEnd:30};assert.equal(c.validate_(p,m).kmEnd,30);
+assert.throws(()=>c.validate_({...p,endDate:'2026-11-12'},m));assert.throws(()=>c.validate_({...p,kmEnd:9},m));
+c.missionRows_=()=>{let r=[...m];r[16]='m1';r[2]='A';r[20]='Active';return [r];};
+assert.equal(c.owned_({missionLabel:'A'},'m1')[2],'A');assert.throws(()=>c.owned_({missionLabel:'B'},'m1'));
+c.missionRows_=()=>{let r=[...m];r[16]='m1';r[2]='A';r[20]='Historique';return [r];};assert.throws(()=>c.owned_({missionLabel:'A'},'m1'));
+console.log('PORTAL_UNIT_OK 13 assertions; Apps Script integration not tested');
+// Verify projection and duplicate replay without Google services.
+c.validateSession_=()=>({id:'driver-a',label:'A',missionLabel:'A'});
+let row=Array(26).fill('');row[0]='2026-11-12';row[2]='A';row[4]='Depot';row[5]='Site';row[7]='CONFIDENTIAL_AMOUNT';row[16]='m1';row[20]='Active';
+c.missionRows_=()=>[row];assert(!JSON.stringify(c.listMissions('fake')).includes('CONFIDENTIAL_AMOUNT'));
+const prior=Array(25).fill('');prior[1]='driver-a';prior[22]='m1';prior[24]='11111111-1111-1111-1111-111111111111';
+let writes=0;const headers=Array(25).fill('');headers[1]='Identifiant chauffeur';headers[22]='Mission / référence';headers[24]='ID soumission Jotform';
+c.sheet_=()=>({getRange:(r)=>({getDisplayValues:()=>r===1?[headers]:[prior]}),getLastRow:()=>2,appendRow:()=>writes++});
+c.LockService={getScriptLock:()=>({waitLock(){},releaseLock(){}})};
+const replay=c.submitMission({...p,token:'fake',requestId:prior[24],missionId:'m1'});assert(replay.duplicate);assert.equal(writes,0);
+console.log('PORTAL_PROJECTION_AND_REPLAY_OK 3 assertions');
