@@ -1,0 +1,12 @@
+const vm=require('node:vm'),fs=require('node:fs'),assert=require('node:assert/strict');
+const c=vm.createContext({});vm.runInContext(fs.readFileSync(__dirname+'/Code.gs','utf8'),c);
+assert.throws(()=>c.date_('2026-02-30'));assert.throws(()=>c.time_('25:00'));
+assert.throws(()=>c.num_('',100));assert.throws(()=>c.num_(-1,100));assert.equal(c.clean_('=IMPORTXML()',40),"'=IMPORTXML()");
+assert.equal(c.safeEqual_('a','a'),true);assert.equal(c.safeEqual_('a','b'),false);
+let m=Array(26).fill('');m[0]='2026-11-12';
+const p={routeDate:'2026-11-12',endDate:'2026-11-13',start:'23:30',end:'00:30',kmStart:10,kmEnd:30};assert.equal(c.validate_(p,m).kmEnd,30);
+assert.throws(()=>c.validate_({...p,endDate:'2026-11-12'},m));assert.throws(()=>c.validate_({...p,kmEnd:9},m));
+c.missionRows_=()=>{let r=[...m];r[16]='m1';r[2]='A';r[20]='Active';return [r];};
+assert.equal(c.owned_({missionLabel:'A'},'m1')[2],'A');assert.throws(()=>c.owned_({missionLabel:'B'},'m1'));
+c.missionRows_=()=>{let r=[...m];r[16]='m1';r[2]='A';r[20]='Historique';return [r];};assert.throws(()=>c.owned_({missionLabel:'A'},'m1'));
+console.log('PORTAL_UNIT_OK 13 assertions; Apps Script integration not tested');

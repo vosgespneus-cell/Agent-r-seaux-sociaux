@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <base target="_top">
+  <?!= include('Styles'); ?>
+</head>
+<body>
+  <main class="shell">
+    <header><div class="mark">TM</div><div><h1>Trans Malin</h1><p>Espace chauffeurs</p></div></header>
+
+    <section id="login" class="card">
+      <h2>Connexion</h2>
+      <label>Adresse e-mail<input id="driver" autocomplete="username" type="email" placeholder="Votre adresse personnelle"></label>
+      <label>Mot de passe<input id="pin" type="password" autocomplete="current-password" placeholder="Mot de passe personnel"></label>
+      <button onclick="connect()">Se connecter</button>
+      <p id="loginError" class="error"></p>
+    </section>
+
+    <section id="formPanel" class="card hidden">
+      <div class="welcome"><span>Bonjour <strong id="driverName"></strong></span><button class="link" onclick="logout()">Déconnexion</button></div>
+      <h2>Mes missions</h2><p id="loadError" class="error"></p><button type="button" onclick="refresh()">Actualiser</button>
+      <form id="missionForm">
+        <label>Mission attribuée<select id="missionId" onchange="selectMission()" required></select></label>
+        <div class="grid"><label>Date départ<input id="routeDate" type="date" required readonly></label><label>Heure réelle départ<input id="start" type="time" required></label></div>
+        <div class="grid"><label>Date arrivée<input id="endDate" type="date" required></label><label>Heure réelle arrivée<input id="end" type="time" required></label></div>
+        <div class="grid"><label>Km compteur départ<input id="kmStart" type="number" min="0" required></label><label>Km compteur arrivée<input id="kmEnd" type="number" min="0" required></label></div>
+        <div class="grid"><label>Carburant : litres<input id="litres" type="number" min="0" step="0.01" value="0"></label><label>Carburant : montant TTC<input id="fuel" type="number" min="0" step="0.01" value="0"></label></div>
+        <p>Les frais déclarés restent soumis au contrôle administratif. Ne joignez aucune information patient.</p>
+        <label class="check"><input id="incident" type="checkbox"><span>J’ai un incident à signaler</span></label>
+        <label>Commentaire<textarea id="comment" maxlength="1000" rows="3" placeholder="Facultatif"></textarea></label>
+        <label>Photo / preuve (facultatif, 5 Mo max.)<input id="proof" type="file" accept="image/jpeg,image/png,image/webp" capture="environment"></label>
+        <button id="submitBtn" type="submit">Déclarer la mission</button>
+        <p id="formError" class="error"></p>
+      </form>
+      <h2>Mon historique</h2><div id="history"></div>
+    </section>
+    <section id="success" class="card success hidden"><div class="tick">✓</div><h2>Mission enregistrée</h2><p>Les informations sont remontées dans le tableau Trans Malin.</p><button onclick="newEntry()">Nouvelle saisie</button></section>
+  </main>
+  <?!= include('Script'); ?>
+</body>
+</html>
