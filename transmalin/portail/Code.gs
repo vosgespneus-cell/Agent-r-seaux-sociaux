@@ -30,7 +30,7 @@ function validateSession_(token){
 function logout(token){CacheService.getScriptCache().remove('session:'+digest_(String(token||'')));}
 function sheet_(name){const s=db_().getSheetByName(name);if(!s)throw Error('Feuille non configurée.');return s;}
 function missionRows_(){const s=sheet_(CONFIG.MISSION_SHEET);return s.getLastRow()<5?[]:s.getRange(5,1,s.getLastRow()-4,26).getDisplayValues();}
-function owned_(u,id){const all=missionRows_().filter(r=>r[16]===id);if(all.length!==1||all[0][2]!==u.missionLabel||all[0][20]==='Historique')throw Error('Mission indisponible pour ce compte.');return all[0];}
+function owned_(u,id){const all=missionRows_().filter(r=>r[16]===id);if(all.length!==1||all[0][2]!==u.missionLabel||all[0][20]!=='Active')throw Error('Mission indisponible pour ce compte.');return all[0];}
 function listMissions(token){const u=validateSession_(token);return missionRows_().filter(r=>r[2]===u.missionLabel&&r[20]==='Active'&&r[16]).map(r=>({id:r[16],date:r[0],time:r[17],from:r[4],to:r[5]}));}
 function history(token){const u=validateSession_(token),s=sheet_(CONFIG.SHEET_NAME);if(s.getLastRow()<2)return [];return s.getRange(2,1,s.getLastRow()-1,25).getDisplayValues().filter(r=>r[1]===u.id).slice(-50).reverse().map(r=>({date:r[3],mission:r[22],start:r[20],end:r[21],km:r[15],incident:r[10]}));}
 function clean_(x,max){const s=String(x||'').trim();if(s.length>max)throw Error('Texte trop long.');return /^[=+@\-]/.test(s)?"'"+s:s;}
