@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-11",
+  "updated_at": "2026-11-17",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -271,6 +271,58 @@
         "ai_rule": "aucune image générée ni reconstitution présentée comme intervention réelle"
       },
       "publication_gate": "Ne pas publier tant que la référence Delphi, les compatibilités, l’état fonctionnel, le prix, la disponibilité et les emplacements ne sont pas tous vérifiés."
+    },
+    {
+      "id": "boxer-catalyseur-sevel-20261117",
+      "topic": "Catalyseur Peugeot Boxer 2.0 de 2017 — références à confirmer",
+      "format": "vidéo verticale 25–30 s, photos réelles uniquement",
+      "source_media": [
+        "image-1794828344117.jpg",
+        "image-1794828350988.jpg",
+        "image-1794828356618.jpg",
+        "image-1794828373446.jpg"
+      ],
+      "source_library_ids": [
+        "libfile_bc8a66fb11588191a158e5001b571807",
+        "libfile_4c5006113ae881918cd85bdd85ccf5c5",
+        "libfile_af324528a2bc81919020e10b479ca74f",
+        "libfile_594c086bb2808191bb3a022101bd457b"
+      ],
+      "hook": "Un catalyseur d’occasion ne s’identifie pas seulement à la forme.",
+      "caption": "Pièce réelle déposée d’un Peugeot Boxer 2.0 de 2017 selon l’information atelier. Les marquages visibles doivent encore être recoupés avant toute annonce de compatibilité ou de vente.",
+      "verified_facts": [
+        "quatre photos réelles disponibles dans la Library",
+        "marque SEVEL visible",
+        "marquage 1379554080 visible à confirmer",
+        "marquage C922.11.03 412.60.0.00 visible",
+        "origine communiquée : Peugeot Boxer 2.0 de 2017",
+        "état annoncé fonctionnel par Adam le 16 novembre 2026"
+      ],
+      "status": "brouillon concret préparé — publication bloquée",
+      "required_before_publish": [
+        "confirmer la référence constructeur complète à partir des marquages",
+        "confirmer la compatibilité exacte par VIN ou code moteur",
+        "confirmer le prix de vente",
+        "confirmer la disponibilité et la quantité réelle",
+        "confirmer l’emplacement magasin"
+      ],
+      "duplicate_check": "aucun sujet équivalent dans les six vidéos TikTok publiques connues; revérifier avant diffusion",
+      "storyboard": [
+        "0–4 s : vue complète — texte « Catalyseur Boxer : identification avant vente »",
+        "4–10 s : gros plan SEVEL et 1379554080 — texte « Référence à recouper »",
+        "10–17 s : gros plan C922.11.03 412.60.0.00 — texte « Plusieurs marquages à vérifier »",
+        "17–24 s : vues des raccords et capteurs — texte « Compatibilité par VIN ou code moteur »",
+        "24–30 s : écran final — texte « Prix et disponibilité uniquement après contrôle »"
+      ],
+      "voiceover": "Cette pièce provient selon l’atelier d’un Peugeot Boxer 2.0 de 2017. Les marquages SEVEL et les références visibles donnent une piste, mais avant toute vente nous recoupons la référence complète, la compatibilité, le prix et la disponibilité.",
+      "created_at": "2026-11-17",
+      "export_spec": {
+        "canvas": "1080 × 1920 px vertical",
+        "duration_seconds": "25–30",
+        "source_rule": "utiliser uniquement les quatre photos réelles référencées",
+        "ai_rule": "aucune image générée ni reconstitution présentée comme intervention réelle"
+      },
+      "publication_gate": "Ne pas publier tant que référence, compatibilité, état, prix et disponibilité ne sont pas tous vérifiés."
     }
   ],
   "distribution_blocker": {
