@@ -66,7 +66,7 @@ def render(manifest, output):
         if voice:
             args += ["-i", str(voice), "-map", "0:v:0", "-map", "1:a:0",
                      "-c:v", "libx264", "-preset", "medium", "-crf", "20",
-                     "-c:a", "aac", "-b:a", "192k", "-shortest"]
+                     "-af", "apad", "-c:a", "aac", "-b:a", "192k", "-shortest"]
         else:
             args += ["-map", "0:v:0", "-c:v", "libx264", "-preset", "medium", "-crf", "20"]
         args += ["-movflags", "+faststart", str(output)]
