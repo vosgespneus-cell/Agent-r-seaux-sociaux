@@ -1,0 +1,32 @@
+name: Tests studio video (sans publication)
+
+on:
+  push:
+    paths:
+      - "src/video_*.py"
+      - "src/youtube_weekly.py"
+      - "tests/test_video_*.py"
+      - "tests/test_youtube_weekly.py"
+      - ".github/workflows/video-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Installer FFmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Tests Python sans reseau
+        run: python -m unittest discover -s tests -p 'test_video_*.py' -v
+      - name: Tests du preparateur editorial
+        run: python -m unittest tests.test_youtube_weekly -v
+      - name: Confirmer que la CI ne publie rien
+        run: echo "Aucune cle API, aucun upload, aucune publication."
