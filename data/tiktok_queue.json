@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-17",
+  "updated_at": "2026-11-26",
   "account": "@vosgespneus",
   "goals": [
     "demandes clients locales",
@@ -323,6 +323,48 @@
         "ai_rule": "aucune image générée ni reconstitution présentée comme intervention réelle"
       },
       "publication_gate": "Ne pas publier tant que référence, compatibilité, état, prix et disponibilité ne sont pas tous vérifiés."
+    },
+    {
+      "id": "roue_michelin_225_45_r19_20261126",
+      "topic": "Lire une roue avant de conclure sur son état",
+      "format": "montage vertical ou carrousel 20–25 s à partir de quatre photos réelles",
+      "source_media": [
+        "1000022527.webp",
+        "1000022528.webp",
+        "1000022529.webp",
+        "1000022530.webp"
+      ],
+      "source_library_ids": [
+        "libfile_2f0d1c4f9fcc81918c905217b6cd83fc",
+        "libfile_8bc8971f51808191b219b0bb3dccedb7",
+        "libfile_94890e213768819183245d51bd2872ca",
+        "libfile_e2aa1b338ba8819183b2aaddeecf3f5f"
+      ],
+      "hook": "Une photo du flanc ne suffit pas toujours pour juger une roue.",
+      "caption": "Sur cette roue photographiée, on peut lire la marque Michelin et la dimension 225/45 R19. Des traces sont visibles sur le bord de la jante. Les photos permettent de préparer un contrôle, mais elles ne suffisent pas à conclure sur la sécurité du pneu, une éventuelle déformation de la jante ou la compatibilité avec un véhicule. Un examen en atelier reste nécessaire avant toute recommandation.",
+      "verified_facts": [
+        "quatre photos marquées model_generated=false dans la Library",
+        "marque Michelin visible",
+        "dimension 225/45 R19 lisible sur une photo",
+        "traces visibles sur le bord de la jante",
+        "aucune intervention, réparation terminée, compatibilité ou danger affirmé"
+      ],
+      "status": "brouillon concret préparé — ne pas publier sans vérification finale",
+      "required_before_publish": [
+        "confirmer que les photos peuvent être utilisées par VOSGES PNEUS",
+        "revérifier qu'aucun contenu public TikTok récent ne traite déjà de cette roue",
+        "ne pas présenter les images comme une intervention réalisée",
+        "conserver la formulation prudente et factuelle"
+      ],
+      "duplicate_check": "aucun doublon dans les publications répertoriées par la file au 26 novembre 2026; contrôle public TikTok à refaire avant diffusion",
+      "storyboard": [
+        "0–4 s : vue du pneu — texte « Lire avant de conclure »",
+        "4–9 s : marque Michelin — texte « Marque visible »",
+        "9–14 s : dimension 225/45 R19 — texte « Dimension lisible »",
+        "14–20 s : bord de jante — texte « Traces visibles, contrôle nécessaire »",
+        "20–25 s : écran final — texte « Une photo prépare le contrôle, elle ne remplace pas l’examen »"
+      ],
+      "publication_gate": "Ne pas publier tant que le droit d’usage des photos et l’absence de doublon public récent ne sont pas confirmés."
     }
   ],
   "distribution_blocker": {
