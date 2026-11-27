@@ -1,0 +1,68 @@
+{
+  "updated_at": "2026-11-27",
+  "brand_id": 6847104,
+  "rules": {
+    "no_paid_spend": true,
+    "no_ai_as_real_work": true,
+    "publish_only_after_rights_and_duplicate_check": true,
+    "source_media": [
+      "1000022527.webp",
+      "1000022528.webp",
+      "1000022529.webp",
+      "1000022530.webp"
+    ],
+    "verified_facts": [
+      "photos Library marquées model_generated=false",
+      "Michelin visible",
+      "dimension 225/45 R19 lisible",
+      "traces visibles sur le bord de jante",
+      "aucune réparation ou danger affirmé"
+    ]
+  },
+  "drafts": [
+    {
+      "platform": "instagram",
+      "format": "carrousel 4 photos",
+      "hook": "Une photo du flanc aide à préparer le contrôle, mais ne remplace pas l’examen.",
+      "caption": "Sur cette roue photographiée, la marque Michelin et la dimension 225/45 R19 sont lisibles. Des traces sont visibles sur le bord de la jante. Ces images permettent de préparer un contrôle, sans conclure à distance sur la sécurité du pneu, la déformation de la jante ou la compatibilité du véhicule. Pour une vérification à l’atelier VOSGES PNEUS à Thaon-les-Vosges, envoyez-nous un message privé.",
+      "call_to_action": "Message privé pour demander un contrôle ou un rendez-vous.",
+      "status": "brouillon — droit d’usage et absence de doublon à confirmer"
+    },
+    {
+      "platform": "tiktok",
+      "format": "montage vertical 20–25 s à produire avec les 4 photos réelles",
+      "hook": "Une roue se lit avant de se juger.",
+      "storyboard": [
+        "0–4 s : vue générale — « Lire avant de conclure »",
+        "4–9 s : marque Michelin — « Marque visible »",
+        "9–14 s : 225/45 R19 — « Dimension lisible »",
+        "14–20 s : bord de jante — « Traces visibles : contrôle nécessaire »",
+        "20–25 s : « Une photo prépare le contrôle, elle ne le remplace pas »"
+      ],
+      "caption": "Michelin et 225/45 R19 sont lisibles sur cette roue photographiée. Des traces sont visibles sur le bord de la jante, mais un examen en atelier reste nécessaire avant toute recommandation.",
+      "call_to_action": "Demander un contrôle à VOSGES PNEUS, Thaon-les-Vosges.",
+      "status": "brouillon — vidéo non exportée, droit d’usage et doublon public à vérifier"
+    },
+    {
+      "platform": "youtube",
+      "format": "Short vertical 20–25 s à produire avec les 4 photos réelles",
+      "title": "Lire une roue avant de conclure sur son état",
+      "script": "La marque Michelin et la dimension 225/45 R19 sont visibles sur cette roue. On remarque aussi des traces sur le bord de la jante. Une photo permet de préparer le contrôle, mais ne suffit pas à confirmer l’état du pneu ou de la jante. Un examen en atelier reste nécessaire.",
+      "call_to_action": "Contactez VOSGES PNEUS à Thaon-les-Vosges pour demander un contrôle.",
+      "status": "brouillon — Short non exporté et droit d’usage à confirmer"
+    }
+  ],
+  "attribution_plan": {
+    "current_limits": [
+      "GA4 inaccessible via Windsor.ai",
+      "aucun champ Source de la demande dans le formulaire Jotform de gardiennage",
+      "posts Facebook texte sans URL tant que l’aperçu du site reste incorrect"
+    ],
+    "free_tracking": [
+      "ajouter un champ Source de la demande dans Jotform : Facebook, Instagram, TikTok, Google, WhatsApp, autre",
+      "étiqueter les commandes Shopify confirmées avec source_facebook, source_instagram, source_tiktok, source_google ou source_whatsapp",
+      "ne déclarer une vente attribuée qu’après confirmation du client ou d’une source enregistrée",
+      "suivre séparément vues, messages/demandes, rendez-vous, ventes et chiffre d’affaires"
+    ]
+  }
+}
